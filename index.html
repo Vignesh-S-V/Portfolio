@@ -50,7 +50,6 @@
     opacity: 0.5;
   }
 
-  /* NAV — smooth scroll, no reload */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
@@ -81,7 +80,6 @@
   .nav-links a:hover { color: var(--teal); }
   .nav-links a:hover::after { width: 100%; }
 
-  /* HERO */
   #hero {
     min-height: 100vh;
     display: grid; grid-template-columns: 1fr 1fr;
@@ -205,7 +203,6 @@
   @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  /* SECTIONS */
   section { padding: 96px 64px; position: relative; }
   .section-label {
     font-family: 'JetBrains Mono', monospace; font-size: 10px;
@@ -220,7 +217,6 @@
   }
   .section-title span { color: var(--teal); font-style: italic; }
 
-  /* ABOUT */
   #about { background: var(--navy2); }
   .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 72px; align-items: start; }
   .about-card {
@@ -252,7 +248,6 @@
   .about-bio { font-size: 15px; line-height: 1.9; color: var(--textdim); margin-bottom: 22px; font-weight: 300; }
   .about-bio strong { color: var(--teal); font-weight: 500; }
 
-  /* SKILLS */
   #skills { background: var(--navy); }
   .skills-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 48px; }
   .skill-card {
@@ -274,7 +269,6 @@
   .skills-detail-items { display: flex; flex-wrap: wrap; gap: 7px; }
   .skills-detail-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--textdim); border: 1px solid rgba(255,255,255,0.07); padding: 4px 10px; letter-spacing: 0.5px; }
 
-  /* EXPERIENCE */
   #experience { background: var(--navy2); }
   .exp-timeline { position: relative; }
   .exp-timeline::before {
@@ -310,7 +304,6 @@
   .exp-click-hint { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); margin-top: 14px; opacity: 0; transition: opacity 0.3s; letter-spacing: 1px; }
   .exp-item:hover .exp-click-hint { opacity: 1; }
 
-  /* INTERNSHIPS */
   #internships { background: var(--navy); }
   .intern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .intern-card {
@@ -339,13 +332,11 @@
     color: var(--teal); letter-spacing: 2px; text-transform: uppercase;
     background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.22);
     padding: 7px 14px; cursor: pointer; transition: all 0.3s;
-    text-decoration: none; border: none; outline: none;
-    background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.22);
+    text-decoration: none; outline: none;
   }
   .intern-cert-btn:hover { background: rgba(0,200,168,0.15); border-color: var(--teal); }
   .intern-cert-btn svg { width: 11px; height: 11px; }
 
-  /* DASHBOARDS */
   #dashboards { background: var(--navy2); }
   .dash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .dash-card {
@@ -365,9 +356,8 @@
   .dash-arrow { display: inline-flex; align-items: center; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; transition: gap 0.3s; }
   .dash-card:hover .dash-arrow { gap: 13px; }
 
-  /* CERTIFICATIONS */
   #certifications { background: var(--navy2); }
-  .cert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .cert-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
   .cert-card {
     background: var(--card); border: 1px solid var(--border);
     padding: 24px 20px; text-align: center; transition: all 0.4s;
@@ -384,7 +374,6 @@
     background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.2); padding: 4px 9px;
   }
 
-  /* EDUCATION */
   #education { background: var(--navy); }
   .edu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
   .edu-card {
@@ -400,7 +389,6 @@
   .edu-gpa-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--textdim); letter-spacing: 2px; text-transform: uppercase; }
   .edu-gpa-val { font-family: 'Instrument Serif', serif; font-size: 22px; color: var(--teal); font-weight: 400; }
 
-  /* CONTACT */
   #contact { background: var(--navy2); text-align: center; }
   .contact-inner { max-width: 580px; margin: 0 auto; }
   .contact-big { font-family: 'Instrument Serif', serif; font-size: clamp(42px, 6vw, 76px); font-weight: 400; color: var(--text); line-height: 1.0; margin-bottom: 22px; letter-spacing: -1px; }
@@ -424,7 +412,7 @@
   .reveal-delay-4 { transition-delay: 0.32s; }
   .reveal-delay-5 { transition-delay: 0.40s; }
 
-  /* ===== MODAL ===== */
+  /* MODAL */
   .modal-overlay {
     position: fixed; inset: 0; background: rgba(8,12,24,0.95);
     backdrop-filter: blur(20px); z-index: 1000;
@@ -439,8 +427,6 @@
     transition: transform 0.35s; max-height: 88vh; overflow-y: auto;
   }
   .modal-overlay.open .modal { transform: translateY(0) scale(1); }
-
-  /* ✅ X CLOSE BUTTON — top right corner */
   .modal-close {
     position: absolute; top: 14px; right: 14px;
     width: 32px; height: 32px;
@@ -453,7 +439,6 @@
     border-radius: 2px; z-index: 10;
   }
   .modal-close:hover { background: rgba(0,200,168,0.2); border-color: var(--teal); color: white; }
-
   .modal-tag-line {
     font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal);
     letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px;
@@ -470,31 +455,23 @@
   .modal-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
   .modal-pill { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); border: 1px solid rgba(0,200,168,0.25); padding: 4px 11px; letter-spacing: 1px; }
 
-  /* ===== CERTIFICATE VIEWER MODAL ===== */
-  #certViewModal .modal { max-width: 860px; padding: 20px; }
-  .cert-viewer-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 16px; padding-right: 44px;
-  }
-  .cert-viewer-title { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--text); }
-  .cert-viewer-sub { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
-  .cert-viewer-frame {
-    width: 100%; height: 520px; border: 1px solid var(--border2);
-    background: #fff; display: block;
-  }
-  .cert-viewer-fallback {
-    display: none; padding: 48px 24px; text-align: center;
-  }
-  .cert-viewer-fallback p { font-size: 13px; color: var(--textdim); margin-bottom: 18px; }
+  /* CERTIFICATE OPEN BUTTON MODAL */
+  #certViewModal .modal { max-width: 500px; padding: 40px; }
+  .cert-open-card { text-align: center; padding: 20px 0; }
+  .cert-open-icon { font-size: 52px; margin-bottom: 20px; }
+  .cert-open-title { font-family: 'Instrument Serif', serif; font-size: 22px; color: var(--text); margin-bottom: 8px; }
+  .cert-open-sub { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 28px; }
+  .cert-open-note { font-size: 13px; color: var(--textdim); margin-bottom: 28px; line-height: 1.7; font-weight: 300; }
   .cert-open-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
     color: var(--navy); background: var(--teal);
     letter-spacing: 2px; text-transform: uppercase;
-    padding: 11px 22px; text-decoration: none; transition: all 0.3s;
+    padding: 14px 28px; text-decoration: none; transition: all 0.3s;
     clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    font-weight: 700;
   }
-  .cert-open-link:hover { background: var(--teal2); }
+  .cert-open-link:hover { background: var(--teal2); transform: translateY(-2px); box-shadow: 0 10px 36px rgba(0,200,168,0.28); }
 
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: var(--navy); }
@@ -514,7 +491,6 @@
     .skills-detail-grid { grid-template-columns: 1fr; }
     .intern-grid { grid-template-columns: 1fr; }
     footer { padding: 20px; }
-    .cert-viewer-frame { height: 360px; }
   }
   @media (max-width: 600px) {
     .dash-grid { grid-template-columns: 1fr; }
@@ -529,7 +505,6 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- NAV — smooth scroll via JS, no page reload -->
 <nav>
   <a href="#hero" class="nav-logo" onclick="smoothNav(event,'hero')">VS_PORTFOLIO</a>
   <ul class="nav-links">
@@ -710,7 +685,6 @@
         <li>Built 5+ dashboards for finance and product teams to monitor ROI and customer behavior</li>
         <li>Unified data pipelines across 3 platforms, simplifying campaign reporting workflows</li>
       </ul>
-      <!-- ✅ Replace with your actual Tata certificate URL -->
       <button class="intern-cert-btn" onclick="openCertViewer('Tata Group — Data Analyst Intern','Jun 2023 – Jul 2023','https://www.theforage.com/completion-certificates/Tata/MyXvBcppsW2FkNYCX_Tata_CuDrGdgfPjWCCQs8H_1685528255195_completion_certificate.pdf')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         View Certificate
@@ -727,7 +701,6 @@
         <li>Applied data visualization techniques to address key challenges faced by executives</li>
         <li>Empowered decision-making, identified trends, and improved overall business strategies</li>
       </ul>
-      <!-- ✅ Replace YOUR_ACCENTURE_CERTIFICATE_LINK_HERE with actual URL -->
       <button class="intern-cert-btn" onclick="openCertViewer('Accenture — Data Analytics & Visualization','Mar 2023 – May 2023','https://www.theforage.com/completion-certificates/Accenture%20North%20America/hzmoNKtzvAzXsEqx8_Accenture%20North%20America_CuDrGdgfPjWCCQs8H_1685523290504_completion_certificate.pdf')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         View Certificate
@@ -744,7 +717,6 @@
         <li>Delivered predictive models in Python, impacting product strategies for 2 enterprise teams</li>
         <li>Generated stakeholder-focused dashboards aligned with agile metrics</li>
       </ul>
-      <!-- ✅ Replace YOUR_COGNIZANT_CERTIFICATE_LINK_HERE with actual URL -->
       <button class="intern-cert-btn" onclick="openCertViewer('Cognizant — Data Analytics Intern','Mar 2023 – May 2023','https://www.theforage.com/completion-certificates/Cognizant/5N2ygyhzMWjKQmgCK_Cognizant_CuDrGdgfPjWCCQs8H_1690263616153_completion_certificate.pdf')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         View Certificate
@@ -816,7 +788,6 @@
   <div class="section-label">Credentials</div>
   <h2 class="section-title">Certifi<span>cations</span></h2>
   <div class="cert-grid">
-    <!-- ✅ Replace YOUR_EXCEL_CERT_LINK_HERE -->
     <div class="cert-card reveal reveal-delay-1" onclick="openCertViewer('Business Analytics with Excel','Professional Certification','https://simpli-web.app.link/e/IMarktjml1b')">
       <div class="cert-icon">📊</div>
       <div class="cert-name">Business Analytics with Excel</div>
@@ -826,7 +797,6 @@
         View Certificate
       </div>
     </div>
-    <!-- ✅ Replace YOUR_PYTHON_CERT_LINK_HERE -->
     <div class="cert-card reveal reveal-delay-2" onclick="openCertViewer('Python for Data Science','Professional Certification','https://www.mygreatlearning.com/certificate/ZOEIGQUO?referrer_code=GLDWOJSU42IWO')">
       <div class="cert-icon">🐍</div>
       <div class="cert-name">Python for Data Science</div>
@@ -836,7 +806,6 @@
         View Certificate
       </div>
     </div>
-    <!-- ✅ Replace YOUR_SQL_CERT_LINK_HERE -->
     <div class="cert-card reveal reveal-delay-3" onclick="openCertViewer('SQL for Data Science','Professional Certification','https://www.mygreatlearning.com/certificate/AQLXALIA?referrer_code=GLDWOJSU42IWO')">
       <div class="cert-icon">🗄️</div>
       <div class="cert-name">SQL for Data Science</div>
@@ -846,10 +815,19 @@
         View Certificate
       </div>
     </div>
-    <!-- ✅ Replace YOUR_POWERBI_CERT_LINK_HERE -->
     <div class="cert-card reveal reveal-delay-4" onclick="openCertViewer('Data Visualization with Power BI','Professional Certification','https://www.mygreatlearning.com/certificate/LBJSJTXS?referrer_code=GLDWOJSU42IWO')">
       <div class="cert-icon">⚡</div>
       <div class="cert-name">Data Visualization with Power BI</div>
+      <div class="cert-type">Certification</div>
+      <div class="cert-link-badge">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        View Certificate
+      </div>
+    </div>
+    <!-- NEW: Introduction to Data Analytics -->
+    <div class="cert-card reveal reveal-delay-5" onclick="openCertViewer('Introduction to Data Analytics','Professional Certification','https://simpli-web.app.link/e/sVtcF9fml1b')">
+      <div class="cert-icon">🔍</div>
+      <div class="cert-name">Introduction to Data Analytics</div>
       <div class="cert-type">Certification</div>
       <div class="cert-link-badge">
         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
@@ -912,21 +890,17 @@
   </div>
 </div>
 
-<!-- ✅ CERTIFICATE VIEWER MODAL — opens PDF/image inside page, no new tab -->
+<!-- CERTIFICATE VIEWER MODAL — opens link in new tab, no iframe block issues -->
 <div class="modal-overlay" id="certViewModal" onclick="closeModalOverlay('certViewModal')">
-  <div class="modal" style="max-width:860px;padding:20px;">
+  <div class="modal" style="max-width:500px;padding:40px;">
     <button class="modal-close" onclick="closeModal('certViewModal')">✕</button>
-    <div class="cert-viewer-header">
-      <div>
-        <div class="cert-viewer-title" id="certViewTitle"></div>
-        <div class="cert-viewer-sub" id="certViewSub"></div>
-      </div>
-    </div>
-    <iframe id="certViewFrame" class="cert-viewer-frame" src="" frameborder="0"></iframe>
-    <div class="cert-viewer-fallback" id="certViewFallback">
-      <p>Certificate cannot be previewed directly. Click below to open it.</p>
-      <a id="certViewFallbackLink" href="#" target="_blank" class="cert-open-link">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    <div class="cert-open-card">
+      <div class="cert-open-icon">🏆</div>
+      <div class="cert-open-title" id="certViewTitle"></div>
+      <div class="cert-open-sub" id="certViewSub"></div>
+      <p class="cert-open-note">Click the button below to view your certificate. It will open in a new tab.</p>
+      <a id="certViewLink" href="#" target="_blank" rel="noopener noreferrer" class="cert-open-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         Open Certificate
       </a>
     </div>
@@ -934,14 +908,14 @@
 </div>
 
 <script>
-// ─── SMOOTH NAV SCROLL — no page reload ───────────────────────────────
+// ─── SMOOTH NAV SCROLL ───────────────────────────────────────────────
 function smoothNav(e, id) {
   e.preventDefault();
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ─── CURSOR ───────────────────────────────────────────────────────────
+// ─── CURSOR ──────────────────────────────────────────────────────────
 const cursor = document.getElementById('cursor');
 const ring   = document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
@@ -959,7 +933,7 @@ document.querySelectorAll('a,button,.exp-item,.dash-card,.cert-card,.edu-card,.i
   el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.opacity='0.5';});
 });
 
-// ─── SCROLL REVEAL + SKILL BARS ───────────────────────────────────────
+// ─── SCROLL REVEAL + SKILL BARS ──────────────────────────────────────
 const obs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -971,7 +945,7 @@ const obs = new IntersectionObserver(entries=>{
 },{threshold:0.12});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// ─── MODAL HELPERS ────────────────────────────────────────────────────
+// ─── MODAL HELPERS ───────────────────────────────────────────────────
 function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 function closeModalOverlay(id){
   if(event.target===event.currentTarget) closeModal(id);
@@ -981,41 +955,15 @@ document.addEventListener('keydown',e=>{
     ['expModal','dashModal','certViewModal'].forEach(id=>closeModal(id));
 });
 
-// ─── CERTIFICATE VIEWER — opens inside page modal ─────────────────────
+// ─── CERTIFICATE VIEWER — opens in new tab (no iframe block issues) ──
 function openCertViewer(title, sub, url) {
   document.getElementById('certViewTitle').textContent = title;
   document.getElementById('certViewSub').textContent   = sub;
-
-  const frame    = document.getElementById('certViewFrame');
-  const fallback = document.getElementById('certViewFallback');
-  const fallLink = document.getElementById('certViewFallbackLink');
-
-  // Reset
-  frame.style.display    = 'block';
-  fallback.style.display = 'none';
-  fallLink.href          = url;
-
-  // Load inside iframe
-  frame.src = url;
-
-  // If iframe fails to load (cross-origin block), show fallback button
-  frame.onerror = function(){ showFallback(); };
-  frame.onload  = function(){
-    try {
-      const doc = frame.contentDocument || frame.contentWindow.document;
-      if(!doc || doc.body.innerHTML==='') showFallback();
-    } catch(e){ /* cross-origin — iframe still shows for Forage PDFs */ }
-  };
-
-  function showFallback(){
-    frame.style.display    = 'none';
-    fallback.style.display = 'block';
-  }
-
+  document.getElementById('certViewLink').href         = url;
   document.getElementById('certViewModal').classList.add('open');
 }
 
-// ─── EXPERIENCE DATA ──────────────────────────────────────────────────
+// ─── EXPERIENCE DATA ─────────────────────────────────────────────────
 const expData = {
   ramraj:{
     tag:"Current Position",title:"Ramraj Cotton's, Tirupur",
@@ -1046,7 +994,7 @@ function openExpModal(id){
   document.getElementById('expModal').classList.add('open');
 }
 
-// ─── DASHBOARD DATA ───────────────────────────────────────────────────
+// ─── DASHBOARD DATA ──────────────────────────────────────────────────
 const dashData = {
   'sales-primary':{num:"01",icon:"📊",title:"Sales Dashboard – Primary",tool:"Power BI",body:"The primary sales dashboard is the central nerve center for sales leadership, providing a unified, real-time view of overall performance across all channels, products, and time periods.",points:["Revenue trends vs. targets — identify over/under-performing periods at a glance","Top-performing products, regions, and sales reps ranked by revenue contribution","Month-over-month and year-over-year variance with drill-through capability","Real-time KPI cards: Total Sales, Average Order Value, Conversion Rate","Slicer-based filtering by region, product category, and time period"],value:"Enabled sales managers to make daily decisions backed by live data, reducing manual Excel reporting effort significantly."},
   'sales-secondary':{num:"02",icon:"📉",title:"Sales Dashboard – Secondary",tool:"Power BI",body:"A supplementary deep-dive dashboard focused on granular customer-level and SKU-level analysis.",points:["Customer purchase frequency, retention rates, and lifetime value segmentation","SKU-level sales breakdown with reorder indicators and movement velocity","Channel-wise distribution: direct, wholesale, and online comparison","Discount impact analysis — quantifying revenue dilution vs. volume gain","Heatmap views for product-region performance combinations"],value:"Supports targeted campaigns, pricing decisions, and inventory alignment for the sales and marketing teams."},
@@ -1074,4 +1022,3 @@ function openDashModal(id){
 </script>
 </body>
 </html>
-
