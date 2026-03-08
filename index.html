@@ -339,9 +339,6 @@
 
   /* INTERNSHIP OVERVIEW SECTION */
   #internships { background: var(--navy); }
-  .intern-section-header {
-    display: flex; align-items: center; gap: 18px; margin-bottom: 40px;
-  }
   .intern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .intern-card {
     background: var(--card); border: 1px solid var(--border);
@@ -375,7 +372,7 @@
     font-family: 'JetBrains Mono', monospace; font-size: 9px;
     color: var(--teal); letter-spacing: 2px; text-transform: uppercase;
     background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.22);
-    padding: 7px 14px; cursor: none; transition: all 0.3s; text-decoration: none;
+    padding: 7px 14px; cursor: pointer; transition: all 0.3s; text-decoration: none;
   }
   .intern-cert-btn:hover { background: rgba(0,200,168,0.15); border-color: var(--teal); }
   .intern-cert-btn svg { width: 11px; height: 11px; }
@@ -414,12 +411,20 @@
   .cert-card {
     background: var(--card); border: 1px solid var(--border);
     padding: 24px 20px; text-align: center; transition: all 0.4s;
-    position: relative; overflow: hidden;
+    position: relative; overflow: hidden; cursor: pointer;
   }
   .cert-card:hover { border-color: var(--border2); transform: translateY(-4px); }
   .cert-icon { font-size: 28px; margin-bottom: 12px; }
   .cert-name { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 6px; }
   .cert-type { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; }
+  .cert-link-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 8px;
+    color: var(--teal); letter-spacing: 1px; text-transform: uppercase;
+    background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.2);
+    padding: 4px 9px;
+  }
 
   /* EDUCATION */
   #education { background: var(--navy); }
@@ -483,7 +488,7 @@
   .modal-close {
     position: absolute; top: 18px; right: 18px;
     background: none; border: none; color: var(--textdim);
-    font-size: 18px; cursor: none; transition: color 0.3s;
+    font-size: 18px; cursor: pointer; transition: color 0.3s;
     font-family: 'JetBrains Mono', monospace; line-height: 1;
   }
   .modal-close:hover { color: var(--teal); }
@@ -503,11 +508,18 @@
   .modal-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
   .modal-pill { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); border: 1px solid rgba(0,200,168,0.25); padding: 4px 11px; letter-spacing: 1px; }
 
-  /* CERTIFICATE MODAL */
-  .cert-modal-img {
-    width: 100%; border-radius: 4px; margin-top: 18px;
-    border: 1px solid var(--border2);
+  /* OPEN CERT LINK BUTTON IN MODAL */
+  .modal-cert-link {
+    display: inline-flex; align-items: center; gap: 9px;
+    margin-top: 28px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--navy); background: var(--teal);
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 11px 22px; text-decoration: none; transition: all 0.3s;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
   }
+  .modal-cert-link:hover { background: var(--teal2); transform: translateY(-2px); }
+  .modal-cert-link svg { width: 13px; height: 13px; }
 
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: var(--navy); }
@@ -732,6 +744,7 @@
   <h2 class="section-title">Internship <span>Overview</span></h2>
   <div class="intern-grid">
 
+    <!-- ✅ TATA — Replace YOUR_TATA_CERTIFICATE_LINK_HERE with actual URL -->
     <div class="intern-card reveal reveal-delay-1">
       <div class="intern-logo">🏢</div>
       <div class="intern-company">Tata Group</div>
@@ -741,12 +754,13 @@
         <li>Built 5+ dashboards for finance and product teams to monitor ROI and customer behavior</li>
         <li>Unified data pipelines across 3 platforms, simplifying campaign reporting workflows</li>
       </ul>
-      <button class="intern-cert-btn" onclick="openCertModal('tata_accenture')">
+      <a class="intern-cert-btn" href="YOUR_TATA_CERTIFICATE_LINK_HERE" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         View Certificate
-      </button>
+      </a>
     </div>
 
+    <!-- ✅ ACCENTURE — Replace YOUR_ACCENTURE_CERTIFICATE_LINK_HERE with actual URL -->
     <div class="intern-card reveal reveal-delay-2">
       <div class="intern-logo">📊</div>
       <div class="intern-company">Accenture</div>
@@ -757,12 +771,13 @@
         <li>Applied data visualization techniques to address key challenges faced by executives</li>
         <li>Empowered decision-making, identified trends, and improved overall business strategies</li>
       </ul>
-      <button class="intern-cert-btn" onclick="openCertModal('tata_accenture')">
+      <a class="intern-cert-btn" href="YOUR_ACCENTURE_CERTIFICATE_LINK_HERE" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         View Certificate
-      </button>
+      </a>
     </div>
 
+    <!-- ✅ COGNIZANT — Replace YOUR_COGNIZANT_CERTIFICATE_LINK_HERE with actual URL -->
     <div class="intern-card reveal reveal-delay-3">
       <div class="intern-logo">🔷</div>
       <div class="intern-company">Cognizant</div>
@@ -773,10 +788,10 @@
         <li>Delivered predictive models in Python, impacting product strategies for 2 enterprise teams</li>
         <li>Generated stakeholder-focused dashboards aligned with agile metrics</li>
       </ul>
-      <button class="intern-cert-btn" onclick="openCertModal('cognizant')">
+      <a class="intern-cert-btn" href="YOUR_COGNIZANT_CERTIFICATE_LINK_HERE" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         View Certificate
-      </button>
+      </a>
     </div>
 
   </div>
@@ -855,30 +870,52 @@
 </section>
 
 <!-- CERTIFICATIONS -->
+<!-- ✅ Replace each YOUR_CERT_LINK_HERE with actual certificate URL -->
 <section id="certifications">
   <div class="section-label">Credentials</div>
   <h2 class="section-title">Certifi<span>cations</span></h2>
   <div class="cert-grid">
-    <div class="cert-card reveal reveal-delay-1">
+
+    <a class="cert-card reveal reveal-delay-1" href="YOUR_EXCEL_CERT_LINK_HERE" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
       <div class="cert-icon">📊</div>
       <div class="cert-name">Business Analytics with Excel</div>
       <div class="cert-type">Certification</div>
-    </div>
-    <div class="cert-card reveal reveal-delay-2">
+      <div class="cert-link-badge">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View Certificate
+      </div>
+    </a>
+
+    <a class="cert-card reveal reveal-delay-2" href="YOUR_PYTHON_CERT_LINK_HERE" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
       <div class="cert-icon">🐍</div>
       <div class="cert-name">Python for Data Science</div>
       <div class="cert-type">Certification</div>
-    </div>
-    <div class="cert-card reveal reveal-delay-3">
+      <div class="cert-link-badge">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View Certificate
+      </div>
+    </a>
+
+    <a class="cert-card reveal reveal-delay-3" href="YOUR_SQL_CERT_LINK_HERE" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
       <div class="cert-icon">🗄️</div>
       <div class="cert-name">SQL for Data Science</div>
       <div class="cert-type">Certification</div>
-    </div>
-    <div class="cert-card reveal reveal-delay-4">
+      <div class="cert-link-badge">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View Certificate
+      </div>
+    </a>
+
+    <a class="cert-card reveal reveal-delay-4" href="YOUR_POWERBI_CERT_LINK_HERE" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
       <div class="cert-icon">⚡</div>
       <div class="cert-name">Data Visualization with Power BI</div>
       <div class="cert-type">Certification</div>
-    </div>
+      <div class="cert-link-badge">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View Certificate
+      </div>
+    </a>
+
   </div>
 </section>
 
@@ -941,14 +978,6 @@
   </div>
 </div>
 
-<!-- CERTIFICATE MODAL -->
-<div class="modal-overlay" id="certModal" onclick="closeModalOverlay('certModal')">
-  <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('certModal').classList.remove('open')">✕</button>
-    <div id="certModalBody"></div>
-  </div>
-</div>
-
 <script>
 // CURSOR
 const cursor = document.getElementById('cursor');
@@ -993,7 +1022,7 @@ const expData = {
       "Developed HR dashboard tracking headcount, attendance, attrition, and department-wise workforce distribution",
       "Automated reporting workflows using Power BI and Excel, reducing manual effort by 40%",
       "Worked with ERP (SAP) data and performed data validation and quality checks before reporting",
-      "Collaborated with operations and management teams to convert business requirements into analytical dashboards",
+      "Collaborated with operations and management teams to convert business requirements into analytical dashboards"
     ],
     tags: ["Power BI","DAX","Power Query","Data Modeling","SAP/ERP","Excel","SQL","Inventory Analysis","Capacity Planning"]
   },
@@ -1006,7 +1035,7 @@ const expData = {
       "Created Excel-based MIS reports with pivot tables and automated summaries for regular management review",
       "Used SQL queries to extract and aggregate sales and operational data from transactional sources",
       "Analyzed product and regional sales trends to identify growth and improvement opportunities",
-      "Improved reporting efficiency by streamlining data preparation and report formats for recurring MIS reporting",
+      "Improved reporting efficiency by streamlining data preparation and report formats for recurring MIS reporting"
     ],
     tags: ["Power BI","Tableau","Excel MIS","SQL","Pivot Tables","Sales Analysis","Retail Analytics"]
   }
@@ -1022,7 +1051,7 @@ const dashData = {
       "Top-performing products, regions, and sales reps ranked by revenue contribution",
       "Month-over-month and year-over-year variance with drill-through capability",
       "Real-time KPI cards: Total Sales, Average Order Value, Conversion Rate",
-      "Slicer-based filtering by region, product category, and time period",
+      "Slicer-based filtering by region, product category, and time period"
     ],
     value:"Enabled sales managers to make daily decisions backed by live data, reducing manual Excel reporting effort significantly."
   },
@@ -1034,7 +1063,7 @@ const dashData = {
       "SKU-level sales breakdown with reorder indicators and movement velocity",
       "Channel-wise distribution: direct, wholesale, and online comparison",
       "Discount impact analysis — quantifying revenue dilution vs. volume gain",
-      "Heatmap views for product-region performance combinations",
+      "Heatmap views for product-region performance combinations"
     ],
     value:"Supports targeted campaigns, pricing decisions, and inventory alignment for the sales and marketing teams."
   },
@@ -1046,7 +1075,7 @@ const dashData = {
       "Machine utilization rates and downtime classification (breakdown, maintenance, idle)",
       "Defect rate trend analysis with root-cause drill-down by product line",
       "Labour efficiency index and operator-level productivity metrics",
-      "Daily and weekly production summary reports for management review",
+      "Daily and weekly production summary reports for management review"
     ],
     value:"Empowers production supervisors to detect bottlenecks immediately and take corrective action, improving OEE."
   },
@@ -1058,7 +1087,7 @@ const dashData = {
       "Priority flagging for high-value or SLA-bound orders nearing breach",
       "Fulfillment stage breakdown: In Production, Packed, Ready-to-Dispatch",
       "Customer-wise pending order volume for proactive communication",
-      "Daily refresh with alerts for orders crossing SLA thresholds",
+      "Daily refresh with alerts for orders crossing SLA thresholds"
     ],
     value:"Reduced order delays and improved on-time delivery rates by giving teams a single, always-current source of truth."
   },
@@ -1070,7 +1099,7 @@ const dashData = {
       "Bin utilization % and capacity analysis across warehouse locations",
       "Stock vs. demand comparison to identify underutilized and overloaded bins",
       "Category-wise inventory health view for planning and procurement teams",
-      "Management view to identify overstock, underutilized bins, and demand patterns",
+      "Management view to identify overstock, underutilized bins, and demand patterns"
     ],
     value:"Enabled management to identify overstock positions and optimize warehouse bin allocation."
   },
@@ -1082,7 +1111,7 @@ const dashData = {
       "Attendance tracking — present, absent, and leave patterns with monthly trend lines",
       "Attrition analysis — month-wise exits, department attrition rates, and tenure breakdown",
       "New joiners vs. exits comparison for net headcount change monitoring",
-      "HR KPI cards: Total Headcount, Attrition %, Average Tenure, Attendance Rate",
+      "HR KPI cards: Total Headcount, Attrition %, Average Tenure, Attendance Rate"
     ],
     value:"Gave HR and management teams a single view of workforce health, enabling data-driven decisions."
   },
@@ -1094,21 +1123,10 @@ const dashData = {
       "Variant-level analysis: GSM weight, size, and colour performance heatmaps",
       "Buyer profile segmentation: hotel, retail, export, and institutional buyers",
       "Python script for automated data extraction, cleaning, and transformation",
-      "Scheduled daily refresh — zero manual effort after initial setup",
+      "Scheduled daily refresh — zero manual effort after initial setup"
     ],
     value:"Supports product planning and procurement teams with high-demand variant insights."
   }
-};
-
-// CERTIFICATE IMAGE DATA (base64 embedded)
-const certImages = {
-  tata_accenture: 'https://www.theforage.com/completion-certificates/Tata/MyXvBcppsW2FkNYCX_Tata_CuDrGdgfPjWCCQs8H_1685528255195_completion_certificate.pdf'
-  cognizant: 'https://www.theforage.com/completion-certificates/Cognizant/5N2ygyhzMWjKQmgCK_Cognizant_CuDrGdgfPjWCCQs8H_1690263616153_completion_certificate.pdf'
-};
-
-const certTitles = {
-  tata_accenture: 'Tata Group & Accenture Internship Certificate',
-  cognizant: 'Cognizant Internship Certificate'
 };
 
 function openExpModal(id) {
@@ -1141,23 +1159,12 @@ function openDashModal(id) {
   document.getElementById('dashModal').classList.add('open');
 }
 
-function openCertModal(id) {
-  const title = certTitles[id];
-  const img = certImages[id];
-  document.getElementById('certModalBody').innerHTML = `
-    <div class="modal-tag-line">Internship Certificate</div>
-    <div class="modal-title">${title}</div>
-    <img src="data:image/jpeg;base64,${img}" class="cert-modal-img" alt="${title}" />
-  `;
-  document.getElementById('certModal').classList.add('open');
-}
-
 function closeModalOverlay(id) {
   if (event.target === event.currentTarget) document.getElementById(id).classList.remove('open');
 }
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    ['expModal','dashModal','certModal'].forEach(id => document.getElementById(id).classList.remove('open'));
+    ['expModal','dashModal'].forEach(id => document.getElementById(id).classList.remove('open'));
   }
 });
 </script>
