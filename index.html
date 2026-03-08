@@ -455,23 +455,73 @@
   .modal-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
   .modal-pill { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); border: 1px solid rgba(0,200,168,0.25); padding: 4px 11px; letter-spacing: 1px; }
 
-  /* CERTIFICATE OPEN BUTTON MODAL */
-  #certViewModal .modal { max-width: 500px; padding: 40px; }
-  .cert-open-card { text-align: center; padding: 20px 0; }
-  .cert-open-icon { font-size: 52px; margin-bottom: 20px; }
-  .cert-open-title { font-family: 'Instrument Serif', serif; font-size: 22px; color: var(--text); margin-bottom: 8px; }
-  .cert-open-sub { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 28px; }
-  .cert-open-note { font-size: 13px; color: var(--textdim); margin-bottom: 28px; line-height: 1.7; font-weight: 300; }
-  .cert-open-link {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  /* CERTIFICATE FULL-SCREEN VIEWER */
+  #certViewModal {
+    position: fixed; inset: 0;
+    background: rgba(8,12,24,0.98);
+    backdrop-filter: blur(20px);
+    z-index: 2000;
+    display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  #certViewModal.open { opacity: 1; pointer-events: all; }
+  .cert-viewer-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border2);
+    flex-shrink: 0;
+  }
+  .cert-viewer-info { display: flex; flex-direction: column; gap: 3px; }
+  .cert-viewer-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px; color: var(--text); letter-spacing: -0.2px;
+  }
+  .cert-viewer-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase;
+  }
+  .cert-viewer-close {
+    width: 36px; height: 36px;
+    background: rgba(0,200,168,0.08);
+    border: 1px solid rgba(0,200,168,0.3);
+    color: var(--teal); font-size: 18px;
+    cursor: pointer; transition: all 0.25s;
+    font-family: 'JetBrains Mono', monospace;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 3px; flex-shrink: 0;
+  }
+  .cert-viewer-close:hover { background: rgba(0,200,168,0.22); border-color: var(--teal); color: #fff; }
+  .cert-viewer-frame-wrap {
+    flex: 1; position: relative; overflow: hidden;
+  }
+  .cert-viewer-iframe {
+    width: 100%; height: 100%; border: none; display: block;
+    background: #fff;
+  }
+  /* fallback shown when iframe is blocked */
+  .cert-viewer-blocked {
+    display: none;
+    position: absolute; inset: 0;
+    align-items: center; justify-content: center; flex-direction: column;
+    background: var(--navy2); gap: 18px; text-align: center; padding: 40px;
+  }
+  .cert-viewer-blocked.show { display: flex; }
+  .cert-blocked-icon { font-size: 48px; }
+  .cert-blocked-msg {
+    font-size: 14px; color: var(--textdim); line-height: 1.8;
+    max-width: 380px; font-weight: 300;
+  }
+  .cert-blocked-btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
     color: var(--navy); background: var(--teal);
     letter-spacing: 2px; text-transform: uppercase;
-    padding: 14px 28px; text-decoration: none; transition: all 0.3s;
+    padding: 13px 26px; text-decoration: none; transition: all 0.3s;
     clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
-    font-weight: 700;
+    border: none; cursor: pointer;
   }
-  .cert-open-link:hover { background: var(--teal2); transform: translateY(-2px); box-shadow: 0 10px 36px rgba(0,200,168,0.28); }
+  .cert-blocked-btn:hover { background: var(--teal2); transform: translateY(-2px); }
 
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: var(--navy); }
@@ -890,17 +940,22 @@
   </div>
 </div>
 
-<!-- CERTIFICATE VIEWER MODAL — opens link in new tab, no iframe block issues -->
-<div class="modal-overlay" id="certViewModal" onclick="closeModalOverlay('certViewModal')">
-  <div class="modal" style="max-width:500px;padding:40px;">
-    <button class="modal-close" onclick="closeModal('certViewModal')">✕</button>
-    <div class="cert-open-card">
-      <div class="cert-open-icon">🏆</div>
-      <div class="cert-open-title" id="certViewTitle"></div>
-      <div class="cert-open-sub" id="certViewSub"></div>
-      <p class="cert-open-note">Click the button below to view your certificate. It will open in a new tab.</p>
-      <a id="certViewLink" href="#" target="_blank" rel="noopener noreferrer" class="cert-open-link">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+<!-- CERTIFICATE FULL-SCREEN VIEWER — same page, no new tab -->
+<div id="certViewModal">
+  <div class="cert-viewer-topbar">
+    <div class="cert-viewer-info">
+      <div class="cert-viewer-name" id="certViewTitle"></div>
+      <div class="cert-viewer-period" id="certViewSub"></div>
+    </div>
+    <button class="cert-viewer-close" onclick="closeCertViewer()" title="Close">✕</button>
+  </div>
+  <div class="cert-viewer-frame-wrap">
+    <iframe class="cert-viewer-iframe" id="certViewIframe" src="" allowfullscreen></iframe>
+    <div class="cert-viewer-blocked" id="certViewBlocked">
+      <div class="cert-blocked-icon">🏆</div>
+      <p class="cert-blocked-msg">This certificate cannot be previewed directly due to security restrictions on the host site. Click below to open it.</p>
+      <a id="certViewFallbackBtn" href="#" target="_blank" rel="noopener noreferrer" class="cert-blocked-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         Open Certificate
       </a>
     </div>
@@ -950,20 +1005,84 @@ function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 function closeModalOverlay(id){
   if(event.target===event.currentTarget) closeModal(id);
 }
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape')
-    ['expModal','dashModal','certViewModal'].forEach(id=>closeModal(id));
-});
-
-// ─── CERTIFICATE VIEWER — opens in new tab (no iframe block issues) ──
+// ─── CERTIFICATE FULL-SCREEN VIEWER ─────────────────────────────────
 function openCertViewer(title, sub, url) {
   document.getElementById('certViewTitle').textContent = title;
   document.getElementById('certViewSub').textContent   = sub;
-  document.getElementById('certViewLink').href         = url;
+  document.getElementById('certViewFallbackBtn').href  = url;
+
+  const iframe   = document.getElementById('certViewIframe');
+  const blocked  = document.getElementById('certViewBlocked');
+
+  // Reset state
+  blocked.classList.remove('show');
+  iframe.style.display = 'block';
+  iframe.src = '';
+
+  // Show overlay first, then load iframe
   document.getElementById('certViewModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Small delay so overlay renders before iframe starts loading
+  setTimeout(() => {
+    iframe.src = url;
+  }, 80);
+
+  // If iframe load fails or is blocked, show fallback after timeout
+  let loadTimer = setTimeout(() => {
+    try {
+      // Try to access iframe document — throws if cross-origin blocked
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      if (!doc || doc.body === null || doc.body.innerHTML === '') {
+        showCertFallback();
+      }
+    } catch(e) {
+      // Cross-origin = blocked; show fallback
+      showCertFallback();
+    }
+  }, 3500);
+
+  iframe.onload = function() {
+    clearTimeout(loadTimer);
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      if (!doc || doc.body === null || doc.body.innerHTML === '') {
+        showCertFallback();
+      }
+    } catch(e) {
+      showCertFallback();
+    }
+  };
+
+  iframe.onerror = function() {
+    clearTimeout(loadTimer);
+    showCertFallback();
+  };
 }
 
-// ─── EXPERIENCE DATA ─────────────────────────────────────────────────
+function showCertFallback() {
+  document.getElementById('certViewIframe').style.display = 'none';
+  document.getElementById('certViewBlocked').classList.add('show');
+}
+
+function closeCertViewer() {
+  document.getElementById('certViewModal').classList.remove('open');
+  document.body.style.overflow = '';
+  // Clear iframe src to stop loading
+  setTimeout(() => {
+    document.getElementById('certViewIframe').src = '';
+    document.getElementById('certViewBlocked').classList.remove('show');
+    document.getElementById('certViewIframe').style.display = 'block';
+  }, 300);
+}
+
+// Close cert viewer on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeCertViewer();
+    ['expModal','dashModal'].forEach(id => closeModal(id));
+  }
+});
 const expData = {
   ramraj:{
     tag:"Current Position",title:"Ramraj Cotton's, Tirupur",
