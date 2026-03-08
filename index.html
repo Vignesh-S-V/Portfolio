@@ -13,8 +13,6 @@
     --teal: #00c8a8;
     --teal2: #00e8c0;
     --mint: #00a88a;
-    --amber: #f5a623;
-    --muted: #3a4460;
     --text: #dde4f0;
     --textdim: #7a89a8;
     --border: rgba(0,200,168,0.13);
@@ -52,7 +50,7 @@
     opacity: 0.5;
   }
 
-  /* NAV */
+  /* NAV — smooth scroll, no reload */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
@@ -74,6 +72,7 @@
     text-decoration: none; letter-spacing: 2px;
     text-transform: uppercase; transition: color 0.3s;
     position: relative; font-weight: 400;
+    cursor: pointer;
   }
   .nav-links a::after {
     content: ''; position: absolute; bottom: -4px; left: 0;
@@ -120,15 +119,10 @@
   .hero-name {
     font-family: 'Instrument Serif', serif;
     font-size: clamp(38px, 5.5vw, 76px);
-    font-weight: 400;
-    line-height: 1.05;
-    color: var(--text);
-    margin-bottom: 18px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.4s forwards;
-    letter-spacing: -1px;
-    word-break: break-word;
-    max-width: 100%;
+    font-weight: 400; line-height: 1.05;
+    color: var(--text); margin-bottom: 18px;
+    opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards;
+    letter-spacing: -1px; word-break: break-word; max-width: 100%;
   }
   .hero-name span { color: var(--teal); font-style: italic; }
   .hero-role {
@@ -162,19 +156,16 @@
     padding: 13px 30px; background: var(--teal); color: var(--navy);
     font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
     letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
-    border: none; cursor: none; transition: all 0.3s;
+    border: none; cursor: pointer; transition: all 0.3s;
     clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
     display: inline-block;
   }
-  .btn-primary:hover {
-    background: var(--teal2); transform: translateY(-2px);
-    box-shadow: 0 10px 36px rgba(0,200,168,0.28);
-  }
+  .btn-primary:hover { background: var(--teal2); transform: translateY(-2px); box-shadow: 0 10px 36px rgba(0,200,168,0.28); }
   .btn-outline {
     padding: 13px 30px; background: transparent; color: var(--teal);
     font-family: 'JetBrains Mono', monospace; font-size: 11px;
     letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
-    border: 1px solid rgba(0,200,168,0.4); cursor: none; transition: all 0.3s;
+    border: 1px solid rgba(0,200,168,0.4); cursor: pointer; transition: all 0.3s;
     clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
     display: inline-block;
   }
@@ -219,15 +210,13 @@
   .section-label {
     font-family: 'JetBrains Mono', monospace; font-size: 10px;
     color: var(--teal); letter-spacing: 4px; text-transform: uppercase;
-    margin-bottom: 12px; display: flex; align-items: center; gap: 12px;
-    font-weight: 400;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 12px; font-weight: 400;
   }
   .section-label::before { content: ''; width: 22px; height: 1px; background: var(--teal); }
   .section-title {
     font-family: 'Instrument Serif', serif;
     font-size: clamp(34px, 4vw, 54px); font-weight: 400;
-    color: var(--text); margin-bottom: 56px; line-height: 1.1;
-    letter-spacing: -0.5px;
+    color: var(--text); margin-bottom: 56px; line-height: 1.1; letter-spacing: -0.5px;
   }
   .section-title span { color: var(--teal); font-style: italic; }
 
@@ -240,8 +229,7 @@
   }
   .about-card::before {
     content: ''; position: absolute; top: 0; left: 0;
-    width: 2px; height: 100%;
-    background: linear-gradient(var(--teal), var(--mint));
+    width: 2px; height: 100%; background: linear-gradient(var(--teal), var(--mint));
   }
   .about-card-top { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
   .avatar {
@@ -256,8 +244,7 @@
   .info-rows { display: flex; flex-direction: column; gap: 0; }
   .info-row {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px;
-    gap: 12px;
+    padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; gap: 12px;
   }
   .info-row:last-child { border-bottom: none; }
   .info-key { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--textdim); letter-spacing: 2px; text-transform: uppercase; flex-shrink: 0; }
@@ -270,17 +257,11 @@
   .skills-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 48px; }
   .skill-card {
     background: var(--card); border: 1px solid var(--border);
-    padding: 26px 18px; text-align: center; cursor: none;
+    padding: 26px 18px; text-align: center; cursor: default;
     transition: all 0.4s; position: relative; overflow: hidden;
   }
-  .skill-card::after {
-    content: ''; position: absolute; bottom: 0; left: 0;
-    width: 0; height: 2px; background: var(--teal); transition: width 0.4s;
-  }
-  .skill-card:hover {
-    transform: translateY(-6px); border-color: var(--border2);
-    background: rgba(0,200,168,0.03); box-shadow: 0 16px 50px rgba(0,200,168,0.08);
-  }
+  .skill-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--teal); transition: width 0.4s; }
+  .skill-card:hover { transform: translateY(-6px); border-color: var(--border2); background: rgba(0,200,168,0.03); box-shadow: 0 16px 50px rgba(0,200,168,0.08); }
   .skill-card:hover::after { width: 100%; }
   .skill-icon { font-size: 32px; margin-bottom: 12px; }
   .skill-name { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
@@ -288,9 +269,7 @@
   .skill-bar-wrap { margin-top: 12px; height: 2px; background: rgba(255,255,255,0.05); }
   .skill-bar { height: 100%; background: linear-gradient(90deg, var(--teal), var(--mint)); width: 0; transition: width 1s ease 0.3s; }
   .skills-detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .skills-detail-card {
-    background: var(--card); border: 1px solid var(--border); padding: 24px 28px;
-  }
+  .skills-detail-card { background: var(--card); border: 1px solid var(--border); padding: 24px 28px; }
   .skills-detail-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px; }
   .skills-detail-items { display: flex; flex-wrap: wrap; gap: 7px; }
   .skills-detail-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--textdim); border: 1px solid rgba(255,255,255,0.07); padding: 4px 10px; letter-spacing: 0.5px; }
@@ -302,33 +281,27 @@
     content: ''; position: absolute; left: 20px; top: 8px; bottom: 0;
     width: 1px; background: linear-gradient(var(--teal), transparent);
   }
-  .exp-item { display: grid; grid-template-columns: 60px 1fr; gap: 28px; margin-bottom: 32px; cursor: none; }
+  .exp-item { display: grid; grid-template-columns: 60px 1fr; gap: 28px; margin-bottom: 32px; cursor: pointer; }
   .exp-dot-wrap { display: flex; flex-direction: column; align-items: center; padding-top: 8px; }
   .exp-dot {
     width: 40px; height: 40px; border-radius: 50%;
     background: var(--card); border: 1px solid var(--border);
     display: flex; align-items: center; justify-content: center;
-    font-size: 17px; transition: all 0.3s; flex-shrink: 0;
-    position: relative; z-index: 1;
+    font-size: 17px; transition: all 0.3s; flex-shrink: 0; position: relative; z-index: 1;
   }
   .exp-item:hover .exp-dot { border-color: var(--teal); background: rgba(0,200,168,0.08); box-shadow: 0 0 20px rgba(0,200,168,0.25); }
   .exp-card {
     background: var(--card); border: 1px solid var(--border);
-    padding: 30px; transition: all 0.4s; position: relative; overflow: hidden; cursor: none;
+    padding: 30px; transition: all 0.4s; position: relative; overflow: hidden;
   }
-  .exp-card::before {
-    content: ''; position: absolute; top: 0; left: 0;
-    width: 100%; height: 0; background: rgba(0,200,168,0.025); transition: height 0.4s;
-  }
+  .exp-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 0; background: rgba(0,200,168,0.025); transition: height 0.4s; }
   .exp-item:hover .exp-card { border-color: var(--border2); transform: translateX(6px); }
   .exp-item:hover .exp-card::before { height: 100%; }
   .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; flex-wrap: wrap; gap: 10px; }
   .exp-company { font-family: 'Instrument Serif', serif; font-size: 21px; font-weight: 400; color: var(--text); letter-spacing: -0.3px; }
   .exp-period {
-    font-family: 'JetBrains Mono', monospace; font-size: 10px;
-    color: var(--teal); letter-spacing: 1px;
-    background: rgba(0,200,168,0.07); padding: 4px 11px;
-    border: 1px solid rgba(0,200,168,0.18);
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--teal); letter-spacing: 1px;
+    background: rgba(0,200,168,0.07); padding: 4px 11px; border: 1px solid rgba(0,200,168,0.18);
   }
   .exp-role { font-size: 13px; color: var(--teal); margin-bottom: 14px; font-weight: 500; letter-spacing: 0.2px; }
   .exp-desc { font-size: 13px; line-height: 1.8; color: var(--textdim); margin-bottom: 18px; font-weight: 300; }
@@ -337,29 +310,22 @@
   .exp-click-hint { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); margin-top: 14px; opacity: 0; transition: opacity 0.3s; letter-spacing: 1px; }
   .exp-item:hover .exp-click-hint { opacity: 1; }
 
-  /* INTERNSHIP OVERVIEW SECTION */
+  /* INTERNSHIPS */
   #internships { background: var(--navy); }
   .intern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .intern-card {
     background: var(--card); border: 1px solid var(--border);
-    padding: 30px; cursor: none; transition: all 0.4s;
+    padding: 30px; cursor: default; transition: all 0.4s;
     position: relative; overflow: hidden;
   }
-  .intern-card::after {
-    content: ''; position: absolute; bottom: 0; left: 0;
-    width: 0; height: 2px; background: var(--teal); transition: width 0.4s;
-  }
-  .intern-card:hover {
-    border-color: var(--border2); transform: translateY(-5px);
-    box-shadow: 0 20px 60px rgba(0,200,168,0.09);
-  }
+  .intern-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--teal); transition: width 0.4s; }
+  .intern-card:hover { border-color: var(--border2); transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,200,168,0.09); }
   .intern-card:hover::after { width: 100%; }
   .intern-logo {
     width: 48px; height: 48px; border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     font-size: 22px; margin-bottom: 16px;
-    background: rgba(0,200,168,0.07);
-    border: 1px solid rgba(0,200,168,0.18);
+    background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.18);
   }
   .intern-company { font-family: 'Instrument Serif', serif; font-size: 19px; font-weight: 400; color: var(--text); margin-bottom: 4px; letter-spacing: -0.2px; }
   .intern-role { font-size: 12px; color: var(--teal); font-weight: 500; margin-bottom: 4px; }
@@ -372,7 +338,9 @@
     font-family: 'JetBrains Mono', monospace; font-size: 9px;
     color: var(--teal); letter-spacing: 2px; text-transform: uppercase;
     background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.22);
-    padding: 7px 14px; cursor: pointer; transition: all 0.3s; text-decoration: none;
+    padding: 7px 14px; cursor: pointer; transition: all 0.3s;
+    text-decoration: none; border: none; outline: none;
+    background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.22);
   }
   .intern-cert-btn:hover { background: rgba(0,200,168,0.15); border-color: var(--teal); }
   .intern-cert-btn svg { width: 11px; height: 11px; }
@@ -382,24 +350,16 @@
   .dash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .dash-card {
     background: var(--card); border: 1px solid var(--border);
-    padding: 30px; cursor: none; transition: all 0.4s;
-    position: relative; overflow: hidden; text-decoration: none; display: block;
+    padding: 30px; cursor: pointer; transition: all 0.4s;
+    position: relative; overflow: hidden;
   }
-  .dash-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(0,200,168,0.05), transparent);
-    opacity: 0; transition: opacity 0.4s;
-  }
+  .dash-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,200,168,0.05), transparent); opacity: 0; transition: opacity 0.4s; }
   .dash-card:hover { border-color: rgba(0,200,168,0.45); transform: translateY(-5px); box-shadow: 0 20px 70px rgba(0,200,168,0.1); }
   .dash-card:hover::before { opacity: 1; }
   .dash-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(0,200,168,0.35); letter-spacing: 3px; margin-bottom: 18px; }
   .dash-icon { font-size: 36px; margin-bottom: 18px; display: block; }
   .dash-title { font-family: 'Instrument Serif', serif; font-size: 17px; font-weight: 400; color: var(--text); margin-bottom: 9px; line-height: 1.3; letter-spacing: -0.2px; }
-  .dash-tool {
-    font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal);
-    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px;
-    display: flex; align-items: center; gap: 7px;
-  }
+  .dash-tool { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 7px; }
   .dash-tool::before { content: ''; width: 14px; height: 1px; background: var(--teal); }
   .dash-desc { font-size: 13px; line-height: 1.75; color: var(--textdim); margin-bottom: 22px; font-weight: 300; }
   .dash-arrow { display: inline-flex; align-items: center; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; transition: gap 0.3s; }
@@ -418,12 +378,10 @@
   .cert-name { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 6px; }
   .cert-type { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; }
   .cert-link-badge {
-    display: inline-flex; align-items: center; gap: 5px;
-    margin-top: 10px;
+    display: inline-flex; align-items: center; gap: 5px; margin-top: 10px;
     font-family: 'JetBrains Mono', monospace; font-size: 8px;
     color: var(--teal); letter-spacing: 1px; text-transform: uppercase;
-    background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.2);
-    padding: 4px 9px;
+    background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.2); padding: 4px 9px;
   }
 
   /* EDUCATION */
@@ -433,10 +391,7 @@
     background: var(--card); border: 1px solid var(--border);
     padding: 32px; position: relative; overflow: hidden; transition: all 0.4s;
   }
-  .edu-card::before {
-    content: ''; position: absolute; top: 0; left: 0;
-    width: 2px; height: 100%; background: linear-gradient(var(--teal), var(--mint));
-  }
+  .edu-card::before { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: linear-gradient(var(--teal), var(--mint)); }
   .edu-card:hover { border-color: var(--border2); }
   .edu-degree { font-family: 'Instrument Serif', serif; font-size: 19px; font-weight: 400; color: var(--text); margin-bottom: 6px; letter-spacing: -0.2px; }
   .edu-college { font-size: 13px; color: var(--teal); margin-bottom: 4px; font-weight: 500; }
@@ -469,29 +424,36 @@
   .reveal-delay-4 { transition-delay: 0.32s; }
   .reveal-delay-5 { transition-delay: 0.40s; }
 
-  /* MODAL */
+  /* ===== MODAL ===== */
   .modal-overlay {
-    position: fixed; inset: 0; background: rgba(8,12,24,0.94);
+    position: fixed; inset: 0; background: rgba(8,12,24,0.95);
     backdrop-filter: blur(20px); z-index: 1000;
     display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transition: opacity 0.4s;
-    cursor: none;
+    opacity: 0; pointer-events: none; transition: opacity 0.35s;
   }
   .modal-overlay.open { opacity: 1; pointer-events: all; }
   .modal {
     background: var(--card); border: 1px solid rgba(0,200,168,0.3);
-    padding: 46px; max-width: 660px; width: 90%;
+    padding: 46px; max-width: 680px; width: 92%;
     position: relative; transform: translateY(28px) scale(0.97);
-    transition: transform 0.4s; max-height: 85vh; overflow-y: auto;
+    transition: transform 0.35s; max-height: 88vh; overflow-y: auto;
   }
   .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+  /* ✅ X CLOSE BUTTON — top right corner */
   .modal-close {
-    position: absolute; top: 18px; right: 18px;
-    background: none; border: none; color: var(--textdim);
-    font-size: 18px; cursor: pointer; transition: color 0.3s;
+    position: absolute; top: 14px; right: 14px;
+    width: 32px; height: 32px;
+    background: rgba(0,200,168,0.08);
+    border: 1px solid rgba(0,200,168,0.25);
+    color: var(--teal);
+    font-size: 16px; cursor: pointer; transition: all 0.25s;
     font-family: 'JetBrains Mono', monospace; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 2px; z-index: 10;
   }
-  .modal-close:hover { color: var(--teal); }
+  .modal-close:hover { background: rgba(0,200,168,0.2); border-color: var(--teal); color: white; }
+
   .modal-tag-line {
     font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal);
     letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px;
@@ -508,18 +470,31 @@
   .modal-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
   .modal-pill { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); border: 1px solid rgba(0,200,168,0.25); padding: 4px 11px; letter-spacing: 1px; }
 
-  /* OPEN CERT LINK BUTTON IN MODAL */
-  .modal-cert-link {
-    display: inline-flex; align-items: center; gap: 9px;
-    margin-top: 28px;
+  /* ===== CERTIFICATE VIEWER MODAL ===== */
+  #certViewModal .modal { max-width: 860px; padding: 20px; }
+  .cert-viewer-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px; padding-right: 44px;
+  }
+  .cert-viewer-title { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--text); }
+  .cert-viewer-sub { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
+  .cert-viewer-frame {
+    width: 100%; height: 520px; border: 1px solid var(--border2);
+    background: #fff; display: block;
+  }
+  .cert-viewer-fallback {
+    display: none; padding: 48px 24px; text-align: center;
+  }
+  .cert-viewer-fallback p { font-size: 13px; color: var(--textdim); margin-bottom: 18px; }
+  .cert-open-link {
+    display: inline-flex; align-items: center; gap: 8px;
     font-family: 'JetBrains Mono', monospace; font-size: 10px;
     color: var(--navy); background: var(--teal);
     letter-spacing: 2px; text-transform: uppercase;
     padding: 11px 22px; text-decoration: none; transition: all 0.3s;
     clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
   }
-  .modal-cert-link:hover { background: var(--teal2); transform: translateY(-2px); }
-  .modal-cert-link svg { width: 13px; height: 13px; }
+  .cert-open-link:hover { background: var(--teal2); }
 
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: var(--navy); }
@@ -539,6 +514,7 @@
     .skills-detail-grid { grid-template-columns: 1fr; }
     .intern-grid { grid-template-columns: 1fr; }
     footer { padding: 20px; }
+    .cert-viewer-frame { height: 360px; }
   }
   @media (max-width: 600px) {
     .dash-grid { grid-template-columns: 1fr; }
@@ -553,17 +529,18 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- NAV -->
+<!-- NAV — smooth scroll via JS, no page reload -->
 <nav>
-  <a href="#hero" class="nav-logo">VS_PORTFOLIO</a>
+  <a href="#hero" class="nav-logo" onclick="smoothNav(event,'hero')">VS_PORTFOLIO</a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#internships">Internships</a></li>
-    <li><a href="#dashboards">Dashboards</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a onclick="smoothNav(event,'about')">About</a></li>
+    <li><a onclick="smoothNav(event,'skills')">Skills</a></li>
+    <li><a onclick="smoothNav(event,'experience')">Experience</a></li>
+    <li><a onclick="smoothNav(event,'internships')">Internships</a></li>
+    <li><a onclick="smoothNav(event,'dashboards')">Dashboards</a></li>
+    <li><a onclick="smoothNav(event,'certifications')">Certifications</a></li>
+    <li><a onclick="smoothNav(event,'education')">Education</a></li>
+    <li><a onclick="smoothNav(event,'contact')">Contact</a></li>
   </ul>
 </nav>
 
@@ -595,8 +572,8 @@
     </div>
     <p class="hero-desc">Power BI–focused Data Analyst with 2 years of hands-on experience building interactive dashboards, writing DAX measures, and delivering inventory and sales insights. Experienced in retail and textile domain analytics.</p>
     <div class="hero-btns">
-      <a href="#dashboards" class="btn-primary">View Dashboards</a>
-      <a href="#experience" class="btn-outline">My Experience</a>
+      <button class="btn-primary" onclick="smoothNav(event,'dashboards')">View Dashboards</button>
+      <button class="btn-outline" onclick="smoothNav(event,'experience')">My Experience</button>
     </div>
   </div>
   <div class="hero-right">
@@ -605,7 +582,7 @@
       <div class="orb-ring"></div>
       <div class="orb-ring"></div>
       <div class="orb-center">
-        <div class="orb-stat"><div class="orb-num">6+</div><div class="orb-label">Dashboards</div></div>
+        <div class="orb-stat"><div class="orb-num">7+</div><div class="orb-label">Dashboards</div></div>
         <div class="orb-divider"></div>
         <div class="orb-stat"><div class="orb-num">2Y</div><div class="orb-label">Experience</div></div>
         <div class="orb-divider"></div>
@@ -660,38 +637,25 @@
     <div class="skills-detail-card reveal reveal-delay-1">
       <div class="skills-detail-title">Power BI</div>
       <div class="skills-detail-items">
-        <span class="skills-detail-tag">DAX</span>
-        <span class="skills-detail-tag">Data Modeling</span>
-        <span class="skills-detail-tag">Power Query</span>
-        <span class="skills-detail-tag">Measures</span>
-        <span class="skills-detail-tag">KPI Cards</span>
+        <span class="skills-detail-tag">DAX</span><span class="skills-detail-tag">Data Modeling</span><span class="skills-detail-tag">Power Query</span><span class="skills-detail-tag">Measures</span><span class="skills-detail-tag">KPI Cards</span>
       </div>
     </div>
     <div class="skills-detail-card reveal reveal-delay-2">
       <div class="skills-detail-title">Data Analysis</div>
       <div class="skills-detail-items">
-        <span class="skills-detail-tag">Inventory Analysis</span>
-        <span class="skills-detail-tag">Excess Stock</span>
-        <span class="skills-detail-tag">Capacity Planning</span>
-        <span class="skills-detail-tag">Sales Trend Analysis</span>
+        <span class="skills-detail-tag">Inventory Analysis</span><span class="skills-detail-tag">Excess Stock</span><span class="skills-detail-tag">Capacity Planning</span><span class="skills-detail-tag">Sales Trend Analysis</span>
       </div>
     </div>
     <div class="skills-detail-card reveal reveal-delay-3">
       <div class="skills-detail-title">SQL</div>
       <div class="skills-detail-items">
-        <span class="skills-detail-tag">Joins</span>
-        <span class="skills-detail-tag">Group By</span>
-        <span class="skills-detail-tag">Subqueries</span>
-        <span class="skills-detail-tag">Aggregations</span>
+        <span class="skills-detail-tag">Joins</span><span class="skills-detail-tag">Group By</span><span class="skills-detail-tag">Subqueries</span><span class="skills-detail-tag">Aggregations</span>
       </div>
     </div>
     <div class="skills-detail-card reveal reveal-delay-4">
       <div class="skills-detail-title">Excel</div>
       <div class="skills-detail-items">
-        <span class="skills-detail-tag">XLOOKUP</span>
-        <span class="skills-detail-tag">INDEX-MATCH</span>
-        <span class="skills-detail-tag">Pivot Tables</span>
-        <span class="skills-detail-tag">Power Pivot</span>
+        <span class="skills-detail-tag">XLOOKUP</span><span class="skills-detail-tag">INDEX-MATCH</span><span class="skills-detail-tag">Pivot Tables</span><span class="skills-detail-tag">Power Pivot</span>
       </div>
     </div>
   </div>
@@ -702,7 +666,6 @@
   <div class="section-label">Career</div>
   <h2 class="section-title">Work <span>Experience</span></h2>
   <div class="exp-timeline">
-
     <div class="exp-item reveal" onclick="openExpModal('ramraj')">
       <div class="exp-dot-wrap"><div class="exp-dot">🏭</div></div>
       <div class="exp-card">
@@ -712,13 +675,10 @@
         </div>
         <div class="exp-role">Data Analyst / Production Planner — PPC Department</div>
         <p class="exp-desc">Designing Power BI dashboards tracking sales, inventory, excess stock, HR, and bin capacity across multiple product categories. Created 20+ DAX measures and automated reporting workflows using Power BI and Excel, reducing manual effort by 40%.</p>
-        <div class="exp-tags">
-          <span class="exp-tag">Power BI</span><span class="exp-tag">DAX</span><span class="exp-tag">SAP/ERP</span><span class="exp-tag">Excel</span><span class="exp-tag">SQL</span>
-        </div>
+        <div class="exp-tags"><span class="exp-tag">Power BI</span><span class="exp-tag">DAX</span><span class="exp-tag">SAP/ERP</span><span class="exp-tag">Excel</span><span class="exp-tag">SQL</span></div>
         <div class="exp-click-hint">↗ Click to view full details</div>
       </div>
     </div>
-
     <div class="exp-item reveal reveal-delay-2" onclick="openExpModal('prithvi')">
       <div class="exp-dot-wrap"><div class="exp-dot">👕</div></div>
       <div class="exp-card">
@@ -728,23 +688,19 @@
         </div>
         <div class="exp-role">Data Analyst – Product Development</div>
         <p class="exp-desc">Developed Power BI and Tableau dashboards for retail and product performance analysis across regions. Created Excel-based MIS reports and used SQL queries to extract and aggregate sales and operational data.</p>
-        <div class="exp-tags">
-          <span class="exp-tag">Power BI</span><span class="exp-tag">Tableau</span><span class="exp-tag">Excel MIS</span><span class="exp-tag">SQL</span>
-        </div>
+        <div class="exp-tags"><span class="exp-tag">Power BI</span><span class="exp-tag">Tableau</span><span class="exp-tag">Excel MIS</span><span class="exp-tag">SQL</span></div>
         <div class="exp-click-hint">↗ Click to view full details</div>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- INTERNSHIP OVERVIEW -->
+<!-- INTERNSHIPS -->
 <section id="internships">
   <div class="section-label">Internships</div>
   <h2 class="section-title">Internship <span>Overview</span></h2>
   <div class="intern-grid">
 
-    <!-- ✅ TATA — Replace YOUR_TATA_CERTIFICATE_LINK_HERE with actual URL -->
     <div class="intern-card reveal reveal-delay-1">
       <div class="intern-logo">🏢</div>
       <div class="intern-company">Tata Group</div>
@@ -754,13 +710,13 @@
         <li>Built 5+ dashboards for finance and product teams to monitor ROI and customer behavior</li>
         <li>Unified data pipelines across 3 platforms, simplifying campaign reporting workflows</li>
       </ul>
-      <a class="intern-cert-btn" href="https://www.theforage.com/completion-certificates/Tata/MyXvBcppsW2FkNYCX_Tata_CuDrGdgfPjWCCQs8H_1685528255195_completion_certificate.pdf" target="_blank" rel="noopener noreferrer">
+      <!-- ✅ Replace with your actual Tata certificate URL -->
+      <button class="intern-cert-btn" onclick="openCertViewer('Tata Group — Data Analyst Intern','Jun 2023 – Jul 2023','https://www.theforage.com/completion-certificates/Tata/MyXvBcppsW2FkNYCX_Tata_CuDrGdgfPjWCCQs8H_1685528255195_completion_certificate.pdf')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         View Certificate
-      </a>
+      </button>
     </div>
 
-    <!-- ✅ ACCENTURE — Replace YOUR_ACCENTURE_CERTIFICATE_LINK_HERE with actual URL -->
     <div class="intern-card reveal reveal-delay-2">
       <div class="intern-logo">📊</div>
       <div class="intern-company">Accenture</div>
@@ -771,13 +727,13 @@
         <li>Applied data visualization techniques to address key challenges faced by executives</li>
         <li>Empowered decision-making, identified trends, and improved overall business strategies</li>
       </ul>
-      <a class="intern-cert-btn" href="YOUR_ACCENTURE_CERTIFICATE_LINK_HERE" target="_blank" rel="noopener noreferrer">
+      <!-- ✅ Replace YOUR_ACCENTURE_CERTIFICATE_LINK_HERE with actual URL -->
+      <button class="intern-cert-btn" onclick="openCertViewer('Accenture — Data Analytics & Visualization','Mar 2023 – May 2023','YOUR_ACCENTURE_CERTIFICATE_LINK_HERE')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         View Certificate
-      </a>
+      </button>
     </div>
 
-    <!-- ✅ COGNIZANT — Replace YOUR_COGNIZANT_CERTIFICATE_LINK_HERE with actual URL -->
     <div class="intern-card reveal reveal-delay-3">
       <div class="intern-logo">🔷</div>
       <div class="intern-company">Cognizant</div>
@@ -788,10 +744,11 @@
         <li>Delivered predictive models in Python, impacting product strategies for 2 enterprise teams</li>
         <li>Generated stakeholder-focused dashboards aligned with agile metrics</li>
       </ul>
-      <a class="intern-cert-btn" href="YOUR_COGNIZANT_CERTIFICATE_LINK_HERE" target="_blank" rel="noopener noreferrer">
+      <!-- ✅ Replace YOUR_COGNIZANT_CERTIFICATE_LINK_HERE with actual URL -->
+      <button class="intern-cert-btn" onclick="openCertViewer('Cognizant — Data Analytics Intern','Mar 2023 – May 2023','YOUR_COGNIZANT_CERTIFICATE_LINK_HERE')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         View Certificate
-      </a>
+      </button>
     </div>
 
   </div>
@@ -802,120 +759,103 @@
   <div class="section-label">Portfolio</div>
   <h2 class="section-title">My <span>Dashboards</span></h2>
   <div class="dash-grid">
-
     <div class="dash-card reveal reveal-delay-1" onclick="openDashModal('sales-primary')">
-      <div class="dash-num">01 ——</div>
-      <span class="dash-icon">📊</span>
+      <div class="dash-num">01 ——</div><span class="dash-icon">📊</span>
       <div class="dash-title">Sales Dashboard – Primary</div>
       <div class="dash-tool">Power BI</div>
       <p class="dash-desc">Unified sales performance view tracking revenue, top performers, KPI cards and month-over-month trend analysis for leadership teams.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
-
     <div class="dash-card reveal reveal-delay-2" onclick="openDashModal('sales-secondary')">
-      <div class="dash-num">02 ——</div>
-      <span class="dash-icon">📉</span>
+      <div class="dash-num">02 ——</div><span class="dash-icon">📉</span>
       <div class="dash-title">Sales Dashboard – Secondary</div>
       <div class="dash-tool">Power BI</div>
       <p class="dash-desc">Deep-dive customer & SKU level analysis with channel-wise distribution, discount impact, and buyer segmentation insights.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
-
     <div class="dash-card reveal reveal-delay-3" onclick="openDashModal('production')">
-      <div class="dash-num">03 ——</div>
-      <span class="dash-icon">🏭</span>
+      <div class="dash-num">03 ——</div><span class="dash-icon">🏭</span>
       <div class="dash-title">Production Dashboard</div>
       <div class="dash-tool">Power BI</div>
       <p class="dash-desc">End-to-end manufacturing throughput monitoring with machine utilization, OEE tracking, defect rates, and shift-by-shift output analysis.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
-
     <div class="dash-card reveal reveal-delay-4" onclick="openDashModal('pending')">
-      <div class="dash-num">04 ——</div>
-      <span class="dash-icon">⏳</span>
+      <div class="dash-num">04 ——</div><span class="dash-icon">⏳</span>
       <div class="dash-title">Pending Orders Dashboard</div>
       <div class="dash-tool">Power BI</div>
       <p class="dash-desc">Real-time order pipeline view with aging analysis, SLA breach alerts, fulfillment stage tracking, and customer-wise pending summaries.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
-
     <div class="dash-card reveal reveal-delay-5" onclick="openDashModal('inventory')">
-      <div class="dash-num">05 ——</div>
-      <span class="dash-icon">📦</span>
+      <div class="dash-num">05 ——</div><span class="dash-icon">📦</span>
       <div class="dash-title">Inventory & Bin Capacity Dashboard</div>
       <div class="dash-tool">Power BI + DAX</div>
       <p class="dash-desc">Stock and warehouse analysis integrating excess stock identification, bin utilization %, and capacity planning across multiple warehouse locations.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
-
     <div class="dash-card reveal reveal-delay-1" onclick="openDashModal('hr')">
-      <div class="dash-num">06 ——</div>
-      <span class="dash-icon">👥</span>
+      <div class="dash-num">06 ——</div><span class="dash-icon">👥</span>
       <div class="dash-title">HR Dashboard</div>
       <div class="dash-tool">Power BI</div>
       <p class="dash-desc">Workforce analytics covering headcount, attendance, attrition trends, department-wise employee distribution, and HR KPI tracking for management.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
-
     <div class="dash-card reveal reveal-delay-2" onclick="openDashModal('towel')">
-      <div class="dash-num">07 ——</div>
-      <span class="dash-icon">🧺</span>
+      <div class="dash-num">07 ——</div><span class="dash-icon">🧺</span>
       <div class="dash-title">Towel Sales Report</div>
       <div class="dash-tool">Python + Power BI</div>
       <p class="dash-desc">Product-specific towel category analytics with variant heatmaps, buyer segmentation, and Python-powered automated data refresh pipeline.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
-
   </div>
 </section>
 
 <!-- CERTIFICATIONS -->
-<!-- ✅ Replace each YOUR_CERT_LINK_HERE with actual certificate URL -->
 <section id="certifications">
   <div class="section-label">Credentials</div>
   <h2 class="section-title">Certifi<span>cations</span></h2>
   <div class="cert-grid">
-
-    <a class="cert-card reveal reveal-delay-1" href="YOUR_EXCEL_CERT_LINK_HERE" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+    <!-- ✅ Replace YOUR_EXCEL_CERT_LINK_HERE -->
+    <div class="cert-card reveal reveal-delay-1" onclick="openCertViewer('Business Analytics with Excel','Professional Certification','YOUR_EXCEL_CERT_LINK_HERE')">
       <div class="cert-icon">📊</div>
       <div class="cert-name">Business Analytics with Excel</div>
       <div class="cert-type">Certification</div>
       <div class="cert-link-badge">
-        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
         View Certificate
       </div>
-    </a>
-
-    <a class="cert-card reveal reveal-delay-2" href="YOUR_PYTHON_CERT_LINK_HERE" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+    </div>
+    <!-- ✅ Replace YOUR_PYTHON_CERT_LINK_HERE -->
+    <div class="cert-card reveal reveal-delay-2" onclick="openCertViewer('Python for Data Science','Professional Certification','YOUR_PYTHON_CERT_LINK_HERE')">
       <div class="cert-icon">🐍</div>
       <div class="cert-name">Python for Data Science</div>
       <div class="cert-type">Certification</div>
       <div class="cert-link-badge">
-        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
         View Certificate
       </div>
-    </a>
-
-    <a class="cert-card reveal reveal-delay-3" href="YOUR_SQL_CERT_LINK_HERE" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+    </div>
+    <!-- ✅ Replace YOUR_SQL_CERT_LINK_HERE -->
+    <div class="cert-card reveal reveal-delay-3" onclick="openCertViewer('SQL for Data Science','Professional Certification','YOUR_SQL_CERT_LINK_HERE')">
       <div class="cert-icon">🗄️</div>
       <div class="cert-name">SQL for Data Science</div>
       <div class="cert-type">Certification</div>
       <div class="cert-link-badge">
-        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
         View Certificate
       </div>
-    </a>
-
-    <a class="cert-card reveal reveal-delay-4" href="YOUR_POWERBI_CERT_LINK_HERE" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+    </div>
+    <!-- ✅ Replace YOUR_POWERBI_CERT_LINK_HERE -->
+    <div class="cert-card reveal reveal-delay-4" onclick="openCertViewer('Data Visualization with Power BI','Professional Certification','YOUR_POWERBI_CERT_LINK_HERE')">
       <div class="cert-icon">⚡</div>
       <div class="cert-name">Data Visualization with Power BI</div>
       <div class="cert-type">Certification</div>
       <div class="cert-link-badge">
-        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
         View Certificate
       </div>
-    </a>
-
+    </div>
   </div>
 </section>
 
@@ -928,19 +868,13 @@
       <div class="edu-degree">MBA — Business Analytics</div>
       <div class="edu-college">RVS College of Arts and Science</div>
       <div class="edu-period">Aug 2022 – May 2024</div>
-      <div class="edu-gpa">
-        <span class="edu-gpa-label">GPA</span>
-        <span class="edu-gpa-val">7.8</span>
-      </div>
+      <div class="edu-gpa"><span class="edu-gpa-label">GPA</span><span class="edu-gpa-val">7.8</span></div>
     </div>
     <div class="edu-card reveal reveal-delay-2">
       <div class="edu-degree">B.Com — Corporate Secretaryship</div>
       <div class="edu-college">SNMV College of Arts and Science</div>
       <div class="edu-period">Jul 2017 – Mar 2020</div>
-      <div class="edu-gpa">
-        <span class="edu-gpa-label">GPA</span>
-        <span class="edu-gpa-val">6.2</span>
-      </div>
+      <div class="edu-gpa"><span class="edu-gpa-label">GPA</span><span class="edu-gpa-val">6.2</span></div>
     </div>
   </div>
 </section>
@@ -965,7 +899,7 @@
 <!-- EXPERIENCE MODAL -->
 <div class="modal-overlay" id="expModal" onclick="closeModalOverlay('expModal')">
   <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('expModal').classList.remove('open')">✕</button>
+    <button class="modal-close" onclick="closeModal('expModal')">✕</button>
     <div id="expModalBody"></div>
   </div>
 </div>
@@ -973,179 +907,159 @@
 <!-- DASHBOARD MODAL -->
 <div class="modal-overlay" id="dashModal" onclick="closeModalOverlay('dashModal')">
   <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('dashModal').classList.remove('open')">✕</button>
+    <button class="modal-close" onclick="closeModal('dashModal')">✕</button>
     <div id="dashModalBody"></div>
   </div>
 </div>
 
+<!-- ✅ CERTIFICATE VIEWER MODAL — opens PDF/image inside page, no new tab -->
+<div class="modal-overlay" id="certViewModal" onclick="closeModalOverlay('certViewModal')">
+  <div class="modal" style="max-width:860px;padding:20px;">
+    <button class="modal-close" onclick="closeModal('certViewModal')">✕</button>
+    <div class="cert-viewer-header">
+      <div>
+        <div class="cert-viewer-title" id="certViewTitle"></div>
+        <div class="cert-viewer-sub" id="certViewSub"></div>
+      </div>
+    </div>
+    <iframe id="certViewFrame" class="cert-viewer-frame" src="" frameborder="0"></iframe>
+    <div class="cert-viewer-fallback" id="certViewFallback">
+      <p>Certificate cannot be previewed directly. Click below to open it.</p>
+      <a id="certViewFallbackLink" href="#" target="_blank" class="cert-open-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Open Certificate
+      </a>
+    </div>
+  </div>
+</div>
+
 <script>
-// CURSOR
+// ─── SMOOTH NAV SCROLL — no page reload ───────────────────────────────
+function smoothNav(e, id) {
+  e.preventDefault();
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─── CURSOR ───────────────────────────────────────────────────────────
 const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
+const ring   = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.transform = `translate(${mx-5}px,${my-5}px)`;
+  mx=e.clientX; my=e.clientY;
+  cursor.style.transform=`translate(${mx-5}px,${my-5}px)`;
 });
-(function animRing() {
-  rx += (mx-rx)*0.12; ry += (my-ry)*0.12;
-  ring.style.transform = `translate(${rx-16}px,${ry-16}px)`;
+(function animRing(){
+  rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+  ring.style.transform=`translate(${rx-16}px,${ry-16}px)`;
   requestAnimationFrame(animRing);
 })();
-document.querySelectorAll('a,button,.exp-item,.dash-card,.cert-card,.edu-card,.intern-card').forEach(el => {
-  el.addEventListener('mouseenter', () => { ring.style.width='48px'; ring.style.height='48px'; ring.style.opacity='0.9'; });
-  el.addEventListener('mouseleave', () => { ring.style.width='32px'; ring.style.height='32px'; ring.style.opacity='0.5'; });
+document.querySelectorAll('a,button,.exp-item,.dash-card,.cert-card,.edu-card,.intern-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';ring.style.opacity='0.9';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.opacity='0.5';});
 });
 
-// SCROLL REVEAL + SKILL BARS
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
+// ─── SCROLL REVEAL + SKILL BARS ───────────────────────────────────────
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
       e.target.classList.add('visible');
-      const bar = e.target.querySelector('.skill-bar');
-      if (bar) setTimeout(() => bar.style.width = (e.target.dataset.level||70)+'%', 250);
+      const bar=e.target.querySelector('.skill-bar');
+      if(bar) setTimeout(()=>bar.style.width=(e.target.dataset.level||70)+'%',250);
     }
   });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// EXPERIENCE DATA
+// ─── MODAL HELPERS ────────────────────────────────────────────────────
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+function closeModalOverlay(id){
+  if(event.target===event.currentTarget) closeModal(id);
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')
+    ['expModal','dashModal','certViewModal'].forEach(id=>closeModal(id));
+});
+
+// ─── CERTIFICATE VIEWER — opens inside page modal ─────────────────────
+function openCertViewer(title, sub, url) {
+  document.getElementById('certViewTitle').textContent = title;
+  document.getElementById('certViewSub').textContent   = sub;
+
+  const frame    = document.getElementById('certViewFrame');
+  const fallback = document.getElementById('certViewFallback');
+  const fallLink = document.getElementById('certViewFallbackLink');
+
+  // Reset
+  frame.style.display    = 'block';
+  fallback.style.display = 'none';
+  fallLink.href          = url;
+
+  // Load inside iframe
+  frame.src = url;
+
+  // If iframe fails to load (cross-origin block), show fallback button
+  frame.onerror = function(){ showFallback(); };
+  frame.onload  = function(){
+    try {
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      if(!doc || doc.body.innerHTML==='') showFallback();
+    } catch(e){ /* cross-origin — iframe still shows for Forage PDFs */ }
+  };
+
+  function showFallback(){
+    frame.style.display    = 'none';
+    fallback.style.display = 'block';
+  }
+
+  document.getElementById('certViewModal').classList.add('open');
+}
+
+// ─── EXPERIENCE DATA ──────────────────────────────────────────────────
 const expData = {
-  ramraj: {
-    tag: "Current Position", title: "Ramraj Cotton's, Tirupur",
-    sub: "Data Analyst / Production Planner — PPC Department · May 2025 – Present",
-    body: "At Ramraj Cotton, I serve as the in-house Data Analyst for the Production Planning & Control (PPC) Department. My core responsibility is designing and maintaining interactive Power BI dashboards that deliver real-time visibility to sales, production, HR, and logistics teams across the organization.",
-    points: [
-      "Designed Power BI dashboards tracking sales, inventory, excess stock, and bin capacity across multiple product categories and operational units",
-      "Created 20+ DAX measures including growth %, variance, excess quantity, utilization %, and time-based comparisons",
-      "Built inventory and bin-capacity analysis models to support warehouse and planning decisions across multiple locations",
-      "Developed HR dashboard tracking headcount, attendance, attrition, and department-wise workforce distribution",
-      "Automated reporting workflows using Power BI and Excel, reducing manual effort by 40%",
-      "Worked with ERP (SAP) data and performed data validation and quality checks before reporting",
-      "Collaborated with operations and management teams to convert business requirements into analytical dashboards"
-    ],
-    tags: ["Power BI","DAX","Power Query","Data Modeling","SAP/ERP","Excel","SQL","Inventory Analysis","Capacity Planning"]
+  ramraj:{
+    tag:"Current Position",title:"Ramraj Cotton's, Tirupur",
+    sub:"Data Analyst / Production Planner — PPC Department · May 2025 – Present",
+    body:"At Ramraj Cotton, I serve as the in-house Data Analyst for the Production Planning & Control (PPC) Department. My core responsibility is designing and maintaining interactive Power BI dashboards that deliver real-time visibility to sales, production, HR, and logistics teams across the organization.",
+    points:["Designed Power BI dashboards tracking sales, inventory, excess stock, and bin capacity across multiple product categories","Created 20+ DAX measures including growth %, variance, excess quantity, utilization %, and time-based comparisons","Built inventory and bin-capacity analysis models to support warehouse and planning decisions","Developed HR dashboard tracking headcount, attendance, attrition, and department-wise workforce distribution","Automated reporting workflows using Power BI and Excel, reducing manual effort by 40%","Worked with ERP (SAP) data and performed data validation and quality checks before reporting","Collaborated with operations and management teams to convert business requirements into analytical dashboards"],
+    tags:["Power BI","DAX","Power Query","Data Modeling","SAP/ERP","Excel","SQL","Inventory Analysis","Capacity Planning"]
   },
-  prithvi: {
-    tag: "Previous Position", title: "Prithvi Inner Wears Pvt Ltd",
-    sub: "Data Analyst – Product Development · Dec 2024 – Apr 2025",
-    body: "Developed dashboards and MIS reports for retail and product performance analysis. Supported regional sales analysis and product development decisions through structured data workflows and reporting automation.",
-    points: [
-      "Developed Power BI and Tableau dashboards for retail and product performance analysis across regions",
-      "Created Excel-based MIS reports with pivot tables and automated summaries for regular management review",
-      "Used SQL queries to extract and aggregate sales and operational data from transactional sources",
-      "Analyzed product and regional sales trends to identify growth and improvement opportunities",
-      "Improved reporting efficiency by streamlining data preparation and report formats for recurring MIS reporting"
-    ],
-    tags: ["Power BI","Tableau","Excel MIS","SQL","Pivot Tables","Sales Analysis","Retail Analytics"]
+  prithvi:{
+    tag:"Previous Position",title:"Prithvi Inner Wears Pvt Ltd",
+    sub:"Data Analyst – Product Development · Dec 2024 – Apr 2025",
+    body:"Developed dashboards and MIS reports for retail and product performance analysis. Supported regional sales analysis and product development decisions through structured data workflows and reporting automation.",
+    points:["Developed Power BI and Tableau dashboards for retail and product performance analysis across regions","Created Excel-based MIS reports with pivot tables and automated summaries for regular management review","Used SQL queries to extract and aggregate sales and operational data from transactional sources","Analyzed product and regional sales trends to identify growth and improvement opportunities","Improved reporting efficiency by streamlining data preparation and report formats for recurring MIS reporting"],
+    tags:["Power BI","Tableau","Excel MIS","SQL","Pivot Tables","Sales Analysis","Retail Analytics"]
   }
 };
 
-// DASHBOARD DATA
-const dashData = {
-  'sales-primary': {
-    num:"01", icon:"📊", title:"Sales Dashboard – Primary", tool:"Power BI",
-    body:"The primary sales dashboard is the central nerve center for sales leadership, providing a unified, real-time view of overall performance across all channels, products, and time periods.",
-    points:[
-      "Revenue trends vs. targets — identify over/under-performing periods at a glance",
-      "Top-performing products, regions, and sales reps ranked by revenue contribution",
-      "Month-over-month and year-over-year variance with drill-through capability",
-      "Real-time KPI cards: Total Sales, Average Order Value, Conversion Rate",
-      "Slicer-based filtering by region, product category, and time period"
-    ],
-    value:"Enabled sales managers to make daily decisions backed by live data, reducing manual Excel reporting effort significantly."
-  },
-  'sales-secondary': {
-    num:"02", icon:"📉", title:"Sales Dashboard – Secondary", tool:"Power BI",
-    body:"A supplementary deep-dive dashboard focused on granular customer-level and SKU-level analysis, designed to complement the primary dashboard with more targeted insights for the sales and marketing teams.",
-    points:[
-      "Customer purchase frequency, retention rates, and lifetime value segmentation",
-      "SKU-level sales breakdown with reorder indicators and movement velocity",
-      "Channel-wise distribution: direct, wholesale, and online comparison",
-      "Discount impact analysis — quantifying revenue dilution vs. volume gain",
-      "Heatmap views for product-region performance combinations"
-    ],
-    value:"Supports targeted campaigns, pricing decisions, and inventory alignment for the sales and marketing teams."
-  },
-  production: {
-    num:"03", icon:"🏭", title:"Production Dashboard", tool:"Power BI",
-    body:"Monitors end-to-end manufacturing throughput, machine utilization, and production efficiency against daily and weekly targets — empowering supervisors with live operational data to catch problems before they escalate.",
-    points:[
-      "Real-time output vs. planned target — shift-by-shift tracking",
-      "Machine utilization rates and downtime classification (breakdown, maintenance, idle)",
-      "Defect rate trend analysis with root-cause drill-down by product line",
-      "Labour efficiency index and operator-level productivity metrics",
-      "Daily and weekly production summary reports for management review"
-    ],
-    value:"Empowers production supervisors to detect bottlenecks immediately and take corrective action, improving OEE."
-  },
-  pending: {
-    num:"04", icon:"⏳", title:"Pending Orders Dashboard", tool:"Power BI",
-    body:"A real-time pipeline view of all open and overdue customer orders, built to enable proactive fulfillment management for dispatch and planning teams.",
-    points:[
-      "Order aging analysis — 0–7 days, 8–30 days, and 30+ days overdue buckets",
-      "Priority flagging for high-value or SLA-bound orders nearing breach",
-      "Fulfillment stage breakdown: In Production, Packed, Ready-to-Dispatch",
-      "Customer-wise pending order volume for proactive communication",
-      "Daily refresh with alerts for orders crossing SLA thresholds"
-    ],
-    value:"Reduced order delays and improved on-time delivery rates by giving teams a single, always-current source of truth."
-  },
-  inventory: {
-    num:"05", icon:"📦", title:"Inventory & Bin Capacity Dashboard", tool:"Power BI + DAX",
-    body:"An end-to-end Power BI solution integrating stock, sales, and capacity data to support warehouse and planning operations across multiple locations at Ramraj Cotton.",
-    points:[
-      "Excess stock identification using DAX measures — flagging slow-moving and overstock items",
-      "Bin utilization % and capacity analysis across warehouse locations",
-      "Stock vs. demand comparison to identify underutilized and overloaded bins",
-      "Category-wise inventory health view for planning and procurement teams",
-      "Management view to identify overstock, underutilized bins, and demand patterns"
-    ],
-    value:"Enabled management to identify overstock positions and optimize warehouse bin allocation."
-  },
-  hr: {
-    num:"06", icon:"👥", title:"HR Dashboard", tool:"Power BI",
-    body:"A dedicated HR analytics dashboard built for Ramraj Cotton's management team, providing a comprehensive view of workforce metrics, attendance patterns, and department-level staffing data.",
-    points:[
-      "Headcount overview — total employees, department-wise distribution, and role breakdown",
-      "Attendance tracking — present, absent, and leave patterns with monthly trend lines",
-      "Attrition analysis — month-wise exits, department attrition rates, and tenure breakdown",
-      "New joiners vs. exits comparison for net headcount change monitoring",
-      "HR KPI cards: Total Headcount, Attrition %, Average Tenure, Attendance Rate"
-    ],
-    value:"Gave HR and management teams a single view of workforce health, enabling data-driven decisions."
-  },
-  towel: {
-    num:"07", icon:"🧺", title:"Towel Sales Report", tool:"Python + Power BI",
-    body:"A product-specific analytical report tracking towel category performance across weight, size, colour, and customer segments — with a fully automated Python data pipeline for daily refresh.",
-    points:[
-      "Category contribution: Towel segment share of total product revenue over time",
-      "Variant-level analysis: GSM weight, size, and colour performance heatmaps",
-      "Buyer profile segmentation: hotel, retail, export, and institutional buyers",
-      "Python script for automated data extraction, cleaning, and transformation",
-      "Scheduled daily refresh — zero manual effort after initial setup"
-    ],
-    value:"Supports product planning and procurement teams with high-demand variant insights."
-  }
-};
-
-function openExpModal(id) {
-  const d = expData[id];
-  document.getElementById('expModalBody').innerHTML = `
+function openExpModal(id){
+  const d=expData[id];
+  document.getElementById('expModalBody').innerHTML=`
     <div class="modal-tag-line">${d.tag}</div>
     <div class="modal-title">${d.title}</div>
     <div class="modal-subtitle">${d.sub}</div>
     <p class="modal-body">${d.body}</p>
     <div class="modal-sec">Key Contributions</div>
     <ul class="modal-list">${d.points.map(p=>`<li>${p}</li>`).join('')}</ul>
-    <div class="modal-pills">${d.tags.map(t=>`<span class="modal-pill">${t}</span>`).join('')}</div>
-  `;
+    <div class="modal-pills">${d.tags.map(t=>`<span class="modal-pill">${t}</span>`).join('')}</div>`;
   document.getElementById('expModal').classList.add('open');
 }
 
-function openDashModal(id) {
-  const d = dashData[id];
-  document.getElementById('dashModalBody').innerHTML = `
+// ─── DASHBOARD DATA ───────────────────────────────────────────────────
+const dashData = {
+  'sales-primary':{num:"01",icon:"📊",title:"Sales Dashboard – Primary",tool:"Power BI",body:"The primary sales dashboard is the central nerve center for sales leadership, providing a unified, real-time view of overall performance across all channels, products, and time periods.",points:["Revenue trends vs. targets — identify over/under-performing periods at a glance","Top-performing products, regions, and sales reps ranked by revenue contribution","Month-over-month and year-over-year variance with drill-through capability","Real-time KPI cards: Total Sales, Average Order Value, Conversion Rate","Slicer-based filtering by region, product category, and time period"],value:"Enabled sales managers to make daily decisions backed by live data, reducing manual Excel reporting effort significantly."},
+  'sales-secondary':{num:"02",icon:"📉",title:"Sales Dashboard – Secondary",tool:"Power BI",body:"A supplementary deep-dive dashboard focused on granular customer-level and SKU-level analysis.",points:["Customer purchase frequency, retention rates, and lifetime value segmentation","SKU-level sales breakdown with reorder indicators and movement velocity","Channel-wise distribution: direct, wholesale, and online comparison","Discount impact analysis — quantifying revenue dilution vs. volume gain","Heatmap views for product-region performance combinations"],value:"Supports targeted campaigns, pricing decisions, and inventory alignment for the sales and marketing teams."},
+  production:{num:"03",icon:"🏭",title:"Production Dashboard",tool:"Power BI",body:"Monitors end-to-end manufacturing throughput, machine utilization, and production efficiency against daily and weekly targets.",points:["Real-time output vs. planned target — shift-by-shift tracking","Machine utilization rates and downtime classification (breakdown, maintenance, idle)","Defect rate trend analysis with root-cause drill-down by product line","Labour efficiency index and operator-level productivity metrics","Daily and weekly production summary reports for management review"],value:"Empowers production supervisors to detect bottlenecks immediately and take corrective action, improving OEE."},
+  pending:{num:"04",icon:"⏳",title:"Pending Orders Dashboard",tool:"Power BI",body:"A real-time pipeline view of all open and overdue customer orders.",points:["Order aging analysis — 0–7 days, 8–30 days, and 30+ days overdue buckets","Priority flagging for high-value or SLA-bound orders nearing breach","Fulfillment stage breakdown: In Production, Packed, Ready-to-Dispatch","Customer-wise pending order volume for proactive communication","Daily refresh with alerts for orders crossing SLA thresholds"],value:"Reduced order delays and improved on-time delivery rates by giving teams a single, always-current source of truth."},
+  inventory:{num:"05",icon:"📦",title:"Inventory & Bin Capacity Dashboard",tool:"Power BI + DAX",body:"An end-to-end Power BI solution integrating stock, sales, and capacity data to support warehouse and planning operations.",points:["Excess stock identification using DAX measures — flagging slow-moving and overstock items","Bin utilization % and capacity analysis across warehouse locations","Stock vs. demand comparison to identify underutilized and overloaded bins","Category-wise inventory health view for planning and procurement teams","Management view to identify overstock, underutilized bins, and demand patterns"],value:"Enabled management to identify overstock positions and optimize warehouse bin allocation."},
+  hr:{num:"06",icon:"👥",title:"HR Dashboard",tool:"Power BI",body:"A dedicated HR analytics dashboard providing a comprehensive view of workforce metrics, attendance patterns, and department-level staffing data.",points:["Headcount overview — total employees, department-wise distribution, and role breakdown","Attendance tracking — present, absent, and leave patterns with monthly trend lines","Attrition analysis — month-wise exits, department attrition rates, and tenure breakdown","New joiners vs. exits comparison for net headcount change monitoring","HR KPI cards: Total Headcount, Attrition %, Average Tenure, Attendance Rate"],value:"Gave HR and management teams a single view of workforce health, enabling data-driven decisions."},
+  towel:{num:"07",icon:"🧺",title:"Towel Sales Report",tool:"Python + Power BI",body:"A product-specific analytical report tracking towel category performance across weight, size, colour, and customer segments.",points:["Category contribution: Towel segment share of total product revenue over time","Variant-level analysis: GSM weight, size, and colour performance heatmaps","Buyer profile segmentation: hotel, retail, export, and institutional buyers","Python script for automated data extraction, cleaning, and transformation","Scheduled daily refresh — zero manual effort after initial setup"],value:"Supports product planning and procurement teams with high-demand variant insights."}
+};
+
+function openDashModal(id){
+  const d=dashData[id];
+  document.getElementById('dashModalBody').innerHTML=`
     <div class="modal-tag-line">${d.num} — Dashboard</div>
     <div style="font-size:40px;margin-bottom:10px">${d.icon}</div>
     <div class="modal-title">${d.title}</div>
@@ -1154,20 +1068,9 @@ function openDashModal(id) {
     <div class="modal-sec">Features & Insights</div>
     <ul class="modal-list">${d.points.map(p=>`<li>${p}</li>`).join('')}</ul>
     <div class="modal-sec">Business Value</div>
-    <p class="modal-body" style="margin-bottom:0">${d.value}</p>
-  `;
+    <p class="modal-body" style="margin-bottom:0">${d.value}</p>`;
   document.getElementById('dashModal').classList.add('open');
 }
-
-function closeModalOverlay(id) {
-  if (event.target === event.currentTarget) document.getElementById(id).classList.remove('open');
-}
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    ['expModal','dashModal'].forEach(id => document.getElementById(id).classList.remove('open'));
-  }
-});
 </script>
 </body>
 </html>
-
