@@ -699,7 +699,7 @@
           <div class="exp-period">May 2025 – Present</div>
         </div>
         <div class="exp-role">Data Analyst / Production Planner — PPC Department</div>
-        <p class="exp-desc">Designed and deployed comprehensive Power BI dashboards to track Sales, Inventory, Excess Stock, HR, and Transport & Logistics Analysis across diverse product categories. Developed 20+ complex DAX measures and automated end-to-end reporting workflows, achieving a 40% reduction in manual data processing effort.</p>
+        <p class="exp-desc">Developed comprehensive Sales, HR Intelligence, Transport & Logistics, and Pending Order dashboards with Glassmorphism-styled design. Engineered 20+ advanced DAX measures per dashboard — including Time Intelligence, Dynamic Ranking, and Variance Analysis — reducing planning time by 30% and manual processing by 25%.</p>
         <div class="exp-tags"><span class="exp-tag">Power BI</span><span class="exp-tag">DAX</span><span class="exp-tag">SAP/ERP</span><span class="exp-tag">Excel</span><span class="exp-tag">SQL</span></div>
         <div class="exp-click-hint">↗ Click to view full details</div>
       </div>
@@ -792,21 +792,21 @@
       <div class="dash-num">02 ——</div><span class="dash-icon">📉</span>
       <div class="dash-title">Sales Dashboard – Secondary</div>
       <div class="dash-tool">Power BI</div>
-      <p class="dash-desc">Deep-dive customer & SKU level analysis with channel-wise distribution, discount impact, and buyer segmentation insights.</p>
+      <p class="dash-desc">Deep-dive customer & SKU level analysis with channel-wise distribution, ABC Analysis, and buyer segmentation insights.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
     <div class="dash-card reveal reveal-delay-3" onclick="openDashModal('production')">
       <div class="dash-num">03 ——</div><span class="dash-icon">🏭</span>
       <div class="dash-title">Production Dashboard</div>
       <div class="dash-tool">Python + Power BI</div>
-      <p class="dash-desc">End-to-end manufacturing throughput monitoring with machine utilization, OEE tracking, defect rates, and shift-by-shift output analysis.</p>
+      <p class="dash-desc">Deployed a Production and Vendor Performance Tracker to monitor PO vs. Return quantities, On-Time In-Full (OTIF) metrics, and outstanding product-wise balances and reducing manual data processing time by 25%.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
     <div class="dash-card reveal reveal-delay-4" onclick="openDashModal('pending')">
       <div class="dash-num">04 ——</div><span class="dash-icon">⏳</span>
       <div class="dash-title">Pending Orders Dashboard</div>
       <div class="dash-tool">Power BI</div>
-      <p class="dash-desc">Real-time order pipeline view with aging analysis, SLA breach alerts, fulfillment stage tracking, and customer-wise pending summaries.</p>
+      <p class="dash-desc">Developed a Pending Order Intelligence Dashboard to streamline warehouse operations, enabling product-wise box packaging planning which resulted in a 30% reduction in planning time and optimized manpower allocation.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
     <div class="dash-card reveal reveal-delay-5" onclick="openDashModal('inventory')">
@@ -827,14 +827,14 @@
       <div class="dash-num">07 ——</div><span class="dash-icon">🧺</span>
       <div class="dash-title">Towel Sales Report</div>
       <div class="dash-tool">Power BI + Dax</div>
-      <p class="dash-desc">Product-specific towel category analytics with variant heatmaps, buyer segmentation, and Python-powered automated data refresh pipeline.</p>
+      <p class="dash-desc">Created a specialized Sub-brand Performance Model for the Towel category, analyzing sales velocity and market penetration across specific states.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
       <div class="dash-card reveal reveal-delay-2" onclick="openDashModal('towel')">
       <div class="dash-num">07 ——</div><span class="dash-icon">🚛</span>
       <div class="dash-title">Transport and Logistics Analysis</div>
       <div class="dash-tool">Power BI + Dax</div>
-      <p class="dash-desc">Developed a high-impact Supply Chain & Logistics Dashboard to streamline order fulfillment and supply operations. This project focuses on end-to-end visibility of the order lifecycle, from procurement to final delivery, enabling data-driven decisions to optimize inventory and transport efficiency.</p>
+      <p class="dash-desc"> Optimized Transport and Logistics Analytics by evaluating bundle volume, total weight capacity, and multi-state availability to identify efficient logistics partners.</p>
       <div class="dash-arrow">View Details →</div>
   </div>
 </section>
@@ -1094,7 +1094,7 @@ const expData = {
     tag:"Current Position",title:"Ramraj Cotton's, Tirupur",
     sub:"Data Analyst / Production Planner — PPC Department · May 2025 – Present",
     body:"At Ramraj Cotton, I serve as the in-house Data Analyst for the Production Planning & Control (PPC) Department. My core responsibility is designing and maintaining interactive Power BI dashboards that deliver real-time visibility to sales, production, HR, and logistics teams across the organization.",
-    points:["Designed Power BI dashboards tracking sales, inventory, excess stock, and bin capacity across multiple product categories","Created 20+ DAX measures including growth %, variance, excess quantity, utilization %, and time-based comparisons","Built inventory and bin-capacity analysis models to support warehouse and planning decisions","Developed HR dashboard tracking headcount, attendance, attrition, and department-wise workforce distribution","Automated reporting workflows using Power BI and Excel, reducing manual effort by 40%","Worked with ERP (SAP) data and performed data validation and quality checks before reporting","Collaborated with operations and management teams to convert business requirements into analytical dashboards"],
+    points:["Developed comprehensive Primary and Secondary Sales Dashboards incorporating Region-wise and State-wise performance tracking, ABC Analysis, and Matrix calculations.", "Deployed a Production and Vendor Performance Tracker to monitor PO vs. Return quantities, On-Time In-Full (OTIF) metrics, and outstanding product-wise balances and reducing manual data processing time by 25%.", "Designed an HR Intelligence Dashboard providing deep-dive insights into Headcount and Departmental Attrition, enabling streamlined manpower planning.", "Optimized Transport and Logistics Analytics by evaluating bundle volume, total weight capacity, and multi-state availability to identify efficient logistics partners.", "Created a specialized Sub-brand Performance Model for the Towel category, analyzing sales velocity and market penetration across specific states.", "Developed a Pending Order Intelligence Dashboard to streamline warehouse operations, enabling product-wise box packaging planning which resulted in a 30% reduction in planning time and optimized manpower allocation.", "Developed 20+ advanced DAX measures per dashboard, including complex Time Intelligence, Dynamic Ranking, and Variance Analysis.", "Collaborated with cross-functional teams to translate business requirements into Glassmorphism-styled dashboards for real-time decision support."],
     tags:["Power BI","DAX","Power Query","Data Modeling","SAP/ERP","Excel","SQL","Inventory Analysis","Capacity Planning"]
   },
   prithvi:{
@@ -1122,7 +1122,7 @@ function openExpModal(id){
 // ─── DASHBOARD DATA ──────────────────────────────────────────────────
 const dashData = {
   'sales-primary':{num:"01",icon:"📊",title:"Sales Dashboard – Primary",tool:"Power BI",body:"The primary sales dashboard is the central nerve center for sales leadership, providing a unified, real-time view of overall performance across all channels, products, and time periods.",points:["Revenue trends vs. targets — identify over/under-performing periods at a glance","Top-performing products, regions, and sales reps ranked by revenue contribution","Month-over-month and year-over-year variance with drill-through capability","Real-time KPI cards: Total Sales, Average Order Value, Conversion Rate","Slicer-based filtering by region, product category, and time period"],value:"Enabled sales managers to make daily decisions backed by live data, reducing manual Excel reporting effort significantly."},
-  'sales-secondary':{num:"02",icon:"📉",title:"Sales Dashboard – Secondary",tool:"Power BI",body:"A supplementary deep-dive dashboard focused on granular customer-level and SKU-level analysis.",points:["Customer purchase frequency, retention rates, and lifetime value segmentation","SKU-level sales breakdown with reorder indicators and movement velocity","Channel-wise distribution: direct, wholesale, and online comparison","Discount impact analysis — quantifying revenue dilution vs. volume gain","Heatmap views for product-region performance combinations"],value:"Supports targeted campaigns, pricing decisions, and inventory alignment for the sales and marketing teams."},
+  'sales-secondary':{num:"02",icon:"📉",title:"Sales Dashboard – Secondary",tool:"Power BI",body:"A supplementary deep-dive dashboard focused on granular customer-level and SKU-level analysis.",points:["Customer purchase frequency, retention rates, and lifetime value segmentation","SKU-level sales breakdown with reorder indicators and movement velocity","Channel-wise distribution: COCO and FOFO","Heatmap views for product-region performance combinations"],value:"Supports targeted campaigns, pricing decisions, and inventory alignment for the sales and marketing teams."},
   production:{num:"03",icon:"🏭",title:"Production Dashboard",tool:"Power BI",body:"Monitors end-to-end manufacturing throughput, machine utilization, and production efficiency against daily and weekly targets.",points:["Real-time output vs. planned target — shift-by-shift tracking","Machine utilization rates and downtime classification (breakdown, maintenance, idle)","Defect rate trend analysis with root-cause drill-down by product line","Labour efficiency index and operator-level productivity metrics","Daily and weekly production summary reports for management review"],value:"Empowers production supervisors to detect bottlenecks immediately and take corrective action, improving OEE."},
   pending:{num:"04",icon:"⏳",title:"Pending Orders Dashboard",tool:"Power BI",body:"A real-time pipeline view of all open and overdue customer orders.",points:["Order aging analysis — 0–7 days, 8–30 days, and 30+ days overdue buckets","Priority flagging for high-value or SLA-bound orders nearing breach","Fulfillment stage breakdown: In Production, Packed, Ready-to-Dispatch","Customer-wise pending order volume for proactive communication","Daily refresh with alerts for orders crossing SLA thresholds"],value:"Reduced order delays and improved on-time delivery rates by giving teams a single, always-current source of truth."},
   inventory:{num:"05",icon:"📦",title:"Inventory & Bin Capacity Dashboard",tool:"Power BI + DAX",body:"An end-to-end Power BI solution integrating stock, sales, and capacity data to support warehouse and planning operations.",points:["Excess stock identification using DAX measures — flagging slow-moving and overstock items","Bin utilization % and capacity analysis across warehouse locations","Stock vs. demand comparison to identify underutilized and overloaded bins","Category-wise inventory health view for planning and procurement teams","Management view to identify overstock, underutilized bins, and demand patterns"],value:"Enabled management to identify overstock positions and optimize warehouse bin allocation."},
@@ -1147,6 +1147,7 @@ function openDashModal(id){
 </script>
 </body>
 </html>
+
 
 
 
