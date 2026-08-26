@@ -64,7 +64,7 @@
     letter-spacing: 3px; text-decoration: none;
     font-weight: 500;
   }
-  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
   .nav-links a {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px; color: var(--textdim);
@@ -79,6 +79,17 @@
   }
   .nav-links a:hover { color: var(--teal); }
   .nav-links a:hover::after { width: 100%; }
+  .fullscreen-btn {
+    width: 30px; height: 30px;
+    background: rgba(0,200,168,0.07);
+    border: 1px solid rgba(0,200,168,0.3);
+    color: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.25s; border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .fullscreen-btn:hover { background: rgba(0,200,168,0.2); border-color: var(--teal); }
+  .fullscreen-btn svg { width: 14px; height: 14px; }
 
   #hero {
     min-height: 100vh;
@@ -374,7 +385,31 @@
     background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.2); padding: 4px 9px;
   }
 
-  #education { background: var(--navy); }
+  #featured { background: var(--navy); }
+  .featured-card {
+    background: var(--card); border: 1px solid var(--border2);
+    padding: 44px; position: relative; overflow: hidden;
+  }
+  .featured-card::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,200,168,0.09), transparent 70%);
+  }
+  .featured-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--navy);
+    background: var(--teal); letter-spacing: 2px; text-transform: uppercase;
+    padding: 5px 12px; margin-bottom: 22px; font-weight: 700;
+  }
+  .featured-title { font-family: 'Instrument Serif', serif; font-size: 28px; font-weight: 400; color: var(--text); margin-bottom: 18px; letter-spacing: -0.4px; max-width: 720px; }
+  .featured-list { list-style: none; display: flex; flex-direction: column; gap: 12px; max-width: 780px; }
+  .featured-list li { font-size: 14px; line-height: 1.8; color: var(--textdim); padding-left: 20px; position: relative; font-weight: 300; }
+  .featured-list li::before { content: '→'; position: absolute; left: 0; color: var(--teal); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .featured-list strong { color: var(--text); font-weight: 500; }
+  .featured-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .featured-pill { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); border: 1px solid rgba(0,200,168,0.25); padding: 5px 12px; letter-spacing: 1px; }
+
+  #education { background: var(--navy2); }
   .edu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
   .edu-card {
     background: var(--card); border: 1px solid var(--border);
@@ -541,6 +576,7 @@
     .skills-detail-grid { grid-template-columns: 1fr; }
     .intern-grid { grid-template-columns: 1fr; }
     footer { padding: 20px; }
+    .featured-card { padding: 28px; }
   }
   @media (max-width: 600px) {
     .dash-grid { grid-template-columns: 1fr; }
@@ -563,18 +599,33 @@
     <li><a onclick="smoothNav(event,'experience')">Experience</a></li>
     <li><a onclick="smoothNav(event,'internships')">Internships</a></li>
     <li><a onclick="smoothNav(event,'dashboards')">Dashboards</a></li>
+    <li><a onclick="smoothNav(event,'featured')">Featured</a></li>
     <li><a onclick="smoothNav(event,'certifications')">Certifications</a></li>
     <li><a onclick="smoothNav(event,'education')">Education</a></li>
     <li><a onclick="smoothNav(event,'contact')">Contact</a></li>
+    <li>
+      <button class="fullscreen-btn" id="fsBtn" onclick="toggleFullscreen()" title="Toggle full screen">
+        <svg id="fsIconOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        <svg id="fsIconClose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4"/></svg>
+      </button>
+    </li>
   </ul>
 </nav>
+
+<!-- FULLSCREEN PROMPT (shown once, since browsers block auto-fullscreen without a click) -->
+<div id="fsPrompt" style="position:fixed;bottom:22px;right:22px;z-index:500;background:var(--card);border:1px solid rgba(0,200,168,0.35);padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 12px 40px rgba(0,0,0,0.4);max-width:300px;">
+  <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--textdim);letter-spacing:0.5px;line-height:1.6;">Tap to view this portfolio in full screen — works the same in Chrome, Edge & mobile.</span>
+  <button class="fullscreen-btn" style="flex-shrink:0" onclick="toggleFullscreen()" title="Enter full screen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+  </button>
+</div>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-grid-bg"></div>
   <div class="hero-glow"></div>
   <div class="hero-left">
-    <div class="hero-tag">Data Analyst · Power BI · SQL · Excel</div>
+    <div class="hero-tag">Data Analyst · Power BI Developer · SQL · Python</div>
     <h1 class="hero-name">VIGNESH<span>WARAN</span> S</h1>
     <p class="hero-role">Turning Raw Data Into Decisions</p>
     <div class="hero-contacts">
@@ -582,7 +633,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.1a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17.5 2 2 0 0 1 22 16.92z"/></svg>
         7639971035
       </a>
-      <a href="mailto:vignes.5416@gmail.com" class="hero-contact-item">
+      <a href="mailto:vigneshw.5416@gmail.com" class="hero-contact-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         vigneshw.5416@gmail.com
       </a>
@@ -592,10 +643,10 @@
       </a>
       <span class="hero-contact-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Tirupur, India
+        Tirupur, Tamil Nadu
       </span>
     </div>
-    <p class="hero-desc">Power BI–focused Data Analyst with 2 years of hands-on experience building interactive dashboards, writing DAX measures, and delivering inventory and sales insights. Experienced in retail and textile domain analytics.</p>
+    <p class="hero-desc">Data Analyst and Power BI Developer with 3+ years of experience building operational dashboards, SLA and performance-tracking reports, and DAX/SQL data models for retail, export, and service operations. Proven record of replacing manual Excel reporting with automated Power BI/SQL/Python pipelines, cutting reporting turnaround time by 25–30%.</p>
     <div class="hero-btns">
       <button class="btn-primary" onclick="smoothNav(event,'dashboards')">View Dashboards</button>
       <button class="btn-outline" onclick="smoothNav(event,'experience')">My Experience</button>
@@ -609,9 +660,9 @@
       <div class="orb-center">
         <div class="orb-stat"><div class="orb-num">20+</div><div class="orb-label">Dashboards</div></div>
         <div class="orb-divider"></div>
-        <div class="orb-stat"><div class="orb-num">2Y</div><div class="orb-label">Experience</div></div>
+        <div class="orb-stat"><div class="orb-num">3+Y</div><div class="orb-label">Experience</div></div>
         <div class="orb-divider"></div>
-        <div class="orb-stat"><div class="orb-num">20+</div><div class="orb-label">DAX Measures</div></div>
+        <div class="orb-stat"><div class="orb-num">3</div><div class="orb-label">Companies</div></div>
       </div>
     </div>
   </div>
@@ -627,22 +678,22 @@
         <div class="avatar">VS</div>
         <div>
           <div class="about-name">VIGNESHWARAN S</div>
-          <div class="about-dept">// Data Analyst</div>
+          <div class="about-dept">// Data Analyst / Power BI Developer</div>
         </div>
       </div>
       <div class="info-rows">
-        <div class="info-row"><span class="info-key">Department</span><span class="info-val">IT - Data Analytics</span></div>
-        <div class="info-row"><span class="info-key">Experience</span><span class="info-val">2 Years</span></div>
-        <div class="info-row"><span class="info-key">Domain</span><span class="info-val">Textile & Apparel Manufacturing</span></div>
-        <div class="info-row"><span class="info-key">Primary Tools</span><span class="info-val">Python, Power BI, SQL, Excel</span></div>
-        <div class="info-row"><span class="info-key">Systems</span><span class="info-val">SAP / ERP</span></div>
-        <div class="info-row"><span class="info-key">Location</span><span class="info-val">Tirupur, India</span></div>
+        <div class="info-row"><span class="info-key">Department</span><span class="info-val">IT - Data Analytics & BI</span></div>
+        <div class="info-row"><span class="info-key">Experience</span><span class="info-val">3+ Years</span></div>
+        <div class="info-row"><span class="info-key">Domain</span><span class="info-val">Textile, Retail & BPO Operations</span></div>
+        <div class="info-row"><span class="info-key">Primary Tools</span><span class="info-val">Power BI, SQL, Python, Excel</span></div>
+        <div class="info-row"><span class="info-key">Systems</span><span class="info-val">SAP B1 / ERP, OPENQUERY</span></div>
+        <div class="info-row"><span class="info-key">Location</span><span class="info-val">Tirupur, Tamil Nadu</span></div>
       </div>
     </div>
     <div class="reveal reveal-delay-2">
-      <p class="about-bio">I'm a <strong>Power BI–focused Data Analyst</strong> with hands-on experience in building interactive dashboards, writing DAX measures, and delivering <strong>inventory and sales insights</strong> for textile and retail operations.</p>
-      <p class="about-bio">My work spans end-to-end analytics — from raw data extraction using <strong>SQL and ERP/SAP systems</strong> to publishing polished Power BI reports used daily by production, sales, HR, and planning teams. I've created <strong>20+ DAX measures</strong> including growth %, variance, excess quantity, utilization %, and time-based comparisons.</p>
-      <p class="about-bio">I believe great data work isn't just about numbers — it's about <strong>telling the right story</strong> at the right time, to the right person.</p>
+      <p class="about-bio">I'm a <strong>Data Analyst and Power BI Developer</strong> with 3+ years building operational dashboards, SLA and performance-tracking reports, and DAX/SQL data models across retail, export, and service operations.</p>
+      <p class="about-bio">My work spans end-to-end analytics — from high-volume <strong>SAP ERP extraction using window functions, CTEs, and OPENQUERY</strong> across linked servers, to publishing Row-Level-Secured Power BI reports used daily by production, sales, HR, and logistics teams.</p>
+      <p class="about-bio">I've built a track record of <strong>replacing manual Excel reporting with automated Power BI/SQL/Python pipelines</strong>, cutting reporting turnaround time by 25–30% and improving data accuracy across enterprise ERP environments.</p>
     </div>
   </div>
 </section>
@@ -652,35 +703,41 @@
   <div class="section-label">Tech Stack</div>
   <h2 class="section-title">Skills & <span>Tools</span></h2>
   <div class="skills-grid">
-    <div class="skill-card reveal reveal-delay-1" data-level="92"><div class="skill-icon">⚡</div><div class="skill-name">Power BI</div><div class="skill-cat">BI Platform</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
+    <div class="skill-card reveal reveal-delay-1" data-level="94"><div class="skill-icon">⚡</div><div class="skill-name">Power BI</div><div class="skill-cat">BI Platform</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
     <div class="skill-card reveal reveal-delay-2" data-level="90"><div class="skill-icon">📊</div><div class="skill-name">Microsoft Excel</div><div class="skill-cat">Spreadsheet</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
-    <div class="skill-card reveal reveal-delay-3" data-level="78"><div class="skill-icon">🗄️</div><div class="skill-name">SQL</div><div class="skill-cat">Database</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
-    <div class="skill-card reveal reveal-delay-4" data-level="70"><div class="skill-icon">🐍</div><div class="skill-name">Python</div><div class="skill-cat">Programming</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
-    <div class="skill-card reveal reveal-delay-5" data-level="68"><div class="skill-icon">📈</div><div class="skill-name">Tableau</div><div class="skill-cat">BI Platform</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
+    <div class="skill-card reveal reveal-delay-3" data-level="86"><div class="skill-icon">🗄️</div><div class="skill-name">SQL</div><div class="skill-cat">Database</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
+    <div class="skill-card reveal reveal-delay-4" data-level="75"><div class="skill-icon">🐍</div><div class="skill-name">Python</div><div class="skill-cat">Programming</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
+    <div class="skill-card reveal reveal-delay-5" data-level="70"><div class="skill-icon">📈</div><div class="skill-name">Tableau</div><div class="skill-cat">BI Platform</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
   </div>
   <div class="skills-detail-grid">
     <div class="skills-detail-card reveal reveal-delay-1">
       <div class="skills-detail-title">Power BI</div>
       <div class="skills-detail-items">
-        <span class="skills-detail-tag">DAX</span><span class="skills-detail-tag">Data Modeling</span><span class="skills-detail-tag">Power Query</span><span class="skills-detail-tag">Measures</span><span class="skills-detail-tag">KPI Cards</span>
+        <span class="skills-detail-tag">Advanced DAX</span><span class="skills-detail-tag">M Language</span><span class="skills-detail-tag">Power Query</span><span class="skills-detail-tag">Row-Level Security</span><span class="skills-detail-tag">Data Modeling</span><span class="skills-detail-tag">KPI Cards</span>
       </div>
     </div>
     <div class="skills-detail-card reveal reveal-delay-2">
-      <div class="skills-detail-title">Data Analysis</div>
+      <div class="skills-detail-title">Database & Querying</div>
       <div class="skills-detail-items">
-        <span class="skills-detail-tag">Inventory Analysis</span><span class="skills-detail-tag">Excess Stock</span><span class="skills-detail-tag">Capacity Planning</span><span class="skills-detail-tag">Sales Trend Analysis</span>
+        <span class="skills-detail-tag">PostgreSQL</span><span class="skills-detail-tag">MySQL</span><span class="skills-detail-tag">Google BigQuery</span><span class="skills-detail-tag">CTEs</span><span class="skills-detail-tag">Window Functions</span><span class="skills-detail-tag">OPENQUERY</span><span class="skills-detail-tag">Query Optimization</span>
       </div>
     </div>
     <div class="skills-detail-card reveal reveal-delay-3">
-      <div class="skills-detail-title">SQL</div>
+      <div class="skills-detail-title">ETL & Data Architecture</div>
       <div class="skills-detail-items">
-        <span class="skills-detail-tag">Joins</span><span class="skills-detail-tag">Group By</span><span class="skills-detail-tag">Subqueries</span><span class="skills-detail-tag">Aggregations</span>
+        <span class="skills-detail-tag">Power Query</span><span class="skills-detail-tag">ETL Pipelines</span><span class="skills-detail-tag">Star/Snowflake Schema</span><span class="skills-detail-tag">SAP ERP Integration</span><span class="skills-detail-tag">Data Cleaning</span>
       </div>
     </div>
     <div class="skills-detail-card reveal reveal-delay-4">
-      <div class="skills-detail-title">Excel</div>
+      <div class="skills-detail-title">Programming & Automation</div>
       <div class="skills-detail-items">
-        <span class="skills-detail-tag">XLOOKUP</span><span class="skills-detail-tag">INDEX-MATCH</span><span class="skills-detail-tag">Pivot Tables</span><span class="skills-detail-tag">Power Pivot</span>
+        <span class="skills-detail-tag">Python (Pandas/NumPy/Flask)</span><span class="skills-detail-tag">XLOOKUP</span><span class="skills-detail-tag">Pivot Tables</span><span class="skills-detail-tag">Power Pivot</span><span class="skills-detail-tag">VBA Macros</span>
+      </div>
+    </div>
+    <div class="skills-detail-card reveal reveal-delay-5">
+      <div class="skills-detail-title">Analytics Frameworks</div>
+      <div class="skills-detail-items">
+        <span class="skills-detail-tag">ABC Analysis</span><span class="skills-detail-tag">OTIF Metrics</span><span class="skills-detail-tag">Workforce & Attrition Analytics</span><span class="skills-detail-tag">Inventory Velocity</span><span class="skills-detail-tag">Trend Forecasting</span>
       </div>
     </div>
   </div>
@@ -698,9 +755,9 @@
           <div class="exp-company">Ramraj Cotton's</div>
           <div class="exp-period">May 2025 – Present</div>
         </div>
-        <div class="exp-role">Data Analyst / Production Planner — PPC Department</div>
-        <p class="exp-desc">Developed comprehensive Sales, HR Intelligence, Transport & Logistics, and Pending Order dashboards with Glassmorphism-styled design. Engineered 20+ advanced DAX measures per dashboard — including Time Intelligence, Dynamic Ranking, and Variance Analysis — reducing planning time by 30% and manual processing by 25%.</p>
-        <div class="exp-tags"><span class="exp-tag">Power BI</span><span class="exp-tag">DAX</span><span class="exp-tag">SAP/ERP</span><span class="exp-tag">Excel</span><span class="exp-tag">SQL</span></div>
+        <div class="exp-role">Data Analyst — IT SW, Data Analytics & Business Intelligence</div>
+        <p class="exp-desc">Built automated Power BI and SQL-driven reporting to replace manual Excel processes, giving real-time visibility into sales, inventory, vendor delivery, and workforce metrics. Extracted high-volume SAP ERP data with window functions and CTEs, and delivered a BOM-based Stock Allocation engine via T-SQL and OPENQUERY.</p>
+        <div class="exp-tags"><span class="exp-tag">Power BI</span><span class="exp-tag">DAX</span><span class="exp-tag">T-SQL / OPENQUERY</span><span class="exp-tag">SAP ERP</span><span class="exp-tag">Excel</span></div>
         <div class="exp-click-hint">↗ Click to view full details</div>
       </div>
     </div>
@@ -711,9 +768,22 @@
           <div class="exp-company">Prithvi Inner Wears Pvt Ltd</div>
           <div class="exp-period">Dec 2024 – Apr 2025</div>
         </div>
-        <div class="exp-role">Data Analyst – Product Development</div>
-        <p class="exp-desc">Developed Power BI and Tableau dashboards for retail and product performance analysis across regions. Created Excel-based MIS reports and used SQL queries to extract and aggregate sales and operational data.</p>
-        <div class="exp-tags"><span class="exp-tag">Power BI</span><span class="exp-tag">Tableau</span><span class="exp-tag">Excel MIS</span><span class="exp-tag">SQL</span></div>
+        <div class="exp-role">Data Analyst — Data Analytics & Reporting</div>
+        <p class="exp-desc">Built region-wise product performance dashboards in Power BI and Tableau, and automated MIS reporting that had been manual and Excel-based, giving management faster and more accurate visibility into sales and production trends.</p>
+        <div class="exp-tags"><span class="exp-tag">Power BI</span><span class="exp-tag">Tableau</span><span class="exp-tag">SQL</span><span class="exp-tag">Power Pivot</span><span class="exp-tag">VBA Macros</span></div>
+        <div class="exp-click-hint">↗ Click to view full details</div>
+      </div>
+    </div>
+    <div class="exp-item reveal reveal-delay-3" onclick="openExpModal('corefront')">
+      <div class="exp-dot-wrap"><div class="exp-dot">🎧</div></div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-company">Core front Technologies</div>
+          <div class="exp-period">May 2024 – Dec 2024</div>
+        </div>
+        <div class="exp-role">Data Analyst — Data Analytics & Business Intelligence (IT Ops / BPM)</div>
+        <p class="exp-desc">Built a centralized Power BI reporting engine tracking client SLAs, daily production volumes, and quality metrics for a BPO service-delivery client, while analyzing workforce productivity and attrition trends to support resource allocation.</p>
+        <div class="exp-tags"><span class="exp-tag">Power BI</span><span class="exp-tag">SQL</span><span class="exp-tag">Excel</span><span class="exp-tag">SLA Tracking</span></div>
         <div class="exp-click-hint">↗ Click to view full details</div>
       </div>
     </div>
@@ -730,12 +800,12 @@
       <div class="intern-logo">🏢</div>
       <div class="intern-company">Tata Group</div>
       <div class="intern-role">Data Analyst Intern</div>
-      <div class="intern-period">Jun 2023 – Jul 2023 · 2 Months · Virtual / Hybrid</div>
+      <div class="intern-period">Mar 2023 – May 2023 · Virtual / Hybrid</div>
       <ul class="intern-points">
         <li>Built 5+ dashboards for finance and product teams to monitor ROI and customer behavior</li>
         <li>Unified data pipelines across 3 platforms, simplifying campaign reporting workflows</li>
       </ul>
-      <button class="intern-cert-btn" onclick="openCertViewer('Tata Group — Data Analyst Intern','Jun 2023 – Jul 2023','https://www.theforage.com/completion-certificates/Tata/MyXvBcppsW2FkNYCX_Tata_CuDrGdgfPjWCCQs8H_1685528255195_completion_certificate.pdf')">
+      <button class="intern-cert-btn" onclick="openCertViewer('Tata Group — Data Analyst Intern','Mar 2023 – May 2023','https://www.theforage.com/completion-certificates/Tata/MyXvBcppsW2FkNYCX_Tata_CuDrGdgfPjWCCQs8H_1685528255195_completion_certificate.pdf')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         View Certificate
       </button>
@@ -745,10 +815,10 @@
       <div class="intern-logo">📊</div>
       <div class="intern-company">Accenture</div>
       <div class="intern-role">North America Data Analytics & Visualization</div>
-      <div class="intern-period">Mar 2023 – May 2023 · 3 Months · Virtual / Remote</div>
+      <div class="intern-period">Mar 2023 – May 2023 · Virtual / Remote</div>
       <ul class="intern-points">
+        <li>Executed end-to-end analytics — scoping, data cleaning, modelling, and storytelling</li>
         <li>Delivered actionable insights to top leadership (CEO & CMO) through data visualization projects</li>
-        <li>Applied data visualization techniques to address key challenges faced by executives</li>
         <li>Empowered decision-making, identified trends, and improved overall business strategies</li>
       </ul>
       <button class="intern-cert-btn" onclick="openCertViewer('Accenture — Data Analytics & Visualization','Mar 2023 – May 2023','https://www.theforage.com/completion-certificates/Accenture%20North%20America/hzmoNKtzvAzXsEqx8_Accenture%20North%20America_CuDrGdgfPjWCCQs8H_1685523290504_completion_certificate.pdf')">
@@ -760,14 +830,14 @@
     <div class="intern-card reveal reveal-delay-3">
       <div class="intern-logo">🔷</div>
       <div class="intern-company">Cognizant</div>
-      <div class="intern-role">Data Analytics Intern</div>
-      <div class="intern-period">Mar 2023 – May 2023 · 3 Months · Virtual / Hybrid</div>
+      <div class="intern-role">Data Analyst Intern</div>
+      <div class="intern-period">Jun 2023 – Jul 2023 · Virtual / Hybrid</div>
       <ul class="intern-points">
+        <li>Performed EDA, data modelling, and statistical validation for production-ready insights</li>
         <li>Streamlined ETL pipeline operations using SQL & Databricks, improving data refresh rates by 35%</li>
         <li>Delivered predictive models in Python, impacting product strategies for 2 enterprise teams</li>
-        <li>Generated stakeholder-focused dashboards aligned with agile metrics</li>
       </ul>
-      <button class="intern-cert-btn" onclick="openCertViewer('Cognizant — Data Analytics Intern','Mar 2023 – May 2023','https://www.theforage.com/completion-certificates/Cognizant/5N2ygyhzMWjKQmgCK_Cognizant_CuDrGdgfPjWCCQs8H_1690263616153_completion_certificate.pdf')">
+      <button class="intern-cert-btn" onclick="openCertViewer('Cognizant — Data Analytics Intern','Jun 2023 – Jul 2023','https://www.theforage.com/completion-certificates/Cognizant/5N2ygyhzMWjKQmgCK_Cognizant_CuDrGdgfPjWCCQs8H_1690263616153_completion_certificate.pdf')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         View Certificate
       </button>
@@ -797,16 +867,16 @@
     </div>
     <div class="dash-card reveal reveal-delay-3" onclick="openDashModal('production')">
       <div class="dash-num">03 ——</div><span class="dash-icon">🏭</span>
-      <div class="dash-title">Production Dashboard</div>
-      <div class="dash-tool">Python + Power BI</div>
-      <p class="dash-desc">Deployed a Production and Vendor Performance Tracker to monitor PO vs. Return quantities, On-Time In-Full (OTIF) metrics, and outstanding product-wise balances and reducing manual data processing time by 25%.</p>
+      <div class="dash-title">Production & Vendor Performance Tracker</div>
+      <div class="dash-tool">Power BI + DAX</div>
+      <p class="dash-desc">DAX-driven PO vs. Return and On-Time In-Full (OTIF) tracking, plus outstanding product-wise balances, cutting manual data processing time by 25%.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
     <div class="dash-card reveal reveal-delay-4" onclick="openDashModal('pending')">
       <div class="dash-num">04 ——</div><span class="dash-icon">⏳</span>
       <div class="dash-title">Pending Orders Dashboard</div>
       <div class="dash-tool">Power BI</div>
-      <p class="dash-desc">Developed a Pending Order Intelligence Dashboard to streamline warehouse operations, enabling product-wise box packaging planning which resulted in a 30% reduction in planning time and optimized manpower allocation.</p>
+      <p class="dash-desc">Time-intelligence DAX for warehouse planning, enabling product-wise box packaging planning and a 30% reduction in manpower planning time.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
     <div class="dash-card reveal reveal-delay-5" onclick="openDashModal('inventory')">
@@ -818,24 +888,50 @@
     </div>
     <div class="dash-card reveal reveal-delay-1" onclick="openDashModal('hr')">
       <div class="dash-num">06 ——</div><span class="dash-icon">👥</span>
-      <div class="dash-title">HR Dashboard</div>
-      <div class="dash-tool">Power BI + Dax</div>
-      <p class="dash-desc">Workforce analytics covering headcount, attendance, attrition trends, department-wise employee distribution, and HR KPI tracking for management.</p>
+      <div class="dash-title">Workforce / HR Analytics Dashboard</div>
+      <div class="dash-tool">Power BI + DAX</div>
+      <p class="dash-desc">Tracks month-over-month attrition, department turnover, tenure distribution, headcount and attendance for resource optimization.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
     <div class="dash-card reveal reveal-delay-2" onclick="openDashModal('towel')">
       <div class="dash-num">07 ——</div><span class="dash-icon">🧺</span>
       <div class="dash-title">Towel Sales Report</div>
-      <div class="dash-tool">Power BI + Dax</div>
-      <p class="dash-desc">Created a specialized Sub-brand Performance Model for the Towel category, analyzing sales velocity and market penetration across specific states.</p>
+      <div class="dash-tool">Python + Power BI</div>
+      <p class="dash-desc">Specialized sub-brand performance model for the Towel category, analyzing sales velocity and market penetration across specific states.</p>
       <div class="dash-arrow">View Details →</div>
     </div>
-      <div class="dash-card reveal reveal-delay-2" onclick="openDashModal('towel')">
-      <div class="dash-num">07 ——</div><span class="dash-icon">🚛</span>
+    <div class="dash-card reveal reveal-delay-3" onclick="openDashModal('logistics')">
+      <div class="dash-num">08 ——</div><span class="dash-icon">🚛</span>
       <div class="dash-title">Transport and Logistics Analysis</div>
-      <div class="dash-tool">Power BI + Dax</div>
-      <p class="dash-desc"> Optimized Transport and Logistics Analytics by evaluating bundle volume, total weight capacity, and multi-state availability to identify efficient logistics partners.</p>
+      <div class="dash-tool">Power BI + DAX</div>
+      <p class="dash-desc">Optimized transport and logistics analytics by evaluating bundle volume, total weight capacity, and multi-state availability to identify efficient logistics partners.</p>
       <div class="dash-arrow">View Details →</div>
+    </div>
+    <div class="dash-card reveal reveal-delay-4" onclick="openDashModal('sla')">
+      <div class="dash-num">09 ——</div><span class="dash-icon">🎧</span>
+      <div class="dash-title">Operational SLA & Performance Intelligence Engine</div>
+      <div class="dash-tool">Power BI</div>
+      <p class="dash-desc">Centralized reporting engine tracking client SLAs, daily production volumes, quality metrics, and workforce productivity/attrition trends for a BPO client.</p>
+      <div class="dash-arrow">View Details →</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECT -->
+<section id="featured">
+  <div class="section-label">Signature Build</div>
+  <h2 class="section-title">Featured <span>Project</span></h2>
+  <div class="featured-card reveal">
+    <div class="featured-badge">⚙ T-SQL Engine</div>
+    <div class="featured-title">BOM-Based Stock Allocation & Shortage Alert Engine</div>
+    <ul class="featured-list">
+      <li>A <strong>T-SQL engine</strong> separating direct-sale from BOM-based orders, exploding each order to child items, and checking stock across <strong>7 warehouses</strong> in real time.</li>
+      <li>Four layered CTEs — <strong>Clean BOM, Combined Orders, Consolidated Stock, Demand-vs-Supply Rollup</strong> — pulled live from SAP B1 via <strong>OPENQUERY</strong>.</li>
+      <li>Feeds a <strong>Power BI</strong> view that surfaces shortages before dispatch, replacing a manual Excel-based stock check process.</li>
+    </ul>
+    <div class="featured-pills">
+      <span class="featured-pill">T-SQL</span><span class="featured-pill">Layered CTEs</span><span class="featured-pill">OPENQUERY</span><span class="featured-pill">SAP B1</span><span class="featured-pill">Power BI</span>
+    </div>
   </div>
 </section>
 
@@ -880,7 +976,6 @@
         View Certificate
       </div>
     </div>
-    <!-- NEW: Introduction to Data Analytics -->
     <div class="cert-card reveal reveal-delay-5" onclick="openCertViewer('Introduction to Data Analytics','Professional Certification','https://simpli-web.app.link/e/sVtcF9fml1b')">
       <div class="cert-icon">🔍</div>
       <div class="cert-name">Introduction to Data Analytics</div>
@@ -920,14 +1015,14 @@
     <div class="contact-big">Let's <span>Work</span><br>Together</div>
     <p class="contact-sub">Have a data challenge or want to discuss how I can build dashboards for your team? I'd love to connect.</p>
     <div class="contact-links">
-      <a href="mailto:vignes.5416@gmail.com" class="btn-primary">Send Email</a>
+      <a href="mailto:vigneshw.5416@gmail.com" class="btn-primary">Send Email</a>
       <a href="https://linkedin.com/in/vigneshwaran-s-670390266" target="_blank" class="btn-outline">LinkedIn</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>© 2025 <span>Vigneshwaran S</span> — Data Analyst, PPC Department · Tirupur</p>
+  <p>© 2025 <span>Vigneshwaran S</span> — Data Analyst / Power BI Developer · Tirupur</p>
 </footer>
 
 <!-- EXPERIENCE MODAL -->
@@ -975,6 +1070,58 @@ function smoothNav(e, id) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
+// ─── CROSS-BROWSER FULL SCREEN (Chrome, Edge, Firefox, Safari, mobile) ──
+function getFsElement() {
+  return document.fullscreenElement || document.webkitFullscreenElement ||
+         document.mozFullScreenElement || document.msFullscreenElement;
+}
+function requestFs(el) {
+  const req = el.requestFullscreen || el.webkitRequestFullscreen ||
+              el.webkitRequestFullScreen || el.mozRequestFullScreen ||
+              el.msRequestFullscreen;
+  if (req) {
+    const p = req.call(el);
+    if (p && p.catch) p.catch(()=>{ /* some browsers reject silently; ignore */ });
+  }
+}
+function exitFs() {
+  const exit = document.exitFullscreen || document.webkitExitFullscreen ||
+               document.webkitCancelFullScreen || document.mozCancelFullScreen ||
+               document.msExitFullscreen;
+  if (exit) exit.call(document);
+}
+function toggleFullscreen() {
+  if (getFsElement()) {
+    exitFs();
+  } else {
+    requestFs(document.documentElement);
+  }
+  const prompt = document.getElementById('fsPrompt');
+  if (prompt) prompt.style.display = 'none';
+}
+function syncFsIcon() {
+  const open = document.getElementById('fsIconOpen');
+  const close = document.getElementById('fsIconClose');
+  if (!open || !close) return;
+  if (getFsElement()) { open.style.display='none'; close.style.display='block'; }
+  else { open.style.display='block'; close.style.display='none'; }
+}
+['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(evt=>{
+  document.addEventListener(evt, syncFsIcon);
+});
+// Browsers (Chrome, Edge, Firefox, Safari) all require a real user gesture
+// to grant full screen — none allow it purely on page load. So instead of a
+// silent auto-attempt that only "works" in one browser, the very first tap
+// or click anywhere on the page (after the intro prompt) requests full
+// screen, giving identical behavior everywhere the page is opened.
+let fsArmed = true;
+document.addEventListener('click', function firstGestureFs(){
+  if (fsArmed && !getFsElement()) {
+    requestFs(document.documentElement);
+  }
+}, { once: false });
+window.addEventListener('load', () => setTimeout(()=>{ syncFsIcon(); }, 200));
 
 // ─── CURSOR ──────────────────────────────────────────────────────────
 const cursor = document.getElementById('cursor');
@@ -1092,17 +1239,24 @@ document.addEventListener('keydown', e => {
 const expData = {
   ramraj:{
     tag:"Current Position",title:"Ramraj Cotton's, Tirupur",
-    sub:"Data Analyst / Production Planner — PPC Department · May 2025 – Present",
-    body:"At Ramraj Cotton, I serve as the in-house Data Analyst for the Production Planning & Control (PPC) Department. My core responsibility is designing and maintaining interactive Power BI dashboards that deliver real-time visibility to sales, production, HR, and logistics teams across the organization.",
-    points:["Developed comprehensive Primary and Secondary Sales Dashboards incorporating Region-wise and State-wise performance tracking, ABC Analysis, and Matrix calculations.", "Deployed a Production and Vendor Performance Tracker to monitor PO vs. Return quantities, On-Time In-Full (OTIF) metrics, and outstanding product-wise balances and reducing manual data processing time by 25%.", "Designed an HR Intelligence Dashboard providing deep-dive insights into Headcount and Departmental Attrition, enabling streamlined manpower planning.", "Optimized Transport and Logistics Analytics by evaluating bundle volume, total weight capacity, and multi-state availability to identify efficient logistics partners.", "Created a specialized Sub-brand Performance Model for the Towel category, analyzing sales velocity and market penetration across specific states.", "Developed a Pending Order Intelligence Dashboard to streamline warehouse operations, enabling product-wise box packaging planning which resulted in a 30% reduction in planning time and optimized manpower allocation.", "Developed 20+ advanced DAX measures per dashboard, including complex Time Intelligence, Dynamic Ranking, and Variance Analysis.", "Collaborated with cross-functional teams to translate business requirements into Glassmorphism-styled dashboards for real-time decision support."],
-    tags:["Power BI","DAX","Power Query","Data Modeling","SAP/ERP","Excel","SQL","Inventory Analysis","Capacity Planning"]
+    sub:"Data Analyst — IT SW, Data Analytics & Business Intelligence · May 2025 – Present",
+    body:"Project: Sales and Market Analysis. Domain: Textile Industry. Ramraj Cotton is one of India's leading textile manufacturers and a pioneer in promoting Indian cultural attire, specializing in high-quality traditional and ethnic wear. Team size: 3. The project focused on building automated Power BI and SQL-driven reporting to replace manual Excel processes, enabling real-time visibility into sales performance, inventory movement, vendor delivery, and workforce metrics across the organization.",
+    points:["Extracted and shaped high-volume SAP ERP data using window functions and CTEs, eliminating reliance on pre-built static ERP reports.","Managed core Revenue & Operational Performance dashboards in Power BI — regional throughput, ABC inventory analysis, and dynamic ranking — enabling real-time, data-driven leadership decisions.","Built a Production & Vendor Performance Tracker (DAX-driven PO vs. Return and OTIF tracking) that cut manual data processing time by 25%.","Designed and delivered a BOM-Based Stock Allocation engine (T-SQL, layered CTEs, OPENQUERY) closing a critical supply-chain visibility gap.","Built a Pending Order Intelligence dashboard using time-intelligence DAX for warehouse planning, reducing manpower planning time by 30%.","Designed a Workforce Analytics dashboard tracking MoM attrition, department turnover, and tenure distribution for resource optimization."],
+    tags:["Power BI","DAX","T-SQL","OPENQUERY","SAP ERP","Excel","SQL","Inventory Analysis","Capacity Planning"]
   },
   prithvi:{
     tag:"Previous Position",title:"Prithvi Inner Wears Pvt Ltd",
-    sub:"Data Analyst – Product Development · Dec 2024 – Apr 2025",
-    body:"Developed dashboards and MIS reports for retail and product performance analysis. Supported regional sales analysis and product development decisions through structured data workflows and reporting automation.",
-    points:["Developed Power BI and Tableau dashboards for retail and product performance analysis across regions","Created Excel-based MIS reports with pivot tables and automated summaries for regular management review","Used SQL queries to extract and aggregate sales and operational data from transactional sources","Analyzed product and regional sales trends to identify growth and improvement opportunities","Improved reporting efficiency by streamlining data preparation and report formats for recurring MIS reporting"],
-    tags:["Power BI","Tableau","Excel MIS","SQL","Pivot Tables","Sales Analysis","Retail Analytics"]
+    sub:"Data Analyst — Data Analytics & Reporting · Dec 2024 – Apr 2025",
+    body:"Project: Market Analysis. Domain: Textile Industry. Prithvi Inner Wears Pvt Ltd is one of India's leading manufacturers of women's innerwear, managing high-volume daily production and a large workforce. Team size: 4. The project involved building region-wise product performance dashboards and automating MIS reporting to replace manual Excel-based processes, giving management faster and more accurate visibility into sales and production trends.",
+    points:["Built Power BI and Tableau dashboards comparing product performance across regions, turning raw transactional data into actionable growth insights.","Wrote and tuned transactional SQL queries for enterprise data extraction, improving report turnaround and pipeline performance.","Replaced a large share of manual MIS reporting with automated pipelines built on Power Pivot, XLOOKUP, and VBA macros."],
+    tags:["Power BI","Tableau","SQL","Power Pivot","XLOOKUP","VBA Macros","MIS Reporting"]
+  },
+  corefront:{
+    tag:"Previous Position",title:"Core front Technologies",
+    sub:"Data Analyst — Data Analytics & Business Intelligence · May 2024 – Dec 2024",
+    body:"Project: Operational SLA & Performance Intelligence Engine. Domain: IT Operations / Business Process Management (BPO). The client is a large enterprise focused on service delivery, requiring comprehensive tracking of daily production volumes, workforce productivity trends, and strict adherence to Service Level Agreements (SLAs). Team size: 4. Built a centralized Power BI reporting engine to track client SLAs, daily production volumes, and quality metrics, while analysing workforce productivity and attrition trends to support resource allocation decisions.",
+    points:["Built the Operational SLA & Performance Intelligence Engine in Power BI to track client SLAs, daily production volumes, and quality metrics.","Analysed workforce productivity and attrition trends using SQL and Excel to optimize resource allocation.","Cleaned and transformed raw client data from Excel and SQL databases into structured, decision-ready reports."],
+    tags:["Power BI","SQL","Excel","SLA Tracking","Workforce Analytics"]
   }
 };
 
@@ -1123,11 +1277,13 @@ function openExpModal(id){
 const dashData = {
   'sales-primary':{num:"01",icon:"📊",title:"Sales Dashboard – Primary",tool:"Power BI",body:"The primary sales dashboard is the central nerve center for sales leadership, providing a unified, real-time view of overall performance across all channels, products, and time periods.",points:["Revenue trends vs. targets — identify over/under-performing periods at a glance","Top-performing products, regions, and sales reps ranked by revenue contribution","Month-over-month and year-over-year variance with drill-through capability","Real-time KPI cards: Total Sales, Average Order Value, Conversion Rate","Slicer-based filtering by region, product category, and time period"],value:"Enabled sales managers to make daily decisions backed by live data, reducing manual Excel reporting effort significantly."},
   'sales-secondary':{num:"02",icon:"📉",title:"Sales Dashboard – Secondary",tool:"Power BI",body:"A supplementary deep-dive dashboard focused on granular customer-level and SKU-level analysis.",points:["Customer purchase frequency, retention rates, and lifetime value segmentation","SKU-level sales breakdown with reorder indicators and movement velocity","Channel-wise distribution: COCO and FOFO","Heatmap views for product-region performance combinations"],value:"Supports targeted campaigns, pricing decisions, and inventory alignment for the sales and marketing teams."},
-  production:{num:"03",icon:"🏭",title:"Production Dashboard",tool:"Power BI",body:"Monitors end-to-end manufacturing throughput, machine utilization, and production efficiency against daily and weekly targets.",points:["Real-time output vs. planned target — shift-by-shift tracking","Machine utilization rates and downtime classification (breakdown, maintenance, idle)","Defect rate trend analysis with root-cause drill-down by product line","Labour efficiency index and operator-level productivity metrics","Daily and weekly production summary reports for management review"],value:"Empowers production supervisors to detect bottlenecks immediately and take corrective action, improving OEE."},
-  pending:{num:"04",icon:"⏳",title:"Pending Orders Dashboard",tool:"Power BI",body:"A real-time pipeline view of all open and overdue customer orders.",points:["Order aging analysis — 0–7 days, 8–30 days, and 30+ days overdue buckets","Priority flagging for high-value or SLA-bound orders nearing breach","Fulfillment stage breakdown: In Production, Packed, Ready-to-Dispatch","Customer-wise pending order volume for proactive communication","Daily refresh with alerts for orders crossing SLA thresholds"],value:"Reduced order delays and improved on-time delivery rates by giving teams a single, always-current source of truth."},
-  inventory:{num:"05",icon:"📦",title:"Inventory & Bin Capacity Dashboard",tool:"Power BI + DAX",body:"An end-to-end Power BI solution integrating stock, sales, and capacity data to support warehouse and planning operations.",points:["Excess stock identification using DAX measures — flagging slow-moving and overstock items","Bin utilization % and capacity analysis across warehouse locations","Stock vs. demand comparison to identify underutilized and overloaded bins","Category-wise inventory health view for planning and procurement teams","Management view to identify overstock, underutilized bins, and demand patterns"],value:"Enabled management to identify overstock positions and optimize warehouse bin allocation."},
-  hr:{num:"06",icon:"👥",title:"HR Dashboard",tool:"Power BI",body:"A dedicated HR analytics dashboard providing a comprehensive view of workforce metrics, attendance patterns, and department-level staffing data.",points:["Headcount overview — total employees, department-wise distribution, and role breakdown","Attendance tracking — present, absent, and leave patterns with monthly trend lines","Attrition analysis — month-wise exits, department attrition rates, and tenure breakdown","New joiners vs. exits comparison for net headcount change monitoring","HR KPI cards: Total Headcount, Attrition %, Average Tenure, Attendance Rate"],value:"Gave HR and management teams a single view of workforce health, enabling data-driven decisions."},
-  towel:{num:"07",icon:"🧺",title:"Towel Sales Report",tool:"Python + Power BI",body:"A product-specific analytical report tracking towel category performance across weight, size, colour, and customer segments.",points:["Category contribution: Towel segment share of total product revenue over time","Variant-level analysis: GSM weight, size, and colour performance heatmaps","Buyer profile segmentation: hotel, retail, export, and institutional buyers","Python script for automated data extraction, cleaning, and transformation","Scheduled daily refresh — zero manual effort after initial setup"],value:"Supports product planning and procurement teams with high-demand variant insights."}
+  production:{num:"03",icon:"🏭",title:"Production & Vendor Performance Tracker",tool:"Power BI + DAX",body:"A DAX-driven tracker monitoring PO vs. Return quantities, On-Time In-Full (OTIF) delivery metrics, and outstanding product-wise balances against vendors.",points:["PO vs. Return quantity variance tracking by vendor and product","OTIF (On-Time In-Full) delivery performance scoring","Outstanding balance tracking, product-wise and vendor-wise","Drill-down views for late or short-shipped orders"],value:"Cut manual data processing time by 25% and gave planning teams a single live view of vendor reliability."},
+  pending:{num:"04",icon:"⏳",title:"Pending Orders Dashboard",tool:"Power BI",body:"A real-time pipeline view of all open and overdue customer orders, built on time-intelligence DAX for warehouse planning.",points:["Order aging analysis — 0–7 days, 8–30 days, and 30+ days overdue buckets","Priority flagging for high-value or SLA-bound orders nearing breach","Product-wise box packaging planning for warehouse operations","Customer-wise pending order volume for proactive communication"],value:"Reduced manpower planning time by 30% by giving teams a single, always-current source of truth."},
+  inventory:{num:"05",icon:"📦",title:"Inventory & Bin Capacity Dashboard",tool:"Power BI + DAX",body:"An end-to-end Power BI solution integrating stock, sales, and capacity data to support warehouse and planning operations.",points:["Excess stock identification using DAX measures — flagging slow-moving and overstock items","Bin utilization % and capacity analysis across warehouse locations","Stock vs. demand comparison to identify underutilized and overloaded bins","Category-wise inventory health view for planning and procurement teams"],value:"Enabled management to identify overstock positions and optimize warehouse bin allocation."},
+  hr:{num:"06",icon:"👥",title:"Workforce / HR Analytics Dashboard",tool:"Power BI + DAX",body:"A workforce analytics dashboard tracking month-over-month attrition, department turnover, and tenure distribution for resource optimization.",points:["Headcount overview — total employees, department-wise distribution, and role breakdown","Attendance tracking — present, absent, and leave patterns with monthly trend lines","Attrition analysis — MoM exits, department attrition rates, and tenure breakdown","HR KPI cards: Total Headcount, Attrition %, Average Tenure, Attendance Rate"],value:"Gave HR and management teams a single view of workforce health, enabling data-driven resource planning."},
+  towel:{num:"07",icon:"🧺",title:"Towel Sales Report",tool:"Python + Power BI",body:"A product-specific analytical report tracking towel category performance across weight, size, colour, and customer segments.",points:["Category contribution: Towel segment share of total product revenue over time","Variant-level analysis: GSM weight, size, and colour performance heatmaps","Buyer profile segmentation: hotel, retail, export, and institutional buyers","Python script for automated data extraction, cleaning, and transformation"],value:"Supports product planning and procurement teams with high-demand variant insights."},
+  logistics:{num:"08",icon:"🚛",title:"Transport and Logistics Analysis",tool:"Power BI + DAX",body:"An analytics view evaluating bundle volume, total weight capacity, and multi-state availability to identify efficient logistics partners.",points:["Bundle volume and weight capacity analysis by route and carrier","Multi-state availability mapping for logistics partner selection","Cost-per-shipment comparisons across partners","Delivery time and reliability tracking"],value:"Helped identify the most efficient logistics partners, improving delivery reliability and cost control."},
+  sla:{num:"09",icon:"🎧",title:"Operational SLA & Performance Intelligence Engine",tool:"Power BI",body:"A centralized reporting engine built for a BPO service-delivery client to track client SLAs, daily production volumes, and quality metrics.",points:["Client SLA adherence tracking with breach alerts","Daily production volume monitoring against targets","Quality metric scoring and trend analysis","Workforce productivity and attrition trend analysis feeding resource allocation decisions"],value:"Gave operations leadership a single source of truth for SLA compliance and workforce planning."}
 };
 
 function openDashModal(id){
@@ -1147,9 +1303,3 @@ function openDashModal(id){
 </script>
 </body>
 </html>
-
-
-
-
-
-
