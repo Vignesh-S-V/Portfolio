@@ -1071,32 +1071,75 @@ function smoothNav(e, id) {
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ─── CROSS-BROWSER FULL SCREEN (Chrome, Edge, Firefox, Safari, mobile) ──
-function getFsElement() {
-  return document.fullscreenElement || document.webkitFullscreenElement ||
-         document.mozFullScreenElement || document.msFullscreenElement;
+// ─── CROSS-BROWSER, CROSS-EMBED FULL SCREEN ─────────────────────────
+// This page can be opened directly OR embedded inside another site's
+// iframe (e.g. a Streamlit app using components.html). A nested iframe
+// usually has no allowfullscreen attribute set by the host, and Edge
+// (unlike Chrome) strictly blocks fullscreen on such a frame. The fix:
+// never request fullscreen on *this* document if we're embedded — walk
+// up to the real outer browser tab (window.top) and request it there
+// instead, since the top-level tab always has full permission,
+// regardless of which site or app is hosting this page.
+
+function accessibleDoc(win) {
+  try { return win && win.document ? win.document : null; } catch (e) { return null; } // cross-origin throws
 }
-function requestFs(el) {
+function fsTargetChain() {
+  const chain = [];
+  const topDoc = accessibleDoc(window.top);
+  if (topDoc) chain.push(topDoc.documentElement);
+  if (window.parent !== window) {
+    const parentDoc = accessibleDoc(window.parent);
+    if (parentDoc && !chain.includes(parentDoc.documentElement)) chain.push(parentDoc.documentElement);
+  }
+  chain.push(document.documentElement); // always-available final fallback: this frame itself
+  return chain;
+}
+function getFsElement(doc) {
+  doc = doc || document;
+  return doc.fullscreenElement || doc.webkitFullscreenElement ||
+         doc.mozFullScreenElement || doc.msFullscreenElement;
+}
+function anyFsActive() {
+  const docs = [document];
+  const topDoc = accessibleDoc(window.top); if (topDoc) docs.push(topDoc);
+  const parentDoc = accessibleDoc(window.parent); if (parentDoc) docs.push(parentDoc);
+  return docs.some(d => getFsElement(d));
+}
+function requestFsOn(el) {
   const req = el.requestFullscreen || el.webkitRequestFullscreen ||
               el.webkitRequestFullScreen || el.mozRequestFullScreen ||
               el.msRequestFullscreen;
-  if (req) {
+  if (!req) return false;
+  try {
     const p = req.call(el);
-    if (p && p.catch) p.catch(()=>{ /* some browsers reject silently; ignore */ });
-  }
+    if (p && p.catch) p.catch(()=>{});
+    return true;
+  } catch (e) { return false; }
 }
-function exitFs() {
-  const exit = document.exitFullscreen || document.webkitExitFullscreen ||
-               document.webkitCancelFullScreen || document.mozCancelFullScreen ||
-               document.msExitFullscreen;
-  if (exit) exit.call(document);
+function requestFsChain() {
+  // Try the outermost reachable context first; fall inward only if blocked.
+  for (const el of fsTargetChain()) {
+    if (el && requestFsOn(el)) return true;
+  }
+  return false;
+}
+function exitFsChain() {
+  const docs = [document];
+  const topDoc = accessibleDoc(window.top); if (topDoc) docs.unshift(topDoc);
+  const parentDoc = accessibleDoc(window.parent); if (parentDoc) docs.push(parentDoc);
+  for (const doc of docs) {
+    if (getFsElement(doc)) {
+      const exit = doc.exitFullscreen || doc.webkitExitFullscreen ||
+                   doc.webkitCancelFullScreen || doc.mozCancelFullScreen ||
+                   doc.msExitFullscreen;
+      if (exit) { exit.call(doc); return; }
+    }
+  }
 }
 function toggleFullscreen() {
-  if (getFsElement()) {
-    exitFs();
-  } else {
-    requestFs(document.documentElement);
-  }
+  if (anyFsActive()) exitFsChain();
+  else requestFsChain();
   const prompt = document.getElementById('fsPrompt');
   if (prompt) prompt.style.display = 'none';
 }
@@ -1104,22 +1147,19 @@ function syncFsIcon() {
   const open = document.getElementById('fsIconOpen');
   const close = document.getElementById('fsIconClose');
   if (!open || !close) return;
-  if (getFsElement()) { open.style.display='none'; close.style.display='block'; }
+  if (anyFsActive()) { open.style.display='none'; close.style.display='block'; }
   else { open.style.display='block'; close.style.display='none'; }
 }
 ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(evt=>{
   document.addEventListener(evt, syncFsIcon);
+  try { window.top.document.addEventListener(evt, syncFsIcon); } catch(e) {}
 });
-// Browsers (Chrome, Edge, Firefox, Safari) all require a real user gesture
-// to grant full screen — none allow it purely on page load. So instead of a
-// silent auto-attempt that only "works" in one browser, the very first tap
-// or click anywhere on the page (after the intro prompt) requests full
-// screen, giving identical behavior everywhere the page is opened.
-let fsArmed = true;
+// Every browser requires a real user gesture to grant full screen — none
+// allow it purely on page load, embedded or not. So the very first click
+// anywhere on the page (after the intro prompt) requests full screen,
+// giving identical behavior no matter what site or app opens this page.
 document.addEventListener('click', function firstGestureFs(){
-  if (fsArmed && !getFsElement()) {
-    requestFs(document.documentElement);
-  }
+  if (!anyFsActive()) requestFsChain();
 }, { once: false });
 window.addEventListener('load', () => setTimeout(()=>{ syncFsIcon(); }, 200));
 
