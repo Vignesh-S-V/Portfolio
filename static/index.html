@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIGNESHWARAN S — Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #080c18;
+    --navy2: #0c1120;
+    --card: #0f1525;
+    --teal: #00c8a8;
+    --teal2: #00e8c0;
+    --mint: #00a88a;
+    --text: #dde4f0;
+    --textdim: #7a89a8;
+    --border: rgba(0,200,168,0.13);
+    --border2: rgba(0,200,168,0.25);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    cursor: none;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .cursor {
+    position: fixed; top: 0; left: 0;
+    width: 10px; height: 10px;
+    background: var(--teal);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed; top: 0; left: 0;
+    width: 32px; height: 32px;
+    border: 1px solid var(--teal);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: width 0.2s, height 0.2s, opacity 0.2s;
+    opacity: 0.5;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 64px;
+    background: rgba(8,12,24,0.92);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--teal);
+    letter-spacing: 3px; text-decoration: none;
+    font-weight: 500;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--textdim);
+    text-decoration: none; letter-spacing: 2px;
+    text-transform: uppercase; transition: color 0.3s;
+    position: relative; font-weight: 400;
+    cursor: pointer;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px; background: var(--teal); transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-links a:hover::after { width: 100%; }
+  .fullscreen-btn {
+    width: 30px; height: 30px;
+    background: rgba(0,200,168,0.07);
+    border: 1px solid rgba(0,200,168,0.3);
+    color: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.25s; border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .fullscreen-btn:hover { background: rgba(0,200,168,0.2); border-color: var(--teal); }
+  .fullscreen-btn svg { width: 14px; height: 14px; }
+
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; padding: 120px 64px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,200,168,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,168,0.035) 1px, transparent 1px);
+    background-size: 64px 64px; pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute; width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(0,200,168,0.06) 0%, transparent 65%);
+    top: 50%; left: 45%; transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: pulse-glow 5s ease-in-out infinite;
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.08); }
+  }
+  .hero-left { position: relative; z-index: 2; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--teal); letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 32px; opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+    font-weight: 400;
+  }
+  .hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--teal); }
+  .hero-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(38px, 5.5vw, 76px);
+    font-weight: 400; line-height: 1.05;
+    color: var(--text); margin-bottom: 18px;
+    opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards;
+    letter-spacing: -1px; word-break: break-word; max-width: 100%;
+  }
+  .hero-name span { color: var(--teal); font-style: italic; }
+  .hero-role {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(15px, 1.8vw, 20px); font-weight: 300;
+    color: var(--textdim); margin-bottom: 28px; letter-spacing: 0.5px;
+    opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+  .hero-contacts {
+    display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 32px;
+    opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards;
+  }
+  .hero-contact-item {
+    display: flex; align-items: center; gap: 7px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--textdim); letter-spacing: 1px; text-decoration: none;
+    transition: color 0.3s;
+  }
+  .hero-contact-item:hover { color: var(--teal); }
+  .hero-contact-item svg { width: 13px; height: 13px; opacity: 0.6; }
+  .hero-desc {
+    font-size: 15px; line-height: 1.85; color: var(--textdim);
+    max-width: 500px; margin-bottom: 44px; font-weight: 300;
+    opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+  .hero-btns {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.8s ease 1.0s forwards;
+  }
+  .btn-primary {
+    padding: 13px 30px; background: var(--teal); color: var(--navy);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+    border: none; cursor: pointer; transition: all 0.3s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--teal2); transform: translateY(-2px); box-shadow: 0 10px 36px rgba(0,200,168,0.28); }
+  .btn-outline {
+    padding: 13px 30px; background: transparent; color: var(--teal);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+    border: 1px solid rgba(0,200,168,0.4); cursor: pointer; transition: all 0.3s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    display: inline-block;
+  }
+  .btn-outline:hover { background: rgba(0,200,168,0.08); transform: translateY(-2px); }
+
+  .hero-right {
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 2;
+    opacity: 0; animation: fadeIn 1.2s ease 0.6s forwards;
+  }
+  .orb-wrap { position: relative; width: 360px; height: 360px; }
+  .orb-ring {
+    position: absolute; inset: 0; border-radius: 50%;
+    border: 1px solid rgba(0,200,168,0.15);
+    animation: spin-slow 22s linear infinite;
+  }
+  .orb-ring:nth-child(2) { inset: 28px; border-color: rgba(0,200,168,0.1); animation-direction: reverse; animation-duration: 16s; }
+  .orb-ring:nth-child(3) { inset: 56px; border-color: rgba(0,200,168,0.07); animation-duration: 28s; }
+  .orb-ring::before {
+    content: ''; position: absolute;
+    width: 7px; height: 7px; background: var(--teal);
+    border-radius: 50%; top: -3.5px; left: 50%;
+    box-shadow: 0 0 10px var(--teal);
+  }
+  .orb-center {
+    position: absolute; inset: 84px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, rgba(0,200,168,0.12), rgba(0,200,168,0.02));
+    border: 1px solid rgba(0,200,168,0.2);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 4px;
+  }
+  .orb-stat { text-align: center; }
+  .orb-num { font-family: 'Instrument Serif', serif; font-size: 34px; font-weight: 400; color: var(--teal); line-height: 1; }
+  .orb-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: var(--textdim); letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+  .orb-divider { width: 36px; height: 1px; background: var(--border); margin: 4px 0; }
+  @keyframes spin-slow { to { transform: rotate(360deg); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  section { padding: 96px 64px; position: relative; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--teal); letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 12px; font-weight: 400;
+  }
+  .section-label::before { content: ''; width: 22px; height: 1px; background: var(--teal); }
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(34px, 4vw, 54px); font-weight: 400;
+    color: var(--text); margin-bottom: 56px; line-height: 1.1; letter-spacing: -0.5px;
+  }
+  .section-title span { color: var(--teal); font-style: italic; }
+
+  #about { background: var(--navy2); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 72px; align-items: start; }
+  .about-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 36px; position: relative; overflow: hidden;
+  }
+  .about-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 2px; height: 100%; background: linear-gradient(var(--teal), var(--mint));
+  }
+  .about-card-top { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+  .avatar {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--mint));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Instrument Serif', serif; font-size: 22px; font-weight: 400;
+    color: var(--navy); flex-shrink: 0;
+  }
+  .about-name { font-family: 'Instrument Serif', serif; font-size: 20px; font-weight: 400; color: var(--text); letter-spacing: -0.3px; }
+  .about-dept { font-size: 11px; color: var(--teal); font-family: 'JetBrains Mono', monospace; margin-top: 4px; letter-spacing: 1px; }
+  .info-rows { display: flex; flex-direction: column; gap: 0; }
+  .info-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; gap: 12px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--textdim); letter-spacing: 2px; text-transform: uppercase; flex-shrink: 0; }
+  .info-val { color: var(--text); font-weight: 400; text-align: right; font-size: 13px; }
+  .about-bio { font-size: 15px; line-height: 1.9; color: var(--textdim); margin-bottom: 22px; font-weight: 300; }
+  .about-bio strong { color: var(--teal); font-weight: 500; }
+
+  #skills { background: var(--navy); }
+  .skills-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 48px; }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 26px 18px; text-align: center; cursor: default;
+    transition: all 0.4s; position: relative; overflow: hidden;
+  }
+  .skill-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--teal); transition: width 0.4s; }
+  .skill-card:hover { transform: translateY(-6px); border-color: var(--border2); background: rgba(0,200,168,0.03); box-shadow: 0 16px 50px rgba(0,200,168,0.08); }
+  .skill-card:hover::after { width: 100%; }
+  .skill-icon { font-size: 32px; margin-bottom: 12px; }
+  .skill-name { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+  .skill-cat { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; }
+  .skill-bar-wrap { margin-top: 12px; height: 2px; background: rgba(255,255,255,0.05); }
+  .skill-bar { height: 100%; background: linear-gradient(90deg, var(--teal), var(--mint)); width: 0; transition: width 1s ease 0.3s; }
+  .skills-detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .skills-detail-card { background: var(--card); border: 1px solid var(--border); padding: 24px 28px; }
+  .skills-detail-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px; }
+  .skills-detail-items { display: flex; flex-wrap: wrap; gap: 7px; }
+  .skills-detail-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--textdim); border: 1px solid rgba(255,255,255,0.07); padding: 4px 10px; letter-spacing: 0.5px; }
+
+  #experience { background: var(--navy2); }
+  .exp-timeline { position: relative; }
+  .exp-timeline::before {
+    content: ''; position: absolute; left: 20px; top: 8px; bottom: 0;
+    width: 1px; background: linear-gradient(var(--teal), transparent);
+  }
+  .exp-item { display: grid; grid-template-columns: 60px 1fr; gap: 28px; margin-bottom: 32px; cursor: pointer; }
+  .exp-dot-wrap { display: flex; flex-direction: column; align-items: center; padding-top: 8px; }
+  .exp-dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--card); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; transition: all 0.3s; flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .exp-item:hover .exp-dot { border-color: var(--teal); background: rgba(0,200,168,0.08); box-shadow: 0 0 20px rgba(0,200,168,0.25); }
+  .exp-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 30px; transition: all 0.4s; position: relative; overflow: hidden;
+  }
+  .exp-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 0; background: rgba(0,200,168,0.025); transition: height 0.4s; }
+  .exp-item:hover .exp-card { border-color: var(--border2); transform: translateX(6px); }
+  .exp-item:hover .exp-card::before { height: 100%; }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; flex-wrap: wrap; gap: 10px; }
+  .exp-company { font-family: 'Instrument Serif', serif; font-size: 21px; font-weight: 400; color: var(--text); letter-spacing: -0.3px; }
+  .exp-period {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--teal); letter-spacing: 1px;
+    background: rgba(0,200,168,0.07); padding: 4px 11px; border: 1px solid rgba(0,200,168,0.18);
+  }
+  .exp-role { font-size: 13px; color: var(--teal); margin-bottom: 14px; font-weight: 500; letter-spacing: 0.2px; }
+  .exp-desc { font-size: 13px; line-height: 1.8; color: var(--textdim); margin-bottom: 18px; font-weight: 300; }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .exp-tag { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--textdim); border: 1px solid rgba(255,255,255,0.07); padding: 3px 9px; letter-spacing: 1px; }
+  .exp-click-hint { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); margin-top: 14px; opacity: 0; transition: opacity 0.3s; letter-spacing: 1px; }
+  .exp-item:hover .exp-click-hint { opacity: 1; }
+
+  #internships { background: var(--navy); }
+  .intern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .intern-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 30px; cursor: default; transition: all 0.4s;
+    position: relative; overflow: hidden;
+  }
+  .intern-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--teal); transition: width 0.4s; }
+  .intern-card:hover { border-color: var(--border2); transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,200,168,0.09); }
+  .intern-card:hover::after { width: 100%; }
+  .intern-logo {
+    width: 48px; height: 48px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 16px;
+    background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.18);
+  }
+  .intern-company { font-family: 'Instrument Serif', serif; font-size: 19px; font-weight: 400; color: var(--text); margin-bottom: 4px; letter-spacing: -0.2px; }
+  .intern-role { font-size: 12px; color: var(--teal); font-weight: 500; margin-bottom: 4px; }
+  .intern-period { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--textdim); letter-spacing: 1.5px; margin-bottom: 16px; }
+  .intern-points { list-style: none; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .intern-points li { font-size: 12px; color: var(--textdim); line-height: 1.7; padding-left: 16px; position: relative; font-weight: 300; }
+  .intern-points li::before { content: '→'; position: absolute; left: 0; color: var(--teal); font-family: 'JetBrains Mono', monospace; font-size: 10px; top: 1px; }
+  .intern-cert-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    color: var(--teal); letter-spacing: 2px; text-transform: uppercase;
+    background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.22);
+    padding: 7px 14px; cursor: pointer; transition: all 0.3s;
+    text-decoration: none; outline: none;
+  }
+  .intern-cert-btn:hover { background: rgba(0,200,168,0.15); border-color: var(--teal); }
+  .intern-cert-btn svg { width: 11px; height: 11px; }
+
+  #dashboards { background: var(--navy2); }
+  .dash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .dash-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 30px; cursor: pointer; transition: all 0.4s;
+    position: relative; overflow: hidden;
+  }
+  .dash-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,200,168,0.05), transparent); opacity: 0; transition: opacity 0.4s; }
+  .dash-card:hover { border-color: rgba(0,200,168,0.45); transform: translateY(-5px); box-shadow: 0 20px 70px rgba(0,200,168,0.1); }
+  .dash-card:hover::before { opacity: 1; }
+  .dash-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(0,200,168,0.35); letter-spacing: 3px; margin-bottom: 18px; }
+  .dash-icon { font-size: 36px; margin-bottom: 18px; display: block; }
+  .dash-title { font-family: 'Instrument Serif', serif; font-size: 17px; font-weight: 400; color: var(--text); margin-bottom: 9px; line-height: 1.3; letter-spacing: -0.2px; }
+  .dash-tool { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 7px; }
+  .dash-tool::before { content: ''; width: 14px; height: 1px; background: var(--teal); }
+  .dash-desc { font-size: 13px; line-height: 1.75; color: var(--textdim); margin-bottom: 22px; font-weight: 300; }
+  .dash-arrow { display: inline-flex; align-items: center; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; transition: gap 0.3s; }
+  .dash-card:hover .dash-arrow { gap: 13px; }
+
+  #certifications { background: var(--navy2); }
+  .cert-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  .cert-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 24px 20px; text-align: center; transition: all 0.4s;
+    position: relative; overflow: hidden; cursor: pointer;
+  }
+  .cert-card:hover { border-color: var(--border2); transform: translateY(-4px); }
+  .cert-icon { font-size: 28px; margin-bottom: 12px; }
+  .cert-name { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 6px; }
+  .cert-type { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; }
+  .cert-link-badge {
+    display: inline-flex; align-items: center; gap: 5px; margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 8px;
+    color: var(--teal); letter-spacing: 1px; text-transform: uppercase;
+    background: rgba(0,200,168,0.07); border: 1px solid rgba(0,200,168,0.2); padding: 4px 9px;
+  }
+
+  #featured { background: var(--navy); }
+  .featured-card {
+    background: var(--card); border: 1px solid var(--border2);
+    padding: 44px; position: relative; overflow: hidden;
+  }
+  .featured-card::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,200,168,0.09), transparent 70%);
+  }
+  .featured-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--navy);
+    background: var(--teal); letter-spacing: 2px; text-transform: uppercase;
+    padding: 5px 12px; margin-bottom: 22px; font-weight: 700;
+  }
+  .featured-title { font-family: 'Instrument Serif', serif; font-size: 28px; font-weight: 400; color: var(--text); margin-bottom: 18px; letter-spacing: -0.4px; max-width: 720px; }
+  .featured-list { list-style: none; display: flex; flex-direction: column; gap: 12px; max-width: 780px; }
+  .featured-list li { font-size: 14px; line-height: 1.8; color: var(--textdim); padding-left: 20px; position: relative; font-weight: 300; }
+  .featured-list li::before { content: '→'; position: absolute; left: 0; color: var(--teal); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .featured-list strong { color: var(--text); font-weight: 500; }
+  .featured-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .featured-pill { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); border: 1px solid rgba(0,200,168,0.25); padding: 5px 12px; letter-spacing: 1px; }
+
+  #education { background: var(--navy2); }
+  .edu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .edu-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 32px; position: relative; overflow: hidden; transition: all 0.4s;
+  }
+  .edu-card::before { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: linear-gradient(var(--teal), var(--mint)); }
+  .edu-card:hover { border-color: var(--border2); }
+  .edu-degree { font-family: 'Instrument Serif', serif; font-size: 19px; font-weight: 400; color: var(--text); margin-bottom: 6px; letter-spacing: -0.2px; }
+  .edu-college { font-size: 13px; color: var(--teal); margin-bottom: 4px; font-weight: 500; }
+  .edu-period { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--textdim); letter-spacing: 1px; margin-bottom: 14px; }
+  .edu-gpa { display: inline-flex; align-items: center; gap: 8px; }
+  .edu-gpa-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--textdim); letter-spacing: 2px; text-transform: uppercase; }
+  .edu-gpa-val { font-family: 'Instrument Serif', serif; font-size: 22px; color: var(--teal); font-weight: 400; }
+
+  #contact { background: var(--navy2); text-align: center; }
+  .contact-inner { max-width: 580px; margin: 0 auto; }
+  .contact-big { font-family: 'Instrument Serif', serif; font-size: clamp(42px, 6vw, 76px); font-weight: 400; color: var(--text); line-height: 1.0; margin-bottom: 22px; letter-spacing: -1px; }
+  .contact-big span { color: var(--teal); font-style: italic; }
+  .contact-sub { font-size: 15px; color: var(--textdim); line-height: 1.85; margin-bottom: 44px; font-weight: 300; }
+  .contact-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+  footer {
+    padding: 28px 64px; background: var(--navy);
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;
+  }
+  footer p { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--textdim); letter-spacing: 1px; }
+  footer span { color: var(--teal); }
+
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
+  .reveal-delay-4 { transition-delay: 0.32s; }
+  .reveal-delay-5 { transition-delay: 0.40s; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(8,12,24,0.95);
+    backdrop-filter: blur(20px); z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.35s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--card); border: 1px solid rgba(0,200,168,0.3);
+    padding: 46px; max-width: 680px; width: 92%;
+    position: relative; transform: translateY(28px) scale(0.97);
+    transition: transform 0.35s; max-height: 88vh; overflow-y: auto;
+  }
+  .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+  .modal-close {
+    position: absolute; top: 14px; right: 14px;
+    width: 32px; height: 32px;
+    background: rgba(0,200,168,0.08);
+    border: 1px solid rgba(0,200,168,0.25);
+    color: var(--teal);
+    font-size: 16px; cursor: pointer; transition: all 0.25s;
+    font-family: 'JetBrains Mono', monospace; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 2px; z-index: 10;
+  }
+  .modal-close:hover { background: rgba(0,200,168,0.2); border-color: var(--teal); color: white; }
+  .modal-tag-line {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .modal-tag-line::before { content: ''; width: 18px; height: 1px; background: var(--teal); }
+  .modal-title { font-family: 'Instrument Serif', serif; font-size: 26px; font-weight: 400; color: var(--text); margin-bottom: 7px; letter-spacing: -0.3px; }
+  .modal-subtitle { font-size: 13px; color: var(--teal); margin-bottom: 26px; font-weight: 500; }
+  .modal-body { font-size: 14px; line-height: 1.9; color: var(--textdim); margin-bottom: 22px; font-weight: 300; }
+  .modal-sec { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; margin-top: 26px; }
+  .modal-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .modal-list li { font-size: 13px; color: var(--textdim); line-height: 1.75; padding-left: 18px; position: relative; font-weight: 300; }
+  .modal-list li::before { content: '→'; position: absolute; left: 0; color: var(--teal); font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .modal-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
+  .modal-pill { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--teal); border: 1px solid rgba(0,200,168,0.25); padding: 4px 11px; letter-spacing: 1px; }
+
+  /* CERTIFICATE FULL-SCREEN VIEWER */
+  #certViewModal {
+    position: fixed; inset: 0;
+    background: rgba(8,12,24,0.98);
+    backdrop-filter: blur(20px);
+    z-index: 2000;
+    display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  #certViewModal.open { opacity: 1; pointer-events: all; }
+  .cert-viewer-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border2);
+    flex-shrink: 0;
+  }
+  .cert-viewer-info { display: flex; flex-direction: column; gap: 3px; }
+  .cert-viewer-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px; color: var(--text); letter-spacing: -0.2px;
+  }
+  .cert-viewer-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--teal); letter-spacing: 2px; text-transform: uppercase;
+  }
+  .cert-viewer-close {
+    width: 36px; height: 36px;
+    background: rgba(0,200,168,0.08);
+    border: 1px solid rgba(0,200,168,0.3);
+    color: var(--teal); font-size: 18px;
+    cursor: pointer; transition: all 0.25s;
+    font-family: 'JetBrains Mono', monospace;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 3px; flex-shrink: 0;
+  }
+  .cert-viewer-close:hover { background: rgba(0,200,168,0.22); border-color: var(--teal); color: #fff; }
+  .cert-viewer-frame-wrap {
+    flex: 1; position: relative; overflow: hidden;
+  }
+  .cert-viewer-iframe {
+    width: 100%; height: 100%; border: none; display: block;
+    background: #fff;
+  }
+  /* fallback shown when iframe is blocked */
+  .cert-viewer-blocked {
+    display: none;
+    position: absolute; inset: 0;
+    align-items: center; justify-content: center; flex-direction: column;
+    background: var(--navy2); gap: 18px; text-align: center; padding: 40px;
+  }
+  .cert-viewer-blocked.show { display: flex; }
+  .cert-blocked-icon { font-size: 48px; }
+  .cert-blocked-msg {
+    font-size: 14px; color: var(--textdim); line-height: 1.8;
+    max-width: 380px; font-weight: 300;
+  }
+  .cert-blocked-btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    color: var(--navy); background: var(--teal);
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 13px 26px; text-decoration: none; transition: all 0.3s;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    border: none; cursor: pointer;
+  }
+  .cert-blocked-btn:hover { background: var(--teal2); transform: translateY(-2px); }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 2px; }
+
+  @media (max-width: 960px) {
+    nav { padding: 18px 20px; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; padding: 110px 20px 60px; }
+    .hero-right { display: none; }
+    section { padding: 64px 20px; }
+    .about-grid { grid-template-columns: 1fr; gap: 28px; }
+    .skills-grid { grid-template-columns: repeat(3, 1fr); }
+    .dash-grid { grid-template-columns: 1fr 1fr; }
+    .cert-grid { grid-template-columns: repeat(2, 1fr); }
+    .edu-grid { grid-template-columns: 1fr; }
+    .skills-detail-grid { grid-template-columns: 1fr; }
+    .intern-grid { grid-template-columns: 1fr; }
+    footer { padding: 20px; }
+    .featured-card { padding: 28px; }
+  }
+  @media (max-width: 600px) {
+    .dash-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .cert-grid { grid-template-columns: repeat(2, 1fr); }
+    .intern-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#hero" class="nav-logo" onclick="smoothNav(event,'hero')">VS_PORTFOLIO</a>
+  <ul class="nav-links">
+    <li><a onclick="smoothNav(event,'about')">About</a></li>
+    <li><a onclick="smoothNav(event,'skills')">Skills</a></li>
+    <li><a onclick="smoothNav(event,'experience')">Experience</a></li>
+    <li><a onclick="smoothNav(event,'internships')">Internships</a></li>
+    <li><a onclick="smoothNav(event,'dashboards')">Dashboards</a></li>
+    <li><a onclick="smoothNav(event,'featured')">Featured</a></li>
+    <li><a onclick="smoothNav(event,'certifications')">Certifications</a></li>
+    <li><a onclick="smoothNav(event,'education')">Education</a></li>
+    <li><a onclick="smoothNav(event,'contact')">Contact</a></li>
+    <li>
+      <button class="fullscreen-btn" id="fsBtn" onclick="toggleFullscreen()" title="Toggle full screen">
+        <svg id="fsIconOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        <svg id="fsIconClose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4"/></svg>
+      </button>
+    </li>
+  </ul>
+</nav>
+
+<!-- FULLSCREEN PROMPT (shown once, since browsers block auto-fullscreen without a click) -->
+<div id="fsPrompt" style="position:fixed;bottom:22px;right:22px;z-index:500;background:var(--card);border:1px solid rgba(0,200,168,0.35);padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 12px 40px rgba(0,0,0,0.4);max-width:300px;">
+  <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--textdim);letter-spacing:0.5px;line-height:1.6;">Tap to view this portfolio in full screen — works the same in Chrome, Edge & mobile.</span>
+  <button class="fullscreen-btn" style="flex-shrink:0" onclick="toggleFullscreen()" title="Enter full screen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+  </button>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-left">
+    <div class="hero-tag">Data Analyst · Power BI Developer · SQL · Python</div>
+    <h1 class="hero-name">VIGNESH<span>WARAN</span> S</h1>
+    <p class="hero-role">Turning Raw Data Into Decisions</p>
+    <div class="hero-contacts">
+      <a href="tel:7639971035" class="hero-contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.1a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17.5 2 2 0 0 1 22 16.92z"/></svg>
+        7639971035
+      </a>
+      <a href="mailto:vigneshw.5416@gmail.com" class="hero-contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        vigneshw.5416@gmail.com
+      </a>
+      <a href="https://linkedin.com/in/vigneshwaran-s-670390266" target="_blank" class="hero-contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <span class="hero-contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Tirupur, Tamil Nadu
+      </span>
+    </div>
+    <p class="hero-desc">Data Analyst and Power BI Developer with 3+ years of experience building operational dashboards, SLA and performance-tracking reports, and DAX/SQL data models for retail, export, and service operations. Proven record of replacing manual Excel reporting with automated Power BI/SQL/Python pipelines, cutting reporting turnaround time by 25–30%.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="smoothNav(event,'dashboards')">View Dashboards</button>
+      <button class="btn-outline" onclick="smoothNav(event,'experience')">My Experience</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="orb-wrap">
+      <div class="orb-ring"></div>
+      <div class="orb-ring"></div>
+      <div class="orb-ring"></div>
+      <div class="orb-center">
+        <div class="orb-stat"><div class="orb-num">20+</div><div class="orb-label">Dashboards</div></div>
+        <div class="orb-divider"></div>
+        <div class="orb-stat"><div class="orb-num">3+Y</div><div class="orb-label">Experience</div></div>
+        <div class="orb-divider"></div>
+        <div class="orb-stat"><div class="orb-num">3</div><div class="orb-label">Companies</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Profile</div>
+  <h2 class="section-title">About <span>Me</span></h2>
+  <div class="about-grid">
+    <div class="about-card reveal">
+      <div class="about-card-top">
+        <div class="avatar">VS</div>
+        <div>
+          <div class="about-name">VIGNESHWARAN S</div>
+          <div class="about-dept">// Data Analyst / Power BI Developer</div>
+        </div>
+      </div>
+      <div class="info-rows">
+        <div class="info-row"><span class="info-key">Department</span><span class="info-val">IT - Data Analytics & BI</span></div>
+        <div class="info-row"><span class="info-key">Experience</span><span class="info-val">3+ Years</span></div>
+        <div class="info-row"><span class="info-key">Domain</span><span class="info-val">Textile, Retail & BPO Operations</span></div>
+        <div class="info-row"><span class="info-key">Primary Tools</span><span class="info-val">Power BI, SQL, Python, Excel</span></div>
+        <div class="info-row"><span class="info-key">Systems</span><span class="info-val">SAP B1 / ERP, OPENQUERY</span></div>
+        <div class="info-row"><span class="info-key">Location</span><span class="info-val">Tirupur, Tamil Nadu</span></div>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <p class="about-bio">I'm a <strong>Data Analyst and Power BI Developer</strong> with 3+ years building operational dashboards, SLA and performance-tracking reports, and DAX/SQL data models across retail, export, and service operations.</p>
+      <p class="about-bio">My work spans end-to-end analytics — from high-volume <strong>SAP ERP extraction using window functions, CTEs, and OPENQUERY</strong> across linked servers, to publishing Row-Level-Secured Power BI reports used daily by production, sales, HR, and logistics teams.</p>
+      <p class="about-bio">I've built a track record of <strong>replacing manual Excel reporting with automated Power BI/SQL/Python pipelines</strong>, cutting reporting turnaround time by 25–30% and improving data accuracy across enterprise ERP environments.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Tech Stack</div>
+  <h2 class="section-title">Skills & <span>Tools</span></h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal reveal-delay-1" data-level="94"><div class="skill-icon">⚡</div><div class="skill-name">Power BI</div><div class="skill-cat">BI Platform</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
+    <div class="skill-card reveal reveal-delay-2" data-level="90"><div class="skill-icon">📊</div><div class="skill-name">Microsoft Excel</div><div class="skill-cat">Spreadsheet</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
+    <div class="skill-card reveal reveal-delay-3" data-level="86"><div class="skill-icon">🗄️</div><div class="skill-name">SQL</div><div class="skill-cat">Database</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
+    <div class="skill-card reveal reveal-delay-4" data-level="75"><div class="skill-icon">🐍</div><div class="skill-name">Python</div><div class="skill-cat">Programming</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
+    <div class="skill-card reveal reveal-delay-5" data-level="70"><div class="skill-icon">📈</div><div class="skill-name">Tableau</div><div class="skill-cat">BI Platform</div><div class="skill-bar-wrap"><div class="skill-bar"></div></div></div>
+  </div>
+  <div class="skills-detail-grid">
+    <div class="skills-detail-card reveal reveal-delay-1">
+      <div class="skills-detail-title">Power BI</div>
+      <div class="skills-detail-items">
+        <span class="skills-detail-tag">Advanced DAX</span><span class="skills-detail-tag">M Language</span><span class="skills-detail-tag">Power Query</span><span class="skills-detail-tag">Row-Level Security</span><span class="skills-detail-tag">Data Modeling</span><span class="skills-detail-tag">KPI Cards</span>
+      </div>
+    </div>
+    <div class="skills-detail-card reveal reveal-delay-2">
+      <div class="skills-detail-title">Database & Querying</div>
+      <div class="skills-detail-items">
+        <span class="skills-detail-tag">PostgreSQL</span><span class="skills-detail-tag">MySQL</span><span class="skills-detail-tag">Google BigQuery</span><span class="skills-detail-tag">CTEs</span><span class="skills-detail-tag">Window Functions</span><span class="skills-detail-tag">OPENQUERY</span><span class="skills-detail-tag">Query Optimization</span>
+      </div>
+    </div>
+    <div class="skills-detail-card reveal reveal-delay-3">
+      <div class="skills-detail-title">ETL & Data Architecture</div>
+      <div class="skills-detail-items">
+        <span class="skills-detail-tag">Power Query</span><span class="skills-detail-tag">ETL Pipelines</span><span class="skills-detail-tag">Star/Snowflake Schema</span><span class="skills-detail-tag">SAP ERP Integration</span><span class="skills-detail-tag">Data Cleaning</span>
+      </div>
+    </div>
+    <div class="skills-detail-card reveal reveal-delay-4">
+      <div class="skills-detail-title">Programming & Automation</div>
+      <div class="skills-detail-items">
+        <span class="skills-detail-tag">Python (Pandas/NumPy/Flask)</span><span class="skills-detail-tag">XLOOKUP</span><span class="skills-detail-tag">Pivot Tables</span><span class="skills-detail-tag">Power Pivot</span><span class="skills-detail-tag">VBA Macros</span>
+      </div>
+    </div>
+    <div class="skills-detail-card reveal reveal-delay-5">
+      <div class="skills-detail-title">Analytics Frameworks</div>
+      <div class="skills-detail-items">
+        <span class="skills-detail-tag">ABC Analysis</span><span class="skills-detail-tag">OTIF Metrics</span><span class="skills-detail-tag">Workforce & Attrition Analytics</span><span class="skills-detail-tag">Inventory Velocity</span><span class="skills-detail-tag">Trend Forecasting</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career</div>
+  <h2 class="section-title">Work <span>Experience</span></h2>
+  <div class="exp-timeline">
+    <div class="exp-item reveal" onclick="openExpModal('ramraj')">
+      <div class="exp-dot-wrap"><div class="exp-dot">🏭</div></div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-company">Ramraj Cotton's</div>
+          <div class="exp-period">May 2025 – Present</div>
+        </div>
+        <div class="exp-role">Data Analyst — IT SW, Data Analytics & Business Intelligence</div>
+        <p class="exp-desc">Built automated Power BI and SQL-driven reporting to replace manual Excel processes, giving real-time visibility into sales, inventory, vendor delivery, and workforce metrics. Extracted high-volume SAP ERP data with window functions and CTEs, and delivered a BOM-based Stock Allocation engine via T-SQL and OPENQUERY.</p>
+        <div class="exp-tags"><span class="exp-tag">Power BI</span><span class="exp-tag">DAX</span><span class="exp-tag">T-SQL / OPENQUERY</span><span class="exp-tag">SAP ERP</span><span class="exp-tag">Excel</span></div>
+        <div class="exp-click-hint">↗ Click to view full details</div>
+      </div>
+    </div>
+    <div class="exp-item reveal reveal-delay-2" onclick="openExpModal('prithvi')">
+      <div class="exp-dot-wrap"><div class="exp-dot">👕</div></div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-company">Prithvi Inner Wears Pvt Ltd</div>
+          <div class="exp-period">Dec 2024 – Apr 2025</div>
+        </div>
+        <div class="exp-role">Data Analyst — Data Analytics & Reporting</div>
+        <p class="exp-desc">Built region-wise product performance dashboards in Power BI and Tableau, and automated MIS reporting that had been manual and Excel-based, giving management faster and more accurate visibility into sales and production trends.</p>
+        <div class="exp-tags"><span class="exp-tag">Power BI</span><span class="exp-tag">Tableau</span><span class="exp-tag">SQL</span><span class="exp-tag">Power Pivot</span><span class="exp-tag">VBA Macros</span></div>
+        <div class="exp-click-hint">↗ Click to view full details</div>
+      </div>
+    </div>
+    <div class="exp-item reveal reveal-delay-3" onclick="openExpModal('corefront')">
+      <div class="exp-dot-wrap"><div class="exp-dot">🎧</div></div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-company">Core front Technologies</div>
+          <div class="exp-period">May 2024 – Dec 2024</div>
+        </div>
+        <div class="exp-role">Data Analyst — Data Analytics & Business Intelligence (IT Ops / BPM)</div>
+        <p class="exp-desc">Built a centralized Power BI reporting engine tracking client SLAs, daily production volumes, and quality metrics for a BPO service-delivery client, while analyzing workforce productivity and attrition trends to support resource allocation.</p>
+        <div class="exp-tags"><span class="exp-tag">Power BI</span><span class="exp-tag">SQL</span><span class="exp-tag">Excel</span><span class="exp-tag">SLA Tracking</span></div>
+        <div class="exp-click-hint">↗ Click to view full details</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERNSHIPS -->
+<section id="internships">
+  <div class="section-label">Internships</div>
+  <h2 class="section-title">Internship <span>Overview</span></h2>
+  <div class="intern-grid">
+
+    <div class="intern-card reveal reveal-delay-1">
+      <div class="intern-logo">🏢</div>
+      <div class="intern-company">Tata Group</div>
+      <div class="intern-role">Data Analyst Intern</div>
+      <div class="intern-period">Mar 2023 – May 2023 · Virtual / Hybrid</div>
+      <ul class="intern-points">
+        <li>Built 5+ dashboards for finance and product teams to monitor ROI and customer behavior</li>
+        <li>Unified data pipelines across 3 platforms, simplifying campaign reporting workflows</li>
+      </ul>
+      <button class="intern-cert-btn" onclick="openCertViewer('Tata Group — Data Analyst Intern','Mar 2023 – May 2023','https://www.theforage.com/completion-certificates/Tata/MyXvBcppsW2FkNYCX_Tata_CuDrGdgfPjWCCQs8H_1685528255195_completion_certificate.pdf')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        View Certificate
+      </button>
+    </div>
+
+    <div class="intern-card reveal reveal-delay-2">
+      <div class="intern-logo">📊</div>
+      <div class="intern-company">Accenture</div>
+      <div class="intern-role">North America Data Analytics & Visualization</div>
+      <div class="intern-period">Mar 2023 – May 2023 · Virtual / Remote</div>
+      <ul class="intern-points">
+        <li>Executed end-to-end analytics — scoping, data cleaning, modelling, and storytelling</li>
+        <li>Delivered actionable insights to top leadership (CEO & CMO) through data visualization projects</li>
+        <li>Empowered decision-making, identified trends, and improved overall business strategies</li>
+      </ul>
+      <button class="intern-cert-btn" onclick="openCertViewer('Accenture — Data Analytics & Visualization','Mar 2023 – May 2023','https://www.theforage.com/completion-certificates/Accenture%20North%20America/hzmoNKtzvAzXsEqx8_Accenture%20North%20America_CuDrGdgfPjWCCQs8H_1685523290504_completion_certificate.pdf')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        View Certificate
+      </button>
+    </div>
+
+    <div class="intern-card reveal reveal-delay-3">
+      <div class="intern-logo">🔷</div>
+      <div class="intern-company">Cognizant</div>
+      <div class="intern-role">Data Analyst Intern</div>
+      <div class="intern-period">Jun 2023 – Jul 2023 · Virtual / Hybrid</div>
+      <ul class="intern-points">
+        <li>Performed EDA, data modelling, and statistical validation for production-ready insights</li>
+        <li>Streamlined ETL pipeline operations using SQL & Databricks, improving data refresh rates by 35%</li>
+        <li>Delivered predictive models in Python, impacting product strategies for 2 enterprise teams</li>
+      </ul>
+      <button class="intern-cert-btn" onclick="openCertViewer('Cognizant — Data Analytics Intern','Jun 2023 – Jul 2023','https://www.theforage.com/completion-certificates/Cognizant/5N2ygyhzMWjKQmgCK_Cognizant_CuDrGdgfPjWCCQs8H_1690263616153_completion_certificate.pdf')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        View Certificate
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- DASHBOARDS -->
+<section id="dashboards">
+  <div class="section-label">Portfolio</div>
+  <h2 class="section-title">My <span>Dashboards</span></h2>
+  <div class="dash-grid">
+    <div class="dash-card reveal reveal-delay-1" onclick="openDashModal('sales-primary')">
+      <div class="dash-num">01 ——</div><span class="dash-icon">📊</span>
+      <div class="dash-title">Sales Dashboard – Primary</div>
+      <div class="dash-tool">Power BI</div>
+      <p class="dash-desc">Unified sales performance view tracking revenue, top performers, KPI cards and month-over-month trend analysis for leadership teams.</p>
+      <div class="dash-arrow">View Details →</div>
+    </div>
+    <div class="dash-card reveal reveal-delay-2" onclick="openDashModal('sales-secondary')">
+      <div class="dash-num">02 ——</div><span class="dash-icon">📉</span>
+      <div class="dash-title">Sales Dashboard – Secondary</div>
+      <div class="dash-tool">Power BI</div>
+      <p class="dash-desc">Deep-dive customer & SKU level analysis with channel-wise distribution, ABC Analysis, and buyer segmentation insights.</p>
+      <div class="dash-arrow">View Details →</div>
+    </div>
+    <div class="dash-card reveal reveal-delay-3" onclick="openDashModal('production')">
+      <div class="dash-num">03 ——</div><span class="dash-icon">🏭</span>
+      <div class="dash-title">Production & Vendor Performance Tracker</div>
+      <div class="dash-tool">Power BI + DAX</div>
+      <p class="dash-desc">DAX-driven PO vs. Return and On-Time In-Full (OTIF) tracking, plus outstanding product-wise balances, cutting manual data processing time by 25%.</p>
+      <div class="dash-arrow">View Details →</div>
+    </div>
+    <div class="dash-card reveal reveal-delay-4" onclick="openDashModal('pending')">
+      <div class="dash-num">04 ——</div><span class="dash-icon">⏳</span>
+      <div class="dash-title">Pending Orders Dashboard</div>
+      <div class="dash-tool">Power BI</div>
+      <p class="dash-desc">Time-intelligence DAX for warehouse planning, enabling product-wise box packaging planning and a 30% reduction in manpower planning time.</p>
+      <div class="dash-arrow">View Details →</div>
+    </div>
+    <div class="dash-card reveal reveal-delay-5" onclick="openDashModal('inventory')">
+      <div class="dash-num">05 ——</div><span class="dash-icon">📦</span>
+      <div class="dash-title">Inventory & Bin Capacity Dashboard</div>
+      <div class="dash-tool">Power BI + DAX</div>
+      <p class="dash-desc">Stock and warehouse analysis integrating excess stock identification, bin utilization %, and capacity planning across multiple warehouse locations.</p>
+      <div class="dash-arrow">View Details →</div>
+    </div>
+    <div class="dash-card reveal reveal-delay-1" onclick="openDashModal('hr')">
+      <div class="dash-num">06 ——</div><span class="dash-icon">👥</span>
+      <div class="dash-title">Workforce / HR Analytics Dashboard</div>
+      <div class="dash-tool">Power BI + DAX</div>
+      <p class="dash-desc">Tracks month-over-month attrition, department turnover, tenure distribution, headcount and attendance for resource optimization.</p>
+      <div class="dash-arrow">View Details →</div>
+    </div>
+    <div class="dash-card reveal reveal-delay-2" onclick="openDashModal('towel')">
+      <div class="dash-num">07 ——</div><span class="dash-icon">🧺</span>
+      <div class="dash-title">Towel Sales Report</div>
+      <div class="dash-tool">Python + Power BI</div>
+      <p class="dash-desc">Specialized sub-brand performance model for the Towel category, analyzing sales velocity and market penetration across specific states.</p>
+      <div class="dash-arrow">View Details →</div>
+    </div>
+    <div class="dash-card reveal reveal-delay-3" onclick="openDashModal('logistics')">
+      <div class="dash-num">08 ——</div><span class="dash-icon">🚛</span>
+      <div class="dash-title">Transport and Logistics Analysis</div>
+      <div class="dash-tool">Power BI + DAX</div>
+      <p class="dash-desc">Optimized transport and logistics analytics by evaluating bundle volume, total weight capacity, and multi-state availability to identify efficient logistics partners.</p>
+      <div class="dash-arrow">View Details →</div>
+    </div>
+    <div class="dash-card reveal reveal-delay-4" onclick="openDashModal('sla')">
+      <div class="dash-num">09 ——</div><span class="dash-icon">🎧</span>
+      <div class="dash-title">Operational SLA & Performance Intelligence Engine</div>
+      <div class="dash-tool">Power BI</div>
+      <p class="dash-desc">Centralized reporting engine tracking client SLAs, daily production volumes, quality metrics, and workforce productivity/attrition trends for a BPO client.</p>
+      <div class="dash-arrow">View Details →</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECT -->
+<section id="featured">
+  <div class="section-label">Signature Build</div>
+  <h2 class="section-title">Featured <span>Project</span></h2>
+  <div class="featured-card reveal">
+    <div class="featured-badge">⚙ T-SQL Engine</div>
+    <div class="featured-title">BOM-Based Stock Allocation & Shortage Alert Engine</div>
+    <ul class="featured-list">
+      <li>A <strong>T-SQL engine</strong> separating direct-sale from BOM-based orders, exploding each order to child items, and checking stock across <strong>7 warehouses</strong> in real time.</li>
+      <li>Four layered CTEs — <strong>Clean BOM, Combined Orders, Consolidated Stock, Demand-vs-Supply Rollup</strong> — pulled live from SAP B1 via <strong>OPENQUERY</strong>.</li>
+      <li>Feeds a <strong>Power BI</strong> view that surfaces shortages before dispatch, replacing a manual Excel-based stock check process.</li>
+    </ul>
+    <div class="featured-pills">
+      <span class="featured-pill">T-SQL</span><span class="featured-pill">Layered CTEs</span><span class="featured-pill">OPENQUERY</span><span class="featured-pill">SAP B1</span><span class="featured-pill">Power BI</span>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">Credentials</div>
+  <h2 class="section-title">Certifi<span>cations</span></h2>
+  <div class="cert-grid">
+    <div class="cert-card reveal reveal-delay-1" onclick="openCertViewer('Business Analytics with Excel','Professional Certification','https://simpli-web.app.link/e/IMarktjml1b')">
+      <div class="cert-icon">📊</div>
+      <div class="cert-name">Business Analytics with Excel</div>
+      <div class="cert-type">Certification</div>
+      <div class="cert-link-badge">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        View Certificate
+      </div>
+    </div>
+    <div class="cert-card reveal reveal-delay-2" onclick="openCertViewer('Python for Data Science','Professional Certification','https://www.mygreatlearning.com/certificate/ZOEIGQUO?referrer_code=GLDWOJSU42IWO')">
+      <div class="cert-icon">🐍</div>
+      <div class="cert-name">Python for Data Science</div>
+      <div class="cert-type">Certification</div>
+      <div class="cert-link-badge">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        View Certificate
+      </div>
+    </div>
+    <div class="cert-card reveal reveal-delay-3" onclick="openCertViewer('SQL for Data Science','Professional Certification','https://www.mygreatlearning.com/certificate/AQLXALIA?referrer_code=GLDWOJSU42IWO')">
+      <div class="cert-icon">🗄️</div>
+      <div class="cert-name">SQL for Data Science</div>
+      <div class="cert-type">Certification</div>
+      <div class="cert-link-badge">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        View Certificate
+      </div>
+    </div>
+    <div class="cert-card reveal reveal-delay-4" onclick="openCertViewer('Data Visualization with Power BI','Professional Certification','https://www.mygreatlearning.com/certificate/LBJSJTXS?referrer_code=GLDWOJSU42IWO')">
+      <div class="cert-icon">⚡</div>
+      <div class="cert-name">Data Visualization with Power BI</div>
+      <div class="cert-type">Certification</div>
+      <div class="cert-link-badge">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        View Certificate
+      </div>
+    </div>
+    <div class="cert-card reveal reveal-delay-5" onclick="openCertViewer('Introduction to Data Analytics','Professional Certification','https://simpli-web.app.link/e/sVtcF9fml1b')">
+      <div class="cert-icon">🔍</div>
+      <div class="cert-name">Introduction to Data Analytics</div>
+      <div class="cert-type">Certification</div>
+      <div class="cert-link-badge">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        View Certificate
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Academic</div>
+  <h2 class="section-title">Edu<span>cation</span></h2>
+  <div class="edu-grid">
+    <div class="edu-card reveal reveal-delay-1">
+      <div class="edu-degree">MBA — Business Analytics</div>
+      <div class="edu-college">RVS College of Arts and Science</div>
+      <div class="edu-period">Aug 2022 – May 2024</div>
+      <div class="edu-gpa"><span class="edu-gpa-label">GPA</span><span class="edu-gpa-val">7.8</span></div>
+    </div>
+    <div class="edu-card reveal reveal-delay-2">
+      <div class="edu-degree">B.Com — Corporate Secretaryship</div>
+      <div class="edu-college">SNMV College of Arts and Science</div>
+      <div class="edu-period">Jul 2017 – Mar 2020</div>
+      <div class="edu-gpa"><span class="edu-gpa-label">GPA</span><span class="edu-gpa-val">6.2</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner reveal">
+    <div class="section-label" style="justify-content:center">Get In Touch</div>
+    <div class="contact-big">Let's <span>Work</span><br>Together</div>
+    <p class="contact-sub">Have a data challenge or want to discuss how I can build dashboards for your team? I'd love to connect.</p>
+    <div class="contact-links">
+      <a href="mailto:vigneshw.5416@gmail.com" class="btn-primary">Send Email</a>
+      <a href="https://linkedin.com/in/vigneshwaran-s-670390266" target="_blank" class="btn-outline">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>Vigneshwaran S</span> — Data Analyst / Power BI Developer · Tirupur</p>
+</footer>
+
+<!-- EXPERIENCE MODAL -->
+<div class="modal-overlay" id="expModal" onclick="closeModalOverlay('expModal')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('expModal')">✕</button>
+    <div id="expModalBody"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD MODAL -->
+<div class="modal-overlay" id="dashModal" onclick="closeModalOverlay('dashModal')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('dashModal')">✕</button>
+    <div id="dashModalBody"></div>
+  </div>
+</div>
+
+<!-- CERTIFICATE FULL-SCREEN VIEWER — same page, no new tab -->
+<div id="certViewModal">
+  <div class="cert-viewer-topbar">
+    <div class="cert-viewer-info">
+      <div class="cert-viewer-name" id="certViewTitle"></div>
+      <div class="cert-viewer-period" id="certViewSub"></div>
+    </div>
+    <button class="cert-viewer-close" onclick="closeCertViewer()" title="Close">✕</button>
+  </div>
+  <div class="cert-viewer-frame-wrap">
+    <iframe class="cert-viewer-iframe" id="certViewIframe" src="" allowfullscreen></iframe>
+    <div class="cert-viewer-blocked" id="certViewBlocked">
+      <div class="cert-blocked-icon">🏆</div>
+      <p class="cert-blocked-msg">This certificate cannot be previewed directly due to security restrictions on the host site. Click below to open it.</p>
+      <a id="certViewFallbackBtn" href="#" target="_blank" rel="noopener noreferrer" class="cert-blocked-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Open Certificate
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── SMOOTH NAV SCROLL ───────────────────────────────────────────────
+function smoothNav(e, id) {
+  e.preventDefault();
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─── CROSS-BROWSER FULL SCREEN (Chrome, Edge, Firefox, Safari, mobile) ──
+function getFsElement() {
+  return document.fullscreenElement || document.webkitFullscreenElement ||
+         document.mozFullScreenElement || document.msFullscreenElement;
+}
+function requestFs(el) {
+  const req = el.requestFullscreen || el.webkitRequestFullscreen ||
+              el.webkitRequestFullScreen || el.mozRequestFullScreen ||
+              el.msRequestFullscreen;
+  if (req) {
+    const p = req.call(el);
+    if (p && p.catch) p.catch(()=>{ /* some browsers reject silently; ignore */ });
+  }
+}
+function exitFs() {
+  const exit = document.exitFullscreen || document.webkitExitFullscreen ||
+               document.webkitCancelFullScreen || document.mozCancelFullScreen ||
+               document.msExitFullscreen;
+  if (exit) exit.call(document);
+}
+function toggleFullscreen() {
+  if (getFsElement()) {
+    exitFs();
+  } else {
+    requestFs(document.documentElement);
+  }
+  const prompt = document.getElementById('fsPrompt');
+  if (prompt) prompt.style.display = 'none';
+}
+function syncFsIcon() {
+  const open = document.getElementById('fsIconOpen');
+  const close = document.getElementById('fsIconClose');
+  if (!open || !close) return;
+  if (getFsElement()) { open.style.display='none'; close.style.display='block'; }
+  else { open.style.display='block'; close.style.display='none'; }
+}
+['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(evt=>{
+  document.addEventListener(evt, syncFsIcon);
+});
+// Browsers (Chrome, Edge, Firefox, Safari) all require a real user gesture
+// to grant full screen — none allow it purely on page load. So instead of a
+// silent auto-attempt that only "works" in one browser, the very first tap
+// or click anywhere on the page (after the intro prompt) requests full
+// screen, giving identical behavior everywhere the page is opened.
+let fsArmed = true;
+document.addEventListener('click', function firstGestureFs(){
+  if (fsArmed && !getFsElement()) {
+    requestFs(document.documentElement);
+  }
+}, { once: false });
+window.addEventListener('load', () => setTimeout(()=>{ syncFsIcon(); }, 200));
+
+// ─── CURSOR ──────────────────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cursor.style.transform=`translate(${mx-5}px,${my-5}px)`;
+});
+(function animRing(){
+  rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+  ring.style.transform=`translate(${rx-16}px,${ry-16}px)`;
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.exp-item,.dash-card,.cert-card,.edu-card,.intern-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';ring.style.opacity='0.9';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.opacity='0.5';});
+});
+
+// ─── SCROLL REVEAL + SKILL BARS ──────────────────────────────────────
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      const bar=e.target.querySelector('.skill-bar');
+      if(bar) setTimeout(()=>bar.style.width=(e.target.dataset.level||70)+'%',250);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ─── MODAL HELPERS ───────────────────────────────────────────────────
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+function closeModalOverlay(id){
+  if(event.target===event.currentTarget) closeModal(id);
+}
+// ─── CERTIFICATE FULL-SCREEN VIEWER ─────────────────────────────────
+function openCertViewer(title, sub, url) {
+  document.getElementById('certViewTitle').textContent = title;
+  document.getElementById('certViewSub').textContent   = sub;
+  document.getElementById('certViewFallbackBtn').href  = url;
+
+  const iframe   = document.getElementById('certViewIframe');
+  const blocked  = document.getElementById('certViewBlocked');
+
+  // Reset state
+  blocked.classList.remove('show');
+  iframe.style.display = 'block';
+  iframe.src = '';
+
+  // Show overlay first, then load iframe
+  document.getElementById('certViewModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Small delay so overlay renders before iframe starts loading
+  setTimeout(() => {
+    iframe.src = url;
+  }, 80);
+
+  // If iframe load fails or is blocked, show fallback after timeout
+  let loadTimer = setTimeout(() => {
+    try {
+      // Try to access iframe document — throws if cross-origin blocked
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      if (!doc || doc.body === null || doc.body.innerHTML === '') {
+        showCertFallback();
+      }
+    } catch(e) {
+      // Cross-origin = blocked; show fallback
+      showCertFallback();
+    }
+  }, 3500);
+
+  iframe.onload = function() {
+    clearTimeout(loadTimer);
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      if (!doc || doc.body === null || doc.body.innerHTML === '') {
+        showCertFallback();
+      }
+    } catch(e) {
+      showCertFallback();
+    }
+  };
+
+  iframe.onerror = function() {
+    clearTimeout(loadTimer);
+    showCertFallback();
+  };
+}
+
+function showCertFallback() {
+  document.getElementById('certViewIframe').style.display = 'none';
+  document.getElementById('certViewBlocked').classList.add('show');
+}
+
+function closeCertViewer() {
+  document.getElementById('certViewModal').classList.remove('open');
+  document.body.style.overflow = '';
+  // Clear iframe src to stop loading
+  setTimeout(() => {
+    document.getElementById('certViewIframe').src = '';
+    document.getElementById('certViewBlocked').classList.remove('show');
+    document.getElementById('certViewIframe').style.display = 'block';
+  }, 300);
+}
+
+// Close cert viewer on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeCertViewer();
+    ['expModal','dashModal'].forEach(id => closeModal(id));
+  }
+});
+const expData = {
+  ramraj:{
+    tag:"Current Position",title:"Ramraj Cotton's, Tirupur",
+    sub:"Data Analyst — IT SW, Data Analytics & Business Intelligence · May 2025 – Present",
+    body:"Project: Sales and Market Analysis. Domain: Textile Industry. Ramraj Cotton is one of India's leading textile manufacturers and a pioneer in promoting Indian cultural attire, specializing in high-quality traditional and ethnic wear. Team size: 3. The project focused on building automated Power BI and SQL-driven reporting to replace manual Excel processes, enabling real-time visibility into sales performance, inventory movement, vendor delivery, and workforce metrics across the organization.",
+    points:["Extracted and shaped high-volume SAP ERP data using window functions and CTEs, eliminating reliance on pre-built static ERP reports.","Managed core Revenue & Operational Performance dashboards in Power BI — regional throughput, ABC inventory analysis, and dynamic ranking — enabling real-time, data-driven leadership decisions.","Built a Production & Vendor Performance Tracker (DAX-driven PO vs. Return and OTIF tracking) that cut manual data processing time by 25%.","Designed and delivered a BOM-Based Stock Allocation engine (T-SQL, layered CTEs, OPENQUERY) closing a critical supply-chain visibility gap.","Built a Pending Order Intelligence dashboard using time-intelligence DAX for warehouse planning, reducing manpower planning time by 30%.","Designed a Workforce Analytics dashboard tracking MoM attrition, department turnover, and tenure distribution for resource optimization."],
+    tags:["Power BI","DAX","T-SQL","OPENQUERY","SAP ERP","Excel","SQL","Inventory Analysis","Capacity Planning"]
+  },
+  prithvi:{
+    tag:"Previous Position",title:"Prithvi Inner Wears Pvt Ltd",
+    sub:"Data Analyst — Data Analytics & Reporting · Dec 2024 – Apr 2025",
+    body:"Project: Market Analysis. Domain: Textile Industry. Prithvi Inner Wears Pvt Ltd is one of India's leading manufacturers of women's innerwear, managing high-volume daily production and a large workforce. Team size: 4. The project involved building region-wise product performance dashboards and automating MIS reporting to replace manual Excel-based processes, giving management faster and more accurate visibility into sales and production trends.",
+    points:["Built Power BI and Tableau dashboards comparing product performance across regions, turning raw transactional data into actionable growth insights.","Wrote and tuned transactional SQL queries for enterprise data extraction, improving report turnaround and pipeline performance.","Replaced a large share of manual MIS reporting with automated pipelines built on Power Pivot, XLOOKUP, and VBA macros."],
+    tags:["Power BI","Tableau","SQL","Power Pivot","XLOOKUP","VBA Macros","MIS Reporting"]
+  },
+  corefront:{
+    tag:"Previous Position",title:"Core front Technologies",
+    sub:"Data Analyst — Data Analytics & Business Intelligence · May 2024 – Dec 2024",
+    body:"Project: Operational SLA & Performance Intelligence Engine. Domain: IT Operations / Business Process Management (BPO). The client is a large enterprise focused on service delivery, requiring comprehensive tracking of daily production volumes, workforce productivity trends, and strict adherence to Service Level Agreements (SLAs). Team size: 4. Built a centralized Power BI reporting engine to track client SLAs, daily production volumes, and quality metrics, while analysing workforce productivity and attrition trends to support resource allocation decisions.",
+    points:["Built the Operational SLA & Performance Intelligence Engine in Power BI to track client SLAs, daily production volumes, and quality metrics.","Analysed workforce productivity and attrition trends using SQL and Excel to optimize resource allocation.","Cleaned and transformed raw client data from Excel and SQL databases into structured, decision-ready reports."],
+    tags:["Power BI","SQL","Excel","SLA Tracking","Workforce Analytics"]
+  }
+};
+
+function openExpModal(id){
+  const d=expData[id];
+  document.getElementById('expModalBody').innerHTML=`
+    <div class="modal-tag-line">${d.tag}</div>
+    <div class="modal-title">${d.title}</div>
+    <div class="modal-subtitle">${d.sub}</div>
+    <p class="modal-body">${d.body}</p>
+    <div class="modal-sec">Key Contributions</div>
+    <ul class="modal-list">${d.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+    <div class="modal-pills">${d.tags.map(t=>`<span class="modal-pill">${t}</span>`).join('')}</div>`;
+  document.getElementById('expModal').classList.add('open');
+}
+
+// ─── DASHBOARD DATA ──────────────────────────────────────────────────
+const dashData = {
+  'sales-primary':{num:"01",icon:"📊",title:"Sales Dashboard – Primary",tool:"Power BI",body:"The primary sales dashboard is the central nerve center for sales leadership, providing a unified, real-time view of overall performance across all channels, products, and time periods.",points:["Revenue trends vs. targets — identify over/under-performing periods at a glance","Top-performing products, regions, and sales reps ranked by revenue contribution","Month-over-month and year-over-year variance with drill-through capability","Real-time KPI cards: Total Sales, Average Order Value, Conversion Rate","Slicer-based filtering by region, product category, and time period"],value:"Enabled sales managers to make daily decisions backed by live data, reducing manual Excel reporting effort significantly."},
+  'sales-secondary':{num:"02",icon:"📉",title:"Sales Dashboard – Secondary",tool:"Power BI",body:"A supplementary deep-dive dashboard focused on granular customer-level and SKU-level analysis.",points:["Customer purchase frequency, retention rates, and lifetime value segmentation","SKU-level sales breakdown with reorder indicators and movement velocity","Channel-wise distribution: COCO and FOFO","Heatmap views for product-region performance combinations"],value:"Supports targeted campaigns, pricing decisions, and inventory alignment for the sales and marketing teams."},
+  production:{num:"03",icon:"🏭",title:"Production & Vendor Performance Tracker",tool:"Power BI + DAX",body:"A DAX-driven tracker monitoring PO vs. Return quantities, On-Time In-Full (OTIF) delivery metrics, and outstanding product-wise balances against vendors.",points:["PO vs. Return quantity variance tracking by vendor and product","OTIF (On-Time In-Full) delivery performance scoring","Outstanding balance tracking, product-wise and vendor-wise","Drill-down views for late or short-shipped orders"],value:"Cut manual data processing time by 25% and gave planning teams a single live view of vendor reliability."},
+  pending:{num:"04",icon:"⏳",title:"Pending Orders Dashboard",tool:"Power BI",body:"A real-time pipeline view of all open and overdue customer orders, built on time-intelligence DAX for warehouse planning.",points:["Order aging analysis — 0–7 days, 8–30 days, and 30+ days overdue buckets","Priority flagging for high-value or SLA-bound orders nearing breach","Product-wise box packaging planning for warehouse operations","Customer-wise pending order volume for proactive communication"],value:"Reduced manpower planning time by 30% by giving teams a single, always-current source of truth."},
+  inventory:{num:"05",icon:"📦",title:"Inventory & Bin Capacity Dashboard",tool:"Power BI + DAX",body:"An end-to-end Power BI solution integrating stock, sales, and capacity data to support warehouse and planning operations.",points:["Excess stock identification using DAX measures — flagging slow-moving and overstock items","Bin utilization % and capacity analysis across warehouse locations","Stock vs. demand comparison to identify underutilized and overloaded bins","Category-wise inventory health view for planning and procurement teams"],value:"Enabled management to identify overstock positions and optimize warehouse bin allocation."},
+  hr:{num:"06",icon:"👥",title:"Workforce / HR Analytics Dashboard",tool:"Power BI + DAX",body:"A workforce analytics dashboard tracking month-over-month attrition, department turnover, and tenure distribution for resource optimization.",points:["Headcount overview — total employees, department-wise distribution, and role breakdown","Attendance tracking — present, absent, and leave patterns with monthly trend lines","Attrition analysis — MoM exits, department attrition rates, and tenure breakdown","HR KPI cards: Total Headcount, Attrition %, Average Tenure, Attendance Rate"],value:"Gave HR and management teams a single view of workforce health, enabling data-driven resource planning."},
+  towel:{num:"07",icon:"🧺",title:"Towel Sales Report",tool:"Python + Power BI",body:"A product-specific analytical report tracking towel category performance across weight, size, colour, and customer segments.",points:["Category contribution: Towel segment share of total product revenue over time","Variant-level analysis: GSM weight, size, and colour performance heatmaps","Buyer profile segmentation: hotel, retail, export, and institutional buyers","Python script for automated data extraction, cleaning, and transformation"],value:"Supports product planning and procurement teams with high-demand variant insights."},
+  logistics:{num:"08",icon:"🚛",title:"Transport and Logistics Analysis",tool:"Power BI + DAX",body:"An analytics view evaluating bundle volume, total weight capacity, and multi-state availability to identify efficient logistics partners.",points:["Bundle volume and weight capacity analysis by route and carrier","Multi-state availability mapping for logistics partner selection","Cost-per-shipment comparisons across partners","Delivery time and reliability tracking"],value:"Helped identify the most efficient logistics partners, improving delivery reliability and cost control."},
+  sla:{num:"09",icon:"🎧",title:"Operational SLA & Performance Intelligence Engine",tool:"Power BI",body:"A centralized reporting engine built for a BPO service-delivery client to track client SLAs, daily production volumes, and quality metrics.",points:["Client SLA adherence tracking with breach alerts","Daily production volume monitoring against targets","Quality metric scoring and trend analysis","Workforce productivity and attrition trend analysis feeding resource allocation decisions"],value:"Gave operations leadership a single source of truth for SLA compliance and workforce planning."}
+};
+
+function openDashModal(id){
+  const d=dashData[id];
+  document.getElementById('dashModalBody').innerHTML=`
+    <div class="modal-tag-line">${d.num} — Dashboard</div>
+    <div style="font-size:40px;margin-bottom:10px">${d.icon}</div>
+    <div class="modal-title">${d.title}</div>
+    <div class="modal-subtitle">Built with ${d.tool}</div>
+    <p class="modal-body">${d.body}</p>
+    <div class="modal-sec">Features & Insights</div>
+    <ul class="modal-list">${d.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+    <div class="modal-sec">Business Value</div>
+    <p class="modal-body" style="margin-bottom:0">${d.value}</p>`;
+  document.getElementById('dashModal').classList.add('open');
+}
+</script>
+</body>
+</html>
