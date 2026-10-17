@@ -430,6 +430,25 @@
   }
   @media(max-width:460px) { .impact-grid { grid-template-columns:1fr; } }
 
+
+  /* Skills-in-action contrast fix: keep cards readable on the dark section */
+  #stack { background: #101820 !important; color: #f7f7f9 !important; }
+  #stack > .section-title { color: #f7f7f9 !important; }
+  #stack > .section-title i { color: #d6dfb5 !important; }
+  #stack > .cinema-copy { color: #cbd5e1 !important; }
+  #stack .grid { align-items: stretch; }
+  #stack .card { background: #ffffff !important; color: #17202a !important; border: 1px solid #d8dee5 !important; min-height: 270px; }
+  #stack .card .c-title { color: #17202a !important; opacity: 1 !important; }
+  #stack .card .c-desc { color: #3f4b58 !important; opacity: 1 !important; line-height: 1.65; }
+  #stack .card .c-tag { color: #354024 !important; background: #e7ebd9 !important; opacity: 1 !important; white-space: normal; line-height: 1.5; }
+  #stack .card:hover { border-color: #b8c49a !important; box-shadow: 0 16px 34px rgba(0,0,0,.22); }
+  #stack > p.c-desc { color: #e2e8f0 !important; }
+  @media (max-width: 600px) {
+    #stack { padding: 64px 16px !important; }
+    #stack .grid { grid-template-columns: minmax(0, 1fr); }
+    #stack .card { min-height: 0; padding: 26px; }
+  }
+
 </style>
 </head>
 <body>
