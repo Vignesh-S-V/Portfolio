@@ -235,9 +235,211 @@
     display: inline-block; background: #111; color: #fff; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 15px 35px; border-radius: 50px; text-decoration: none; transition: 0.3s; font-size: 0.9rem;
   }
   .cert-blocked-btn:hover { background: var(--teal); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,200,168,0.2); }
+
+  /* CINEMATIC 3D PORTFOLIO PREVIEW — additive styles */
+  :root {
+    --cinema-ink: #0a1020;
+    --cinema-panel: rgba(17, 28, 49, .82);
+    --cinema-line: rgba(113, 164, 205, .24);
+    --cinema-cyan: #6ee7f9;
+    --cinema-lime: #c6f56b;
+    --cinema-violet: #b69cff;
+  }
+  body { background: #f7f7f9; }
+  #hero { position: relative; isolation: isolate; }
+  #hero::before {
+    content: ""; position: absolute; z-index: -1; inset: 0;
+    background: radial-gradient(ellipse at 18% 25%, rgba(110,231,249,.13), transparent 32%),
+                radial-gradient(ellipse at 83% 70%, rgba(182,156,255,.12), transparent 34%),
+                linear-gradient(135deg, rgba(255,255,255,.25), transparent 60%);
+    pointer-events: none;
+  }
+  .giant-name { text-shadow: 0 18px 50px rgba(121,40,202,.12); transform-style: preserve-3d; }
+  .profile-photo {
+    transition: transform .65s cubic-bezier(.2,.8,.2,1), box-shadow .65s ease;
+    transform: perspective(900px) rotateY(-4deg) rotateX(2deg);
+    box-shadow: 18px 22px 0 rgba(110,231,249,.12), 0 32px 80px rgba(19,31,56,.18);
+  }
+  .profile-photo:hover { transform: perspective(900px) rotateY(3deg) rotateX(-2deg) translateY(-7px); box-shadow: -14px 18px 0 rgba(182,156,255,.16), 0 38px 90px rgba(19,31,56,.24); }
+  .cinema-nav {
+    position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between;
+    gap: 18px; padding: 13px clamp(16px,4vw,56px); background: rgba(9,16,31,.88); color: #fff;
+    border-bottom: 1px solid rgba(110,231,249,.2); backdrop-filter: blur(18px);
+  }
+  .cinema-nav-brand { font: 800 .82rem 'JetBrains Mono', monospace; letter-spacing: 1.5px; white-space: nowrap; }
+  .cinema-nav-links { display: flex; gap: clamp(10px,2vw,25px); flex-wrap: wrap; justify-content: flex-end; }
+  .cinema-nav a { color: #dce8f5; text-decoration: none; font-size: .76rem; font-weight: 700; transition: color .2s ease; }
+  .cinema-nav a:hover { color: var(--cinema-lime); }
+  .cinema-section { position: relative; overflow: hidden; padding: clamp(55px,8vw,100px) clamp(18px,5vw,72px); }
+  .cinema-dark { background: radial-gradient(ellipse at 15% 0%, #172944 0%, #0a1020 54%, #080d18 100%); color: #f8fbff; }
+  .cinema-kicker { color: var(--cinema-cyan); font: 700 .72rem 'JetBrains Mono', monospace; letter-spacing: 2.4px; text-transform: uppercase; margin-bottom: 14px; }
+  .cinema-heading { color: #f8fbff; font-size: clamp(2rem,4.5vw,3.8rem); line-height: 1.05; letter-spacing: -1.8px; margin-bottom: 16px; }
+  .cinema-copy { color: #b9c8dc; max-width: 760px; line-height: 1.8; }
+  .cinema-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; margin-top: 34px; perspective: 1200px; }
+  .cinema-card {
+    min-width: 0; position: relative; overflow: hidden; padding: 25px; border-radius: 22px;
+    border: 1px solid var(--cinema-line); color: #f8fbff;
+    background: linear-gradient(145deg, rgba(31,49,77,.88), rgba(12,21,39,.92));
+    box-shadow: 0 18px 35px rgba(0,0,0,.18), inset 0 1px rgba(255,255,255,.06);
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0);
+    transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+    transform-style: preserve-3d;
+  }
+  .cinema-card::before { content:""; position:absolute; width:190px; height:190px; border-radius:50%; right:-100px; top:-110px; background:radial-gradient(circle,rgba(110,231,249,.2),transparent 70%); pointer-events:none; }
+  .cinema-card:hover { transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-7px); border-color:rgba(110,231,249,.62); box-shadow:0 28px 55px rgba(0,0,0,.3),0 0 28px rgba(110,231,249,.08); }
+  .cinema-card-icon { display:flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:15px; margin-bottom:20px; color:var(--cinema-lime); background:rgba(198,245,107,.09); border:1px solid rgba(198,245,107,.2); font-size:1.35rem; }
+  .cinema-card h3 { font-size:1.15rem; margin-bottom:10px; }
+  .cinema-card p { color:#b9c8dc; line-height:1.7; font-size:.9rem; }
+  .cinema-tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:18px; }
+  .cinema-tags span { border:1px solid rgba(181,203,228,.22); background:rgba(255,255,255,.04); padding:5px 9px; border-radius:999px; color:#d6e2f2; font:600 .68rem 'JetBrains Mono',monospace; }
+  .impact-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin-top:30px; }
+  .impact-card { padding:25px; border-radius:20px; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.13); box-shadow:inset 0 1px rgba(255,255,255,.05); }
+  .impact-number { color:var(--cinema-lime); font-size:clamp(2.3rem,4vw,3.5rem); font-weight:900; letter-spacing:-2px; line-height:1.1; }
+  .impact-card h3 { color:#fff; margin:10px 0 7px; font-size:1rem; }
+  .impact-card p { color:#b9c8dc; line-height:1.65; font-size:.86rem; }
+  .case-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:30px; }
+  .case-card { padding:clamp(22px,3vw,34px); border-radius:22px; border:1px solid #dbe2ec; background:linear-gradient(145deg,#fff,#f1f5fa); box-shadow:0 18px 45px rgba(21,39,68,.07); transition:transform .3s ease,box-shadow .3s ease; }
+  .case-card:hover { transform:translateY(-5px); box-shadow:0 25px 55px rgba(21,39,68,.12); }
+  .case-card .case-label { font:700 .7rem 'JetBrains Mono',monospace; letter-spacing:1.6px; color:#087e8b; text-transform:uppercase; }
+  .case-card h3 { margin:12px 0; font-size:1.25rem; color:#101828; }
+  .case-card p { color:#526174; line-height:1.75; font-size:.91rem; }
+  .case-card strong { color:#17233b; }
+  .cinema-footer { background:#070c16; color:#f4f7fc; padding:50px 24px; text-align:center; border-top:1px solid rgba(110,231,249,.18); }
+  .cinema-footer p { color:#aab9ce; line-height:1.7; margin:10px auto 20px; max-width:650px; }
+  .cinema-footer a { display:inline-block; margin:5px; padding:10px 15px; color:#eaf4ff; text-decoration:none; border:1px solid rgba(181,203,228,.25); border-radius:999px; }
+  .cinema-footer a:hover { color:var(--cinema-lime); border-color:var(--cinema-lime); }
+  @media(max-width:850px) {
+    .cinema-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .impact-grid { grid-template-columns:1fr; }
+    .cinema-nav { align-items:flex-start; flex-direction:column; }
+    .cinema-nav-links { justify-content:flex-start; }
+  }
+  @media(max-width:560px) {
+    .cinema-grid,.case-grid { grid-template-columns:1fr; }
+    .cinema-nav-links { gap:12px; }
+    .cinema-nav a { font-size:.72rem; }
+    .cinema-card { padding:21px; }
+    .profile-photo { max-width:72vw; height:auto; aspect-ratio:4/5; }
+  }
+  @media(prefers-reduced-motion:reduce) {
+    .cinema-card,.case-card,.profile-photo,.cinema-nav a { transition:none !important; }
+    .cinema-card:hover,.case-card:hover,.profile-photo:hover { transform:none !important; }
+  }
+
+
+  /* CLEAN 3D VISUAL DIRECTION — approved visual refinement */
+  :root {
+    --clean-ink: #10234d;
+    --clean-blue: #1769d2;
+    --clean-cyan: #25bce8;
+    --clean-border: #d8e6f8;
+    --clean-muted: #536785;
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 78px; }
+  body {
+    color: var(--clean-ink);
+    background: #f6f9ff;
+    background-image: radial-gradient(ellipse at 8% 12%, rgba(92,177,255,.13), transparent 28%),
+                      radial-gradient(ellipse at 90% 34%, rgba(143,121,255,.10), transparent 27%);
+  }
+  .cinema-nav {
+    background: rgba(248,251,255,.88); color: var(--clean-ink);
+    border-bottom: 1px solid rgba(128,166,216,.32);
+    box-shadow: 0 8px 30px rgba(26,65,125,.06);
+  }
+  .cinema-nav-brand { color: var(--clean-ink); }
+  .cinema-nav a { color: #31496e; }
+  .cinema-nav a:hover { color: var(--clean-blue); }
+  #hero {
+    background: linear-gradient(135deg,rgba(255,255,255,.92),rgba(232,243,255,.82));
+    border-bottom: 1px solid #dce9fb;
+    padding-top: clamp(42px,6vw,76px); padding-bottom: clamp(42px,6vw,76px);
+  }
+  #hero::before {
+    background: radial-gradient(ellipse at 18% 25%, rgba(110,194,255,.22), transparent 32%),
+                radial-gradient(ellipse at 83% 70%, rgba(173,155,255,.18), transparent 34%),
+                linear-gradient(135deg, rgba(255,255,255,.25), transparent 60%);
+  }
+  .giant-name { filter: drop-shadow(0 10px 18px rgba(88,100,210,.12)); }
+  .profile-photo {
+    border: 3px solid rgba(255,255,255,.95);
+    box-shadow: 12px 15px 0 rgba(64,164,231,.13), 0 25px 65px rgba(31,73,135,.20);
+  }
+  .contact-strip a, .contact-strip span {
+    border: 1px solid #d5e4f8; border-radius: 999px; padding: 9px 13px;
+    background: rgba(255,255,255,.78); box-shadow: 0 5px 15px rgba(26,65,125,.06);
+  }
+  .stats { background: linear-gradient(110deg,#fff,#edf5ff); border-block:1px solid #d9e8fa; }
+  .stat-item { color: var(--clean-ink); }
+  .stat-label { color: var(--clean-muted); }
+  .cinema-section { padding: clamp(46px,6.5vw,82px) clamp(18px,5vw,72px); }
+  .cinema-dark {
+    color: var(--clean-ink);
+    background: linear-gradient(145deg,#f5f9ff 0%,#eaf4ff 54%,#f8faff 100%);
+    border-block: 1px solid #dce9fb;
+  }
+  .cinema-kicker { color: #1769d2; }
+  .cinema-heading { color: #10234d; }
+  .cinema-copy { color: #536785; }
+  .cinema-card {
+    color: #10234d;
+    border: 1px solid rgba(178,203,237,.82);
+    background: linear-gradient(145deg,rgba(255,255,255,.98),rgba(239,246,255,.96));
+    box-shadow: 0 14px 32px rgba(36,83,145,.09),inset 0 1px rgba(255,255,255,.9);
+  }
+  .cinema-card::before { background:radial-gradient(circle,rgba(68,179,245,.19),transparent 70%); }
+  .cinema-card:hover { border-color:rgba(42,148,231,.65); box-shadow:0 24px 44px rgba(36,83,145,.15),0 0 24px rgba(110,194,255,.14); }
+  .cinema-card h3 { color:#10234d; }
+  .cinema-card p { color:#536785; }
+  .cinema-card-icon { color:#1769d2; background:rgba(52,145,237,.09); border-color:rgba(52,145,237,.2); }
+  .cinema-tags span { color:#2b4770; border-color:#d6e4f6; background:#f6faff; }
+  .impact-grid { gap:16px; }
+  .impact-card {
+    background:linear-gradient(145deg,#ffffff,#edf5ff); border:1px solid #d4e5fa;
+    box-shadow:0 14px 32px rgba(30,76,140,.09),inset 0 1px #fff;
+  }
+  .impact-number { color:#1769d2; }
+  .impact-card h3 { color:#10234d; }
+  .impact-card p { color:#536785; }
+  .case-card { border-color:#d8e6f8; background:linear-gradient(145deg,#fff,#f0f6ff); box-shadow:0 14px 35px rgba(31,72,130,.07); }
+  .case-card .case-label { color:#1769d2; }
+  .case-card h3,.case-card strong { color:#10234d; }
+  .case-card p { color:#536785; }
+  #timeline-wrapper, #internships, #stack, #resume-skills, #projects, #resume-projects,
+  #education, #experience, #credentials {
+    background-color:rgba(249,251,255,.88);
+    background-image:linear-gradient(135deg,rgba(231,242,255,.58),rgba(255,255,255,.82));
+  }
+  .section-title { color:#10234d; }
+  .intern-card, .project-card, .skill-card, .education-card, .exp-card {
+    box-shadow:0 12px 28px rgba(35,76,134,.08);
+  }
+  .cinema-footer {
+    background:linear-gradient(135deg,#eaf4ff,#f8fbff 54%,#e7f3ff);
+    color:#10234d; border-top:1px solid #d5e6fb;
+  }
+  .cinema-footer .cinema-heading { color:#10234d; }
+  .cinema-footer p { color:#536785; }
+  .cinema-footer a { color:#173b70; background:rgba(255,255,255,.72); border-color:#d2e2f6; }
+  .cinema-footer a:hover { color:#1769d2; border-color:#1769d2; }
+  @media(max-width:700px) {
+    .cinema-nav { padding:12px 16px; }
+    .cinema-nav-links { max-width:100%; }
+    .impact-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .impact-card { padding:18px; }
+  }
+  @media(max-width:460px) { .impact-grid { grid-template-columns:1fr; } }
+
 </style>
 </head>
 <body>
+
+  <nav class="cinema-nav" aria-label="Main navigation">
+  <div class="cinema-nav-brand">VIGNESHWARAN S. <span style="color:#6ee7f9">/ DATA & BI</span></div>
+  <div class="cinema-nav-links">
+    <a href="#hero">Home</a><a href="#business-impact">Impact</a><a href="#analytics-gallery">Analytics</a><a href="#case-studies">Case Studies</a><a href="#experience">Experience</a><a href="#resume-skills">Skills</a><a href="#education">Education</a><a href="#next">Contact</a>
+  </div>
+</nav>
 
   <section id="hero">
     <div class="hero-tag fade-up">Data Analyst · Power BI Developer · SQL · Python</div>
@@ -253,7 +455,7 @@
       <a href="tel:7639971035">📞 7639971035</a>
       <a href="mailto:vigneshw.5416@gmail.com">📧 vigneshw.5416@gmail.com</a>
       <a href="https://linkedin.com/in/vigneshwaran-s-670390266" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
-      <a id="websiteLink" href="mailto:vigneshw.5416@gmail.com?subject=Website%20link%20request" target="_blank" rel="noopener noreferrer" aria-label="Website URL not yet configured">🌐 Website</a>
+      <a id="websiteLink" href="https://analytics.vigneshw-5416.workers.dev" target="_blank" rel="noopener noreferrer" aria-label="Open analytics website">🌐 Website</a>
       <span>📍 Tirupur, Tamil Nadu</span>
     </div>
   </section>
@@ -262,6 +464,44 @@
     <div class="stat-item"><div class="stat-value">2+</div><div class="stat-label">Years Experience</div></div>
     <div class="stat-item"><div class="stat-value">BI</div><div class="stat-label">Sales & Operations</div></div>
     <div class="stat-item"><div class="stat-value">3</div><div class="stat-label">Professional Roles</div></div>
+  </section>
+
+  
+  <section id="business-impact" class="cinema-section cinema-dark">
+    <div class="cinema-kicker">Business impact / measurable outcomes</div>
+    <h2 class="cinema-heading">Analytics that moves<br>work forward.</h2>
+    <p class="cinema-copy">Selected outcomes documented in my professional experience. Metrics are presented as reported achievements, not live website calculations.</p>
+    <div class="impact-grid">
+      <article class="impact-card fade-up"><div class="impact-number">~20%</div><h3>Less recurring reporting workload</h3><p>Tableau Marketing MIS brought target achievement, store visits, productive stores and order history into a consolidated reporting view.</p></article>
+      <article class="impact-card fade-up"><div class="impact-number">25%</div><h3>Faster manual audit turnaround</h3><p>DAX-driven purchase-order, returns, OTIF and pending-order analytics helped reduce manual audit turnaround.</p></article>
+      <article class="impact-card fade-up"><div class="impact-number">30%</div><h3>Lower warehouse-planning effort</h3><p>BOM-based allocation and shortage analysis surfaced allocated, fulfilled, pending and shortage quantities before dispatch.</p></article>
+    </div>
+  </section>
+
+  <section id="analytics-gallery" class="cinema-section cinema-dark">
+    <div class="cinema-kicker">Selected work / analytics gallery</div>
+    <h2 class="cinema-heading">Business questions.<br><span style="color:#6ee7f9">Clearer answers.</span></h2>
+    <p class="cinema-copy">A selection of analytics domains from my work. Dashboard cards describe the scope of the work; connect actual screenshots or demos where they are available.</p>
+    <div class="cinema-grid">
+      <article class="cinema-card fade-up"><div class="cinema-card-icon">↗</div><h3>Sales & Marketing MIS</h3><p>Target achievement, sales trends, productive stores, store visits, order history and current-versus-previous order analysis.</p><div class="cinema-tags"><span>Tableau</span><span>Power BI</span><span>Sales MIS</span></div></article>
+      <article class="cinema-card fade-up"><div class="cinema-card-icon">◉</div><h3>Accounts & Finance</h3><p>Current-versus-prior-year sales, purchases, closing stock, gross profit, net profit, indirect expenses and showroom profitability.</p><div class="cinema-tags"><span>Power BI</span><span>DAX</span><span>Finance</span></div></article>
+      <article class="cinema-card fade-up"><div class="cinema-card-icon">⌘</div><h3>HR Analytics</h3><p>Employee exits, attrition rate, reasons for leaving, department trends, tenure and headcount movement to support retention analysis.</p><div class="cinema-tags"><span>HR MIS</span><span>Attrition</span><span>Workforce</span></div></article>
+      <article class="cinema-card fade-up"><div class="cinema-card-icon">▦</div><h3>Inventory & BOM Intelligence</h3><p>Three-month order history, stock availability, FIFO allocation, one-to-many Sales Code-to-BOM mapping and pre-dispatch shortage visibility.</p><div class="cinema-tags"><span>SQL CTEs</span><span>FIFO</span><span>SAP B1</span></div></article>
+      <article class="cinema-card fade-up"><div class="cinema-card-icon">⌁</div><h3>Target & Product-Mix Diagnostics</h3><p>Compare prior-month targets with current run rate and assess whether target achievement is value-led or volume-led using trends and product mix.</p><div class="cinema-tags"><span>Trend Analysis</span><span>Targets</span><span>Product Mix</span></div></article>
+      <article class="cinema-card fade-up"><div class="cinema-card-icon">◈</div><h3>Role-Based Analytics</h3><p>Dynamic row-level security by Division, State, Area Code and Brand for role-specific access across leadership and sales roles.</p><div class="cinema-tags"><span>Power BI</span><span>Tableau</span><span>RLS</span></div></article>
+    </div>
+  </section>
+
+  <section id="case-studies" class="cinema-section" style="background:#f7f8fb">
+    <div class="cinema-kicker">How I approach analytics</div>
+    <h2 class="cinema-heading" style="color:#101828">From operational data<br>to useful decisions.</h2>
+    <p class="cinema-copy" style="color:#526174">Case-study summaries based on the experience details already listed in this portfolio.</p>
+    <div class="case-grid">
+      <article class="case-card fade-up"><div class="case-label">Case study / 01</div><h3>BOM Allocation & Shortage Engine</h3><p><strong>Challenge:</strong> One-to-many Sales Code-to-BOM mapping and pre-dispatch stock visibility across seven distribution centers.</p><p><strong>Approach:</strong> Combine three-month order history, stock availability and FIFO logic.</p><p><strong>Outcome:</strong> Surface allocated, fulfilled, pending and shortage quantities before dispatch.</p></article>
+      <article class="case-card fade-up"><div class="case-label">Case study / 02</div><h3>Marketing & Store-Visit MIS</h3><p><strong>Challenge:</strong> Recurring sales reporting across targets, store visits, productive stores and order history.</p><p><strong>Approach:</strong> Consolidate marketing and order analysis in Tableau MIS.</p><p><strong>Outcome:</strong> Approximately 20% reduction in recurring sales-reporting workload, as documented in the resume.</p></article>
+      <article class="case-card fade-up"><div class="case-label">Case study / 03</div><h3>Finance & Showroom Profitability</h3><p><strong>Focus:</strong> Current-year and prior-year sales, purchases, stock, GP, NP, expenses and showroom performance.</p><p><strong>Additional measures:</strong> GMROI, inventory turnover, payables, receivables, ROCE, ROI and stock in transit.</p><p><strong>Purpose:</strong> Give management a consolidated view for financial and inventory-efficiency reviews.</p></article>
+      <article class="case-card fade-up"><div class="case-label">Case study / 04</div><h3>HR Attrition Analytics</h3><p><strong>Focus:</strong> Employee exits, attrition percentage, exit reasons, department patterns, tenure and headcount movement.</p><p><strong>Purpose:</strong> Help HR understand workforce trends and identify areas for retention follow-up.</p><p><strong>Note:</strong> No employee counts or attrition percentages are invented in this portfolio summary.</p></article>
+    </div>
   </section>
 
   <section id="timeline-wrapper">
@@ -592,6 +832,19 @@
       websiteLink.href = WEBSITE_URL;
     }
 
+
+    // Cinematic portfolio interactions: lightweight pointer tilt for cards.
+    document.querySelectorAll('.cinema-card').forEach((card) => {
+      card.addEventListener('pointermove', (event) => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth < 700) return;
+        const rect = card.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+        card.style.transform = `perspective(1000px) rotateX(${(0.5-y)*5}deg) rotateY(${(x-0.5)*6}deg) translateY(-5px)`;
+      });
+      card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+    });
+
     // General Fade Up Animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -729,5 +982,15 @@
       if (e.key === 'Escape') closeCertViewer();
     });
   </script>
+  
+  <footer class="cinema-footer">
+    <div class="cinema-kicker">Let's connect</div>
+    <h2 class="cinema-heading" style="font-size:clamp(2rem,4vw,3rem)">Have a business question<br>worth answering?</h2>
+    <p>Open to Data Analyst, BI Developer and Business Analytics opportunities. Reach out to discuss analytics, reporting and data-driven problem solving.</p>
+    <a href="mailto:vigneshw.5416@gmail.com">Email me ↗</a>
+    <a href="https://linkedin.com/in/vigneshwaran-s-670390266" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+    <a href="https://analytics.vigneshw-5416.workers.dev" target="_blank" rel="noopener noreferrer">Analytics website ↗</a>
+  </footer>
+
 </body>
 </html>
