@@ -449,6 +449,97 @@
     #stack .card { min-height: 0; padding: 26px; }
   }
 
+
+  /* Responsive refinement: desktop, tablet and phone */
+  html, body { width: 100%; max-width: 100%; overflow-x: clip; }
+  img, video, iframe, canvas, svg { max-width: 100%; }
+  section { scroll-margin-top: 76px; }
+  .cinema-nav { flex-wrap: wrap; }
+  .cinema-nav-links { min-width: 0; }
+  .grid, .cinema-grid, .case-grid, .impact-grid, .intern-grid { min-width: 0; }
+  .card, .cinema-card, .case-card, .impact-card, .intern-card { min-width: 0; overflow-wrap: anywhere; }
+  .about-text { width: min(100%, 850px); }
+  .contact-strip { max-width: 100%; }
+  .giant-name { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+  .profile-photo { max-width: min(280px, 80vw); height: auto; aspect-ratio: 4 / 5; }
+  .folder-container, .folder, .folder-content { max-width: 100%; min-width: 0; }
+  .folder { overflow-wrap: anywhere; }
+  .cinema-nav a { white-space: nowrap; }
+  #stack .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #resume-skills .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  @media (max-width: 1024px) {
+    .cinema-nav { align-items: flex-start; gap: 12px; }
+    .cinema-nav-brand { font-size: .76rem; }
+    .cinema-nav-links { justify-content: flex-start; gap: 8px 14px; }
+    .cinema-grid, .impact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .case-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #stack .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .folder { padding: 34px; }
+    .section-title { letter-spacing: -1px; }
+    #timeline-wrapper { height: 300vh; }
+  }
+
+  @media (max-width: 700px) {
+    html { scroll-padding-top: 68px; }
+    section { scroll-margin-top: 66px; }
+    .cinema-nav { position: sticky; top: 0; padding: 11px 14px; gap: 8px; }
+    .cinema-nav-brand { width: 100%; white-space: normal; font-size: .72rem; letter-spacing: 1px; }
+    .cinema-nav-links {
+      width: 100%; display: flex; flex-wrap: nowrap; justify-content: flex-start;
+      overflow-x: auto; overflow-y: hidden; gap: 8px; padding: 3px 0 5px;
+      -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+    }
+    .cinema-nav-links a { flex: 0 0 auto; font-size: .72rem; padding: 7px 10px; border: 1px solid rgba(220,232,245,.16); border-radius: 999px; }
+    #hero { min-height: auto; padding: 74px 18px 54px; }
+    .giant-name { font-size: clamp(2.1rem, 10vw, 4.2rem); letter-spacing: -1.4px; line-height: 1.05; margin-bottom: 22px; }
+    .hero-tag { font-size: .72rem; letter-spacing: 1.4px; line-height: 1.6; }
+    .profile-photo { width: min(230px, 68vw); margin-bottom: 25px; }
+    .about-text { font-size: 1rem; line-height: 1.7; }
+    .contact-strip { gap: 10px; font-size: .78rem; }
+    .contact-strip a { padding: 9px 13px; max-width: 100%; overflow-wrap: anywhere; }
+    .section-title { font-size: clamp(2rem, 8vw, 3rem); margin-bottom: 26px; }
+    .stats { padding: 36px 16px; gap: 18px; flex-wrap: wrap; }
+    .cinema-grid, .impact-grid, .case-grid, #stack .grid, #resume-skills .grid,
+    .intern-grid, .grid { grid-template-columns: minmax(0, 1fr) !important; }
+    .cinema-card, .case-card, .impact-card, .intern-card, #stack .card { padding: 22px; }
+    .cinema-card { transform: none !important; }
+    .cinema-card:hover, .case-card:hover, .intern-card:hover, #stack .card:hover { transform: none; }
+    #business-impact, #analytics-gallery, #case-studies, #stack, #resume-skills,
+    #projects, #resume-projects, #education, #experience, #credentials, #internships, #next {
+      padding-left: 16px !important; padding-right: 16px !important;
+    }
+    #timeline-wrapper { height: 230vh; }
+    .sticky-timeline { height: 100svh; min-height: 520px; }
+    .t-year { width: min(86vw, 420px); padding: 18px; }
+    .t-year h2 { font-size: clamp(1.4rem, 6vw, 2rem); }
+    .t-detail { font-size: .9rem; line-height: 1.5; }
+    .folder-container { width: 100%; }
+    .folder { position: relative; top: auto !important; min-height: 0; margin: 24px 0 32px; padding: 25px 20px; border-radius: 14px; }
+    .folder-tab { position: static; height: auto; min-height: 38px; margin: -25px -20px 18px; padding: 10px 18px; border-radius: 14px 14px 0 0; font-size: .78rem; }
+    .folder ul, .folder p { overflow-wrap: anywhere; }
+    .orbit-wrapper { max-width: 100%; }
+    .photos-end { gap: 8px; flex-wrap: wrap; justify-content: center; }
+    .p-end-img { width: min(28vw, 130px); height: auto; }
+    #next > a { padding: 15px 25px !important; }
+  }
+
+  @media (max-width: 390px) {
+    .cinema-nav { padding-left: 10px; padding-right: 10px; }
+    .cinema-nav-brand { font-size: .65rem; }
+    .giant-name { font-size: clamp(1.8rem, 9.5vw, 2.5rem); }
+    .hero-tag { font-size: .65rem; letter-spacing: .8px; }
+    .contact-strip { flex-direction: column; align-items: stretch; width: 100%; }
+    .contact-strip a { text-align: center; }
+    .cinema-card, .case-card, .impact-card, .intern-card, #stack .card { padding: 18px; }
+    .section-title { letter-spacing: -.6px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  }
+
 </style>
 </head>
 <body>
