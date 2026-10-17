@@ -326,6 +326,110 @@
     .cinema-card:hover,.case-card:hover,.profile-photo:hover { transform:none !important; }
   }
 
+
+  /* CLEAN 3D VISUAL DIRECTION — approved visual refinement */
+  :root {
+    --clean-ink: #10234d;
+    --clean-blue: #1769d2;
+    --clean-cyan: #25bce8;
+    --clean-border: #d8e6f8;
+    --clean-muted: #536785;
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 78px; }
+  body {
+    color: var(--clean-ink);
+    background: #f6f9ff;
+    background-image: radial-gradient(ellipse at 8% 12%, rgba(92,177,255,.13), transparent 28%),
+                      radial-gradient(ellipse at 90% 34%, rgba(143,121,255,.10), transparent 27%);
+  }
+  .cinema-nav {
+    background: rgba(248,251,255,.88); color: var(--clean-ink);
+    border-bottom: 1px solid rgba(128,166,216,.32);
+    box-shadow: 0 8px 30px rgba(26,65,125,.06);
+  }
+  .cinema-nav-brand { color: var(--clean-ink); }
+  .cinema-nav a { color: #31496e; }
+  .cinema-nav a:hover { color: var(--clean-blue); }
+  #hero {
+    background: linear-gradient(135deg,rgba(255,255,255,.92),rgba(232,243,255,.82));
+    border-bottom: 1px solid #dce9fb;
+    padding-top: clamp(42px,6vw,76px); padding-bottom: clamp(42px,6vw,76px);
+  }
+  #hero::before {
+    background: radial-gradient(ellipse at 18% 25%, rgba(110,194,255,.22), transparent 32%),
+                radial-gradient(ellipse at 83% 70%, rgba(173,155,255,.18), transparent 34%),
+                linear-gradient(135deg, rgba(255,255,255,.25), transparent 60%);
+  }
+  .giant-name { filter: drop-shadow(0 10px 18px rgba(88,100,210,.12)); }
+  .profile-photo {
+    border: 3px solid rgba(255,255,255,.95);
+    box-shadow: 12px 15px 0 rgba(64,164,231,.13), 0 25px 65px rgba(31,73,135,.20);
+  }
+  .contact-strip a, .contact-strip span {
+    border: 1px solid #d5e4f8; border-radius: 999px; padding: 9px 13px;
+    background: rgba(255,255,255,.78); box-shadow: 0 5px 15px rgba(26,65,125,.06);
+  }
+  .stats { background: linear-gradient(110deg,#fff,#edf5ff); border-block:1px solid #d9e8fa; }
+  .stat-item { color: var(--clean-ink); }
+  .stat-label { color: var(--clean-muted); }
+  .cinema-section { padding: clamp(46px,6.5vw,82px) clamp(18px,5vw,72px); }
+  .cinema-dark {
+    color: var(--clean-ink);
+    background: linear-gradient(145deg,#f5f9ff 0%,#eaf4ff 54%,#f8faff 100%);
+    border-block: 1px solid #dce9fb;
+  }
+  .cinema-kicker { color: #1769d2; }
+  .cinema-heading { color: #10234d; }
+  .cinema-copy { color: #536785; }
+  .cinema-card {
+    color: #10234d;
+    border: 1px solid rgba(178,203,237,.82);
+    background: linear-gradient(145deg,rgba(255,255,255,.98),rgba(239,246,255,.96));
+    box-shadow: 0 14px 32px rgba(36,83,145,.09),inset 0 1px rgba(255,255,255,.9);
+  }
+  .cinema-card::before { background:radial-gradient(circle,rgba(68,179,245,.19),transparent 70%); }
+  .cinema-card:hover { border-color:rgba(42,148,231,.65); box-shadow:0 24px 44px rgba(36,83,145,.15),0 0 24px rgba(110,194,255,.14); }
+  .cinema-card h3 { color:#10234d; }
+  .cinema-card p { color:#536785; }
+  .cinema-card-icon { color:#1769d2; background:rgba(52,145,237,.09); border-color:rgba(52,145,237,.2); }
+  .cinema-tags span { color:#2b4770; border-color:#d6e4f6; background:#f6faff; }
+  .impact-grid { gap:16px; }
+  .impact-card {
+    background:linear-gradient(145deg,#ffffff,#edf5ff); border:1px solid #d4e5fa;
+    box-shadow:0 14px 32px rgba(30,76,140,.09),inset 0 1px #fff;
+  }
+  .impact-number { color:#1769d2; }
+  .impact-card h3 { color:#10234d; }
+  .impact-card p { color:#536785; }
+  .case-card { border-color:#d8e6f8; background:linear-gradient(145deg,#fff,#f0f6ff); box-shadow:0 14px 35px rgba(31,72,130,.07); }
+  .case-card .case-label { color:#1769d2; }
+  .case-card h3,.case-card strong { color:#10234d; }
+  .case-card p { color:#536785; }
+  #timeline-wrapper, #internships, #stack, #resume-skills, #projects, #resume-projects,
+  #education, #experience, #credentials {
+    background-color:rgba(249,251,255,.88);
+    background-image:linear-gradient(135deg,rgba(231,242,255,.58),rgba(255,255,255,.82));
+  }
+  .section-title { color:#10234d; }
+  .intern-card, .project-card, .skill-card, .education-card, .exp-card {
+    box-shadow:0 12px 28px rgba(35,76,134,.08);
+  }
+  .cinema-footer {
+    background:linear-gradient(135deg,#eaf4ff,#f8fbff 54%,#e7f3ff);
+    color:#10234d; border-top:1px solid #d5e6fb;
+  }
+  .cinema-footer .cinema-heading { color:#10234d; }
+  .cinema-footer p { color:#536785; }
+  .cinema-footer a { color:#173b70; background:rgba(255,255,255,.72); border-color:#d2e2f6; }
+  .cinema-footer a:hover { color:#1769d2; border-color:#1769d2; }
+  @media(max-width:700px) {
+    .cinema-nav { padding:12px 16px; }
+    .cinema-nav-links { max-width:100%; }
+    .impact-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .impact-card { padding:18px; }
+  }
+  @media(max-width:460px) { .impact-grid { grid-template-columns:1fr; } }
+
 </style>
 </head>
 <body>
@@ -351,7 +455,7 @@
       <a href="tel:7639971035">📞 7639971035</a>
       <a href="mailto:vigneshw.5416@gmail.com">📧 vigneshw.5416@gmail.com</a>
       <a href="https://linkedin.com/in/vigneshwaran-s-670390266" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
-      <a id="websiteLink" href="mailto:vigneshw.5416@gmail.com?subject=Website%20link%20request" target="_blank" rel="noopener noreferrer" aria-label="Website URL not yet configured">🌐 Website</a>
+      <a id="websiteLink" href="https://analytics.vigneshw-5416.workers.dev" target="_blank" rel="noopener noreferrer" aria-label="Open analytics website">🌐 Website</a>
       <span>📍 Tirupur, Tamil Nadu</span>
     </div>
   </section>
