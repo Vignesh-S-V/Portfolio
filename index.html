@@ -784,6 +784,35 @@ img,svg,video,canvas{max-width:100%}
   .refresh-footer-links{flex-wrap:wrap}
 }
 
+
+/* Show the entire character artwork in the hero background instead of cropping it. */
+#home.refresh-hero{min-height:clamp(760px,100svh,1100px);height:auto}
+#home.refresh-hero:before{
+  background-size:cover,auto 100%,cover!important;
+  background-position:center,right bottom,center 48%!important;
+  background-repeat:no-repeat!important;
+}
+@media(min-width:1101px){
+  #home.refresh-hero:before{background-size:cover,auto 100%,cover!important;background-position:center,right bottom,center 48%!important}
+  #home .refresh-hero-inner{min-height:clamp(760px,100svh,1100px)}
+}
+@media(min-width:761px) and (max-width:1100px){
+  #home.refresh-hero{min-height:960px}
+  #home.refresh-hero:before{background-size:cover,auto 82%,cover!important;background-position:center,right bottom,center!important}
+  #home .refresh-hero-inner{min-height:960px}
+}
+@media(max-width:760px){
+  #home.refresh-hero{min-height:1100px}
+  #home.refresh-hero:before{
+    background-size:cover,auto 43%,cover!important;
+    background-position:center,right bottom,center!important;
+  }
+}
+@media(max-width:420px){
+  #home.refresh-hero{min-height:1120px}
+  #home.refresh-hero:before{background-size:cover,auto 37%,cover!important;background-position:center,right bottom,center!important}
+}
+
 </style>
 </head>
 
