@@ -41,19 +41,19 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 .refresh-footer{background:var(--refresh-ink);color:#d5c8ba;padding:22px clamp(20px,5vw,70px)}.refresh-footer-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.refresh-footer p{font:500 .62rem var(--refresh-mono);letter-spacing:.08em;margin:0}.refresh-footer-links{display:flex;gap:18px}.refresh-footer-links a{font-size:.74rem;text-decoration:none}.refresh-footer-links a:hover{color:#f0a17d}
 .refresh-in{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}.refresh-in.visible{opacity:1;transform:translateY(0)}
 
-/* Animated introduction character */
-.refresh-hero{position:relative}
-.intro-character{position:absolute;z-index:5;right:clamp(18px,5vw,70px);bottom:28px;display:flex;align-items:flex-end;gap:12px;max-width:min(470px,48vw);animation:introWalkIn 1.25s cubic-bezier(.2,.8,.25,1) .45s both}
-.intro-avatar{font-size:clamp(3.3rem,6vw,5.4rem);line-height:1;filter:drop-shadow(0 10px 12px rgba(0,0,0,.3));transform-origin:bottom center;animation:introBounce .62s ease-in-out infinite alternate}
-.intro-bubble{position:relative;max-width:340px;padding:15px 17px 13px;border:1px solid rgba(255,248,239,.25);border-radius:17px 17px 17px 4px;background:rgba(255,250,242,.96);color:#201a16;box-shadow:0 12px 35px rgba(0,0,0,.22);backdrop-filter:blur(10px)}
+/* Animated male character and cinematic speech card */
+.intro-character{position:absolute;z-index:5;right:clamp(12px,4vw,58px);bottom:12px;display:flex;align-items:flex-end;gap:5px;max-width:min(600px,58vw);animation:introWalkIn 1.25s cubic-bezier(.2,.8,.25,1) .35s both}
+.intro-mascot{width:clamp(135px,21vw,245px);flex:0 0 auto;filter:drop-shadow(0 13px 16px rgba(0,0,0,.34));transform-origin:bottom center;animation:mascotIdle 2.4s ease-in-out infinite}
+.intro-mascot svg{display:block;width:100%;height:auto;overflow:visible}
+.intro-bubble{position:relative;max-width:340px;padding:15px 17px 13px;border:1px solid rgba(255,248,239,.25);border-radius:17px 17px 17px 4px;background:rgba(255,250,242,.97);color:#201a16;box-shadow:0 12px 35px rgba(0,0,0,.22);backdrop-filter:blur(10px);margin-bottom:105px}
 .intro-bubble:after{content:"";position:absolute;left:-7px;bottom:10px;width:12px;height:12px;background:#fffaf2;border-left:1px solid rgba(255,248,239,.25);border-bottom:1px solid rgba(255,248,239,.25);transform:rotate(45deg)}
-.intro-bubble-label{font:700 .58rem var(--refresh-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--refresh-orange);margin-bottom:6px}
-.intro-bubble-text{font-size:.82rem;line-height:1.55;font-weight:700;min-height:2.5em}
-.intro-speak{margin-top:9px;padding:7px 11px;border:0;border-radius:999px;background:var(--refresh-orange);color:#fff;font:700 .65rem var(--refresh-mono);cursor:pointer}
+.intro-bubble-label{font:800 .62rem var(--refresh-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--refresh-orange);margin-bottom:7px}
+.intro-bubble-text{font-size:clamp(.76rem,1.1vw,.95rem);line-height:1.55;font-weight:800;min-height:3.1em}
+.intro-speak{margin-top:9px;padding:8px 12px;border:0;border-radius:999px;background:var(--refresh-orange);color:#fff;font:800 .65rem var(--refresh-mono);cursor:pointer}
 .intro-speak:hover{background:#201a16}
-@keyframes introWalkIn{from{opacity:0;transform:translateX(150px)}to{opacity:1;transform:translateX(0)}}
-@keyframes introBounce{from{transform:translateY(0) rotate(-4deg)}to{transform:translateY(-7px) rotate(4deg)}}
-@media(max-width:640px){.intro-character{right:14px;bottom:18px;max-width:calc(100% - 28px);gap:8px}.intro-avatar{font-size:3.1rem}.intro-bubble{padding:11px 12px;max-width:260px}.intro-bubble-text{font-size:.72rem}.intro-bubble-label{font-size:.52rem}.intro-speak{font-size:.58rem}}
+@keyframes introWalkIn{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}
+@keyframes mascotIdle{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-6px) rotate(1deg)}}
+@media(max-width:640px){.intro-character{right:8px;bottom:9px;max-width:calc(100% - 16px);gap:0}.intro-mascot{width:clamp(95px,30vw,145px)}.intro-bubble{padding:10px 11px;max-width:235px;margin-bottom:48px}.intro-bubble-text{font-size:.7rem;min-height:3em}.intro-bubble-label{font-size:.5rem}.intro-speak{font-size:.57rem;padding:7px 9px}}
 @media(prefers-reduced-motion:reduce){.intro-character,.intro-avatar{animation:none}}
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.refresh-hero:before{animation:none}.refresh-in{opacity:1;transform:none}}
@@ -79,11 +79,47 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
     <div class="refresh-hero-foot"><span>Based in Tirupur, Tamil Nadu · Open to opportunities</span><span>Scroll to explore</span></div>
   </div>
 </section>
-  <div class="intro-character" aria-label="Animated portfolio introduction">
-    <div class="intro-avatar" aria-hidden="true">🧑🏻‍💻</div>
+  <div class="intro-character" aria-label="Animated 3D-inspired male portfolio guide">
+    <div class="intro-mascot" aria-hidden="true">
+      <svg viewBox="0 0 250 430" role="img" aria-label="Cartoon male data analyst holding a laptop">
+        <ellipse cx="126" cy="414" rx="70" ry="10" fill="#090807" opacity=".32"/>
+        <g class="mascot-body">
+          <path d="M91 275 L84 363 L112 365 L132 292 L143 365 L170 363 L166 270Z" fill="#242321"/>
+          <path d="M81 353 L112 356 L111 391 Q96 400 74 388Z" fill="#272522"/>
+          <path d="M140 352 L170 352 L174 389 Q160 401 139 389Z" fill="#272522"/>
+          <path d="M74 384 Q92 394 111 387 L119 401 Q103 414 70 408 Q59 403 62 394Z" fill="#f5eee4" stroke="#d9cabb" stroke-width="2"/>
+          <path d="M140 384 Q158 394 174 386 L190 398 Q190 408 174 410 L141 405Z" fill="#f5eee4" stroke="#d9cabb" stroke-width="2"/>
+          <path d="M99 139 L150 139 L155 169 L96 169Z" fill="#b86b43"/>
+          <path d="M80 166 Q124 149 166 169 L183 268 Q128 289 73 267Z" fill="#292522"/>
+          <path d="M99 166 L125 182 L148 165 L157 266 L93 266Z" fill="#f7f0e6"/>
+          <path d="M83 175 Q65 185 58 220 L50 260 Q52 271 63 270 L78 231 L99 193Z" fill="#292522"/>
+          <path d="M163 176 Q183 183 191 209 L204 239 Q209 252 198 256 Q189 257 184 244 L167 218Z" fill="#292522"/>
+          <path d="M51 253 Q43 258 47 268 Q52 278 64 269 L72 258Z" fill="#b86b43"/>
+          <path d="M196 244 Q209 238 215 248 Q218 257 205 263 L194 257Z" fill="#b86b43"/>
+          <path d="M93 151 L104 172 L124 188 L145 171 L156 151 L169 169 L148 201 L125 213 L100 200 L79 170Z" fill="#39332f"/>
+          <rect x="102" y="119" width="45" height="40" rx="15" fill="#c9825b"/>
+          <ellipse cx="124" cy="91" rx="43" ry="49" fill="#d79a73"/>
+          <path d="M82 91 Q73 48 108 36 Q145 21 164 52 Q181 70 166 96 L160 68 Q132 79 107 65 Q99 82 82 91Z" fill="#211a17"/>
+          <path d="M82 75 Q88 36 120 31 Q153 27 166 57 Q141 43 122 53 Q100 64 82 75Z" fill="#30231e"/>
+          <path d="M96 91 Q105 85 114 91" stroke="#35221d" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path d="M137 91 Q146 85 154 91" stroke="#35221d" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <ellipse cx="106" cy="101" rx="5" ry="7" fill="#211a17"/><ellipse cx="145" cy="101" rx="5" ry="7" fill="#211a17"/>
+          <circle cx="108" cy="99" r="1.8" fill="#fff"/><circle cx="147" cy="99" r="1.8" fill="#fff"/>
+          <path d="M125 100 L120 116 L128 118" stroke="#a96546" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M108 127 Q126 140 144 125" stroke="#713b32" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <path d="M100 127 Q126 145 150 125 Q144 151 125 151 Q106 149 100 127Z" fill="#4a2924"/>
+          <path d="M93 126 Q97 142 108 145 M153 125 Q150 141 141 145" stroke="#53342b" stroke-width="3" fill="none"/>
+          <g transform="rotate(-9 92 236)">
+            <rect x="54" y="207" width="78" height="68" rx="5" fill="#c9b9db" stroke="#eee4f6" stroke-width="3"/>
+            <rect x="60" y="213" width="66" height="54" rx="2" fill="#8d78a8"/>
+            <path d="M85 232 L104 232 M85 239 L114 239 M85 246 L107 246" stroke="#e9dff4" stroke-width="3" stroke-linecap="round"/>
+          </g>
+        </g>
+      </svg>
+    </div>
     <div class="intro-bubble">
-      <div class="intro-bubble-label">Hi, I’m Vigneshwaran</div>
-      <div class="intro-bubble-text" id="intro-line" aria-live="polite">I’m a Data Analyst with 2+ years of experience in BI and sales analytics.</div>
+      <div class="intro-bubble-label">Hello, I’m Vigneshwaran</div>
+      <div class="intro-bubble-text" id="intro-line" aria-live="polite">A Data Analyst passionate about cloud solutions and modern digital experiences.</div>
       <button class="intro-speak" id="intro-speak" type="button">▶ Hear my intro</button>
     </div>
   </div>
@@ -143,15 +179,15 @@ const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIn
 document.querySelectorAll('.refresh-in').forEach(el=>io.observe(el));
 const y=document.getElementById('refresh-year');if(y)y.textContent=new Date().getFullYear();
 const lines=[
-  "I’m Vigneshwaran S — a Data Analyst based in Tamil Nadu.",
-  "I have 2+ years of experience in business intelligence and sales analytics.",
-  "I build Power BI and Tableau dashboards, SQL reporting, and inventory analytics.",
-  "Explore my projects, experience, and skills below. Let’s make data count!"
+  "Hello, I'm Vigneshwaran, a Data Analyst.",
+  "I am passionate about building insightful dashboards and transforming business data into meaningful insights.",
+  "I work with Power BI, Tableau, SQL, and cloud solutions to create modern digital experiences.",
+  "Welcome to my portfolio. Explore my projects, experience, and skills!"
 ];
 const line=document.getElementById('intro-line');let index=0;
 if(line){window.setTimeout(()=>{window.setInterval(()=>{index=(index+1)%lines.length;line.textContent=lines[index]},4800)},4200);}
 const speak=document.getElementById('intro-speak');
-if(speak){speak.addEventListener('click',()=>{if(!('speechSynthesis' in window)){line.textContent='Your browser does not support voice playback. Please read the introduction here.';return;}window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(lines.join(' '));utterance.lang='en-IN';utterance.rate=.92;utterance.pitch=1.02;speak.textContent='🔊 Speaking…';utterance.onend=()=>{speak.textContent='▶ Hear my intro'};utterance.onerror=()=>{speak.textContent='▶ Hear my intro'};window.speechSynthesis.speak(utterance);});}
+if(speak){speak.addEventListener('click',()=>{if(!('speechSynthesis' in window)){line.textContent='Your browser does not support voice playback. Please read the introduction here.';return;}window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(lines.join(' '));utterance.lang='en-US';utterance.rate=.92;utterance.pitch=1.02;speak.textContent='🔊 Speaking…';utterance.onend=()=>{speak.textContent='▶ Hear my intro'};utterance.onerror=()=>{speak.textContent='▶ Hear my intro'};window.speechSynthesis.speak(utterance);});}
 })();
 </script>
 </body>
