@@ -426,6 +426,26 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 #home .hero-socials a.hero-social-icon svg{display:block;width:28px;height:28px}
 #home .hero-socials a:hover{color:#f47724;transform:translateY(-2px)}
 #home .hero-socials a{transition:color .2s ease,transform .2s ease}
+/* Animated mouth overlay for the raster character image */
+#home .intro-mascot{position:absolute}
+#home .intro-character-image{display:block;width:100%;height:auto}
+#home .intro-mouth-overlay{
+  position:absolute;left:46.5%;top:11.7%;width:4.2%;height:1.05%;
+  border-radius:50% 50% 45% 45%;background:#54251f;
+  opacity:0;transform:translate(-50%,-50%) scaleY(.25);
+  transform-origin:center;pointer-events:none;
+}
+#home .intro-character.is-speaking .intro-mouth-overlay{
+  opacity:.95;animation:mouthSpeak .19s ease-in-out infinite alternate;
+}
+@keyframes mouthSpeak{
+  0%{transform:translate(-50%,-50%) scaleY(.22);height:1%}
+  45%{transform:translate(-50%,-50%) scaleY(1.35);height:1.7%}
+  100%{transform:translate(-50%,-50%) scaleY(.48);height:1.1%}
+}
+@media(prefers-reduced-motion:reduce){
+  #home .intro-character.is-speaking .intro-mouth-overlay{animation:none;opacity:.85;transform:translate(-50%,-50%) scaleY(.9)}
+}
 </style>
 </head>
 
@@ -465,7 +485,7 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
     <div class="refresh-hero-foot"><span>Scroll to explore</span><span>⌄</span></div>
   </div>
   <div class="intro-character" aria-label="Animated 3D-inspired male portfolio guide">
-    <div class="intro-mascot"><img class="intro-character-image" src="portfolio-character.webp.png" alt="Illustrated portfolio guide holding a tablet"></div>
+    <div class="intro-mascot"><img class="intro-character-image" src="portfolio-character.webp.png" alt="Illustrated portfolio guide holding a tablet"><span class="intro-mouth-overlay" aria-hidden="true"></span></div>
     <div class="intro-bubble">
       <div class="intro-bubble-label">Hello, I’m Vigneshwaran</div>
       <div class="intro-bubble-text" id="intro-line" aria-live="polite">I’m a Data Analyst with 2+ years of experience. I’m passionate about building insightful dashboards using Power BI, Tableau, SQL and cloud solutions. Welcome to my portfolio.</div>
@@ -542,8 +562,18 @@ function syncAudioControls(){if(speak){speak.textContent=isSpeaking?'🔊 Speaki
 function chooseNaturalEnglishVoice(){
   const voices=window.speechSynthesis.getVoices();
   const english=voices.filter(v=>/^en([-_]|$)/i.test(v.lang));
-  const preferred=english.find(v=>/natural|neural|aria|jenny|guy|sara|davis|christopher|google us english/i.test(v.name));
-  return preferred||english.find(v=>/en-us/i.test(v.lang)&&!/(compact|espeak)/i.test(v.name))||english.find(v=>!/(compact|espeak)/i.test(v.name))||null;
+  const score=v=>{
+    const name=v.name.toLowerCase();
+    let n=0;
+    if(/natural|neural|online/.test(name))n+=10;
+    if(/microsoft.*(aria|jenny|guy|davis|jane|christopher|sonia|ryan|libby|natasha|ava|andrew|emma)/.test(name))n+=9;
+    if(/google.*(us english|english)/.test(name))n+=7;
+    if(/enhanced|premium/.test(name))n+=5;
+    if(/en-us/i.test(v.lang))n+=3;
+    if(/compact|espeak|robot/.test(name))n-=10;
+    return n;
+  };
+  return english.sort((a,b)=>score(b)-score(a))[0]||null;
 }
 function finishIntro(){isSpeaking=false;if(character)character.classList.remove('is-speaking');syncAudioControls();}
 function stopIntro(){if('speechSynthesis' in window)window.speechSynthesis.cancel();finishIntro();}
@@ -554,12 +584,13 @@ function startIntro(){
   if(character)character.classList.remove('is-speaking');
   syncAudioControls();
   if(line)line.textContent=lines[0];
-  utterance=new SpeechSynthesisUtterance(lines.join(' '));
+  const spokenText="Hello, I'm Vigneshwaran. I'm a Data Analyst, passionate about building insightful dashboards and transforming business data into meaningful insights. I work with Power BI, Tableau, SQL, and cloud solutions. Welcome to my portfolio; please explore my projects, experience, and skills.";
+  utterance=new SpeechSynthesisUtterance(spokenText);
   utterance.lang='en-US';
   const naturalVoice=chooseNaturalEnglishVoice();
   if(naturalVoice)utterance.voice=naturalVoice;
-  utterance.rate=.88;
-  utterance.pitch=.98;
+  utterance.rate=.94;
+  utterance.pitch=1.0;
   utterance.volume=1;
   utterance.onstart=()=>{if(character)character.classList.add('is-speaking');};
   utterance.onend=finishIntro;
