@@ -432,7 +432,7 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 /* Mouth overlay aligned to the visible lips in the character artwork.
    Percentages are relative to the mascot box (not the image viewport). */
 #home .intro-mouth-overlay{
-  position:absolute;left:58%;top:0%;width:4.1%;height:.7%;
+  position:absolute;left:47.3%;top:30.2%;width:5.4%;height:1.35%;
   border-radius:48% 48% 55% 55%;background:#48201c;
   opacity:0;transform:translate(-50%,-50%) scaleY(.12);
   transform-origin:center;pointer-events:none;overflow:hidden;
@@ -448,12 +448,12 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 }
 #home .intro-character.is-speaking.mouth-active .intro-mouth-overlay::after{opacity:.92}
 @keyframes mouthTalk{
-  0%{transform:translate(-50%,-50%) scaleY(.15);height:.55%}
-  55%{transform:translate(-50%,-50%) scaleY(1);height:1.45%}
-  100%{transform:translate(-50%,-50%) scaleY(.2);height:.65%}
+  0%{transform:translate(-50%,-50%) scaleY(.12);height:1.1%}
+  55%{transform:translate(-50%,-50%) scaleY(1.15);height:2.6%}
+  100%{transform:translate(-50%,-50%) scaleY(.18);height:1.15%}
 }
 @media(prefers-reduced-motion:reduce){
-  #home .intro-character.is-speaking.mouth-active .intro-mouth-overlay{animation:none;transform:translate(-50%,-50%) scaleY(.85);height:1.1%;opacity:.9}
+  #home .intro-character.is-speaking.mouth-active .intro-mouth-overlay{animation:none;transform:translate(-50%,-50%) scaleY(.85);height:2%;opacity:.9}
 }
 </style>
 </head>
