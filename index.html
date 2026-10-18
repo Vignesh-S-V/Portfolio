@@ -556,7 +556,7 @@ const lines=[
   "I work with Power BI, Tableau, SQL, and cloud solutions to create modern digital experiences.",
   "Welcome to my portfolio. Explore my projects, experience, and skills!"
 ];
-const line=document.getElementById('intro-line');const character=document.querySelector('.intro-character');let index=0;let isSpeaking=false;let utterance=null;
+const line=document.getElementById('intro-line');const character=document.querySelector('.intro-character');let index=0;let isSpeaking=false;let utterance=null;let mouthTimer=null;
 const heroPlay=document.getElementById('hero-intro-play');
 if(line){window.setInterval(()=>{if(!isSpeaking){index=(index+1)%lines.length;line.textContent=lines[index];}},4800);}
 const speak=document.getElementById('intro-speak');const stopButton=document.getElementById('intro-stop');
@@ -586,7 +586,7 @@ function chooseNaturalMaleEnglishVoice(){
   return ranked.find(x=>!femaleNames.test(x.voice.name))?.voice||null;
 }
 function finishIntro(){isSpeaking=false;if(character)character.classList.remove('is-speaking','mouth-active');syncAudioControls();}
-function stopIntro(){if('speechSynthesis' in window)window.speechSynthesis.cancel();finishIntro();}
+function stopIntro(){if(mouthTimer)window.clearInterval(mouthTimer);mouthTimer=null;if('speechSynthesis' in window)window.speechSynthesis.cancel();finishIntro();}
 function startIntro(){
   if(!('speechSynthesis' in window)){if(line)line.textContent='Your browser does not support voice playback. Please read the introduction here.';return;}
   window.speechSynthesis.cancel();
@@ -603,7 +603,7 @@ function startIntro(){
   utterance.pitch=.88;
   utterance.volume=1;
   let lastPulse=0;
-  let mouthTimer=null;
+  mouthTimer=null;
   const pulseMouth=()=>{
     if(!character||!isSpeaking)return;
     character.classList.remove('mouth-active');
