@@ -141,6 +141,46 @@
 @media(max-width:850px){#home .intro-character{right:0;width:min(98%,680px)}#home .intro-laptop{left:clamp(82px,22vw,150px);bottom:22px;width:clamp(160px,34vw,245px)}}
 @media(max-width:560px){#home .intro-character{right:-2%;width:100%;height:360px}#home .intro-mascot{width:clamp(140px,39vw,205px)}#home .intro-laptop{left:clamp(70px,25vw,112px);bottom:16px;width:clamp(125px,38vw,180px)}#home .intro-laptop-screen{border-width:4px;padding:6px 6px 5px}#home .laptop-topbar{height:12px}#home .laptop-kpis i{height:20px;padding:3px}#home .laptop-dashboard{height:44px}#home .laptop-donut i{width:25px;height:25px}#home .laptop-donut i:after{inset:6px}}
 
+
+/* Dashboard belongs on the tablet in the character's hand (not a separate laptop). */
+#home .intro-laptop{display:none!important}
+#home .intro-character{right:1.5%;width:min(53%,790px)}
+#home .intro-mascot{position:absolute;left:0;bottom:0;width:clamp(285px,27vw,450px)}
+#home .intro-tablet-dashboard{
+  position:absolute;z-index:3;left:28.5%;top:60.5%;width:13.5%;height:15.6%;
+  box-sizing:border-box;padding:2.1% 1.3%;overflow:hidden;border-radius:2px;
+  background:#111e2c;border:1px solid #26374b;
+  transform:rotate(-10deg) skewY(-3deg);transform-origin:center;
+  pointer-events:none;box-shadow:inset 0 0 0 1px rgba(210,228,244,.14);
+}
+#home .tablet-dash-head{height:9%;display:flex;align-items:center;gap:3%;margin-bottom:5%}
+#home .tablet-dash-head i{display:block;width:4%;height:45%;border-radius:50%;background:#ff7a45}
+#home .tablet-dash-head b{display:block;width:45%;height:30%;background:#dce8f4;border-radius:2px}
+#home .tablet-dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:3%;height:22%;margin-bottom:5%}
+#home .tablet-dash-kpis i{display:block;position:relative;border:1px solid #344a61;border-radius:1px;background:#1a2a3d}
+#home .tablet-dash-kpis i:before{content:"";position:absolute;left:12%;top:20%;width:45%;height:12%;background:#9db1c8}
+#home .tablet-dash-kpis i:after{content:"";position:absolute;left:12%;bottom:18%;width:68%;height:19%;background:#54d9b1;border-radius:1px}
+#home .tablet-dash-kpis i:nth-child(2):after{background:#79aaff}
+#home .tablet-dash-kpis i:nth-child(3):after{background:#ff9b63}
+#home .tablet-dash-content{display:grid;grid-template-columns:1.5fr 1fr;gap:4%;height:43%}
+#home .tablet-dash-chart{display:flex;align-items:flex-end;gap:4%;padding:4% 5% 2%;border:1px solid #344a61;background:repeating-linear-gradient(to bottom,#1a2a3d 0,#1a2a3d 1px,transparent 1px,transparent 25%)}
+#home .tablet-dash-chart i{display:block;flex:1;height:40%;background:#51d8b0}
+#home .tablet-dash-chart i:nth-child(2){height:65%}
+#home .tablet-dash-chart i:nth-child(3){height:50%}
+#home .tablet-dash-chart i:nth-child(4){height:88%}
+#home .tablet-dash-chart i:nth-child(5){height:70%}
+#home .tablet-dash-donut{display:grid;place-items:center;border:1px solid #344a61;background:#1a2a3d}
+#home .tablet-dash-donut i{width:70%;aspect-ratio:1;border-radius:50%;background:conic-gradient(#51d8b0 0 44%,#79aaff 44% 75%,#ff9b63 75% 90%,#344a61 90%)}
+@media(max-width:850px){
+ #home .intro-character{right:0;width:min(98%,680px)}
+ #home .intro-mascot{width:clamp(230px,35vw,330px)}
+}
+@media(max-width:560px){
+ #home .intro-character{right:0;width:100%;height:360px}
+ #home .intro-mascot{width:clamp(155px,43vw,220px)}
+ #home .intro-tablet-dashboard{left:28.5%;top:60.5%;width:13.5%;height:15.6%;padding:2% 1.2%}
+}
+
 </style>
 <style id="portfolio-refresh-styles">
 /* Portfolio refresh: burnt-orange / charcoal / cream */
@@ -526,17 +566,14 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
       <img class="intro-character-image" src="portfolio-character.webp.png" alt="Illustrated portfolio guide working at a laptop dashboard">
       <span class="intro-mouth-overlay" aria-hidden="true"></span>
     </div>
-    <div class="intro-laptop" aria-hidden="true">
-      <div class="intro-laptop-screen">
-        <div class="laptop-topbar"><span></span><span></span><span></span><b>SALES OVERVIEW</b></div>
-        <div class="laptop-kpis"><i><b></b><em></em></i><i><b></b><em></em></i><i><b></b><em></em></i></div>
-        <div class="laptop-dashboard">
-          <div class="laptop-chart"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-          <div class="laptop-donut"><i></i></div>
+      <div class="intro-tablet-dashboard" aria-hidden="true">
+        <div class="tablet-dash-head"><i></i><b></b></div>
+        <div class="tablet-dash-kpis"><i></i><i></i><i></i></div>
+        <div class="tablet-dash-content">
+          <div class="tablet-dash-chart"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="tablet-dash-donut"><i></i></div>
         </div>
-        <div class="laptop-bottom-bars"><i></i><i></i><i></i><i></i></div>
       </div>
-      <div class="intro-laptop-base"></div>
     </div>
   </div>
 </section>
