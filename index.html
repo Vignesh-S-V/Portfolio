@@ -41,24 +41,28 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 .refresh-footer{background:var(--refresh-ink);color:#d5c8ba;padding:22px clamp(20px,5vw,70px)}.refresh-footer-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.refresh-footer p{font:500 .62rem var(--refresh-mono);letter-spacing:.08em;margin:0}.refresh-footer-links{display:flex;gap:18px}.refresh-footer-links a{font-size:.74rem;text-decoration:none}.refresh-footer-links a:hover{color:#f0a17d}
 .refresh-in{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}.refresh-in.visible{opacity:1;transform:translateY(0)}
 
-/* Focused hero character animation only — rest of portfolio untouched */
-.intro-character{position:absolute;z-index:5;right:clamp(12px,4vw,58px);bottom:12px;display:flex;align-items:flex-end;gap:5px;max-width:min(600px,58vw);animation:introWalkIn 1.25s cubic-bezier(.2,.8,.25,1) .35s both}
-.intro-mascot{width:clamp(135px,21vw,245px);flex:0 0 auto;filter:drop-shadow(0 13px 16px rgba(0,0,0,.34));transform-origin:bottom center;animation:mascotIdle 2.4s ease-in-out infinite}
-.intro-mascot svg{display:block;width:100%;height:auto;overflow:visible}
+/* Hero composition: existing title stays left; animated character and speech stay right */
+#home.refresh-hero{position:relative;isolation:isolate;overflow:hidden;min-height:clamp(660px,88vh,900px)}
+#home .refresh-hero-inner{position:relative;z-index:2;width:min(100%,1440px);padding-right:clamp(390px,45vw,650px)}
+#home .refresh-title{max-width:760px;overflow-wrap:anywhere}
+#home .refresh-lede{max-width:570px}
+#home .intro-character{position:absolute;z-index:3;right:clamp(10px,2.2vw,38px);bottom:8px;display:flex;align-items:flex-end;gap:0;width:min(57%,700px);max-width:700px;animation:introWalkIn 1.25s cubic-bezier(.2,.8,.25,1) .35s both}
+#home .intro-mascot{width:clamp(190px,24vw,335px);flex:0 0 auto;filter:drop-shadow(0 13px 16px rgba(0,0,0,.34));transform-origin:bottom center;animation:mascotIdle 2.4s ease-in-out infinite}
+#home .intro-mascot svg{display:block;width:100%;height:auto;overflow:visible}
 .mascot-leg,.mascot-arm{transform-box:fill-box;transform-origin:50% 8%}
 .mascot-leg-back{animation:walkLegBack .72s ease-in-out infinite alternate}
 .mascot-leg-front{animation:walkLegFront .72s ease-in-out infinite alternate}
 .mascot-arm-back{animation:walkArmBack .72s ease-in-out infinite alternate}
 .mascot-arm-front{animation:walkArmFront .72s ease-in-out infinite alternate}
-.mascot-mouth-open{transform-box:fill-box;transform-origin:center;animation:mascotTalk .22s ease-in-out infinite alternate;opacity:.25}
+.mascot-mouth-open{transform-box:fill-box;transform-origin:center;animation:mascotTalk .22s ease-in-out infinite alternate;opacity:.2}
 .intro-character.is-speaking .mascot-mouth-open{opacity:1}
-.intro-character.is-speaking .mascot-mouth-line{opacity:.25}
+.intro-character.is-speaking .mascot-mouth-line{opacity:.2}
 .intro-character.is-speaking .intro-mascot{animation:mascotTalkBody .42s ease-in-out infinite alternate}
-.intro-bubble{position:relative;max-width:340px;padding:15px 17px 13px;border:1px solid rgba(255,248,239,.25);border-radius:17px 17px 17px 4px;background:rgba(255,250,242,.97);color:#201a16;box-shadow:0 12px 35px rgba(0,0,0,.22);backdrop-filter:blur(10px);margin-bottom:105px}
-.intro-bubble:after{content:"";position:absolute;left:-7px;bottom:10px;width:12px;height:12px;background:#fffaf2;border-left:1px solid rgba(255,248,239,.25);border-bottom:1px solid rgba(255,248,239,.25);transform:rotate(45deg)}
+#home .intro-bubble{position:absolute;right:0;top:12%;width:min(58%,410px);max-width:410px;padding:19px 21px;border:1px solid rgba(255,248,239,.25);border-radius:20px;background:rgba(255,250,242,.97);color:#201a16;box-shadow:0 12px 35px rgba(0,0,0,.22);backdrop-filter:blur(10px);margin:0}
+#home .intro-bubble:after{content:"";position:absolute;left:-7px;bottom:22px;width:12px;height:12px;background:#fffaf2;border-left:1px solid rgba(255,248,239,.25);border-bottom:1px solid rgba(255,248,239,.25);transform:rotate(45deg)}
 .intro-bubble-label{font:800 .62rem var(--refresh-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--refresh-orange);margin-bottom:7px}
-.intro-bubble-text{font-size:clamp(.76rem,1.1vw,.95rem);line-height:1.55;font-weight:800;min-height:3.1em}
-.intro-speak{margin-top:9px;padding:8px 12px;border:0;border-radius:999px;background:var(--refresh-orange);color:#fff;font:800 .65rem var(--refresh-mono);cursor:pointer}
+.intro-bubble-text{font-size:clamp(.76rem,1.05vw,.96rem);line-height:1.55;font-weight:800;min-height:3.1em}
+.intro-speak{margin-top:10px;padding:9px 13px;border:0;border-radius:999px;background:var(--refresh-orange);color:#fff;font:800 .65rem var(--refresh-mono);cursor:pointer}
 .intro-speak:hover{background:#201a16}
 @keyframes introWalkIn{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}
 @keyframes mascotIdle{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-4px) rotate(1deg)}}
@@ -68,7 +72,8 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 @keyframes walkArmFront{from{transform:rotate(8deg)}to{transform:rotate(-7deg)}}
 @keyframes mascotTalk{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
 @keyframes mascotTalkBody{from{transform:translateY(0) rotate(-.4deg)}to{transform:translateY(-2px) rotate(.4deg)}}
-@media(max-width:640px){.intro-character{right:8px;bottom:9px;max-width:calc(100% - 16px);gap:0}.intro-mascot{width:clamp(95px,30vw,145px)}.intro-bubble{padding:10px 11px;max-width:235px;margin-bottom:48px}.intro-bubble-text{font-size:.7rem;min-height:3em}.intro-bubble-label{font-size:.5rem}.intro-speak{font-size:.57rem;padding:7px 9px}}
+@media(max-width:900px){#home.refresh-hero{min-height:850px}#home .refresh-hero-inner{padding-right:0;padding-bottom:390px}#home .intro-character{width:min(94%,620px);right:3%;bottom:0}#home .intro-mascot{width:clamp(160px,30vw,260px)}#home .intro-bubble{width:min(62%,390px);top:3%;padding:14px 15px}}
+@media(max-width:560px){#home.refresh-hero{min-height:790px}#home .refresh-hero-inner{padding-bottom:340px}#home .refresh-title{font-size:clamp(3rem,14vw,4.5rem)}#home .intro-character{width:100%;right:0;bottom:0}#home .intro-mascot{width:clamp(125px,35vw,190px)}#home .intro-bubble{width:62%;top:0;padding:11px 12px;border-radius:15px}#home .intro-bubble-text{font-size:.68rem;min-height:3em}#home .intro-bubble-label{font-size:.48rem}#home .intro-speak{font-size:.55rem;padding:7px 9px}}
 @media(prefers-reduced-motion:reduce){.intro-character,.intro-avatar{animation:none}}
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.refresh-hero:before{animation:none}.refresh-in{opacity:1;transform:none}}
@@ -93,8 +98,7 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
     <div class="refresh-actions"><a class="refresh-btn primary" href="#projects-refresh">Explore my work ↘</a><a class="refresh-btn" href="mailto:vigneshw.5416@gmail.com">Let’s connect ↗</a><a class="refresh-btn" href="https://github.com/Vignesh-S-V" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
     <div class="refresh-hero-foot"><span>Based in Tirupur, Tamil Nadu · Open to opportunities</span><span>Scroll to explore</span></div>
   </div>
-</section>
-  <div class="intro-character" aria-label="Animated 3D-inspired male portfolio guide">
+<div class="intro-character" aria-label="Animated 3D-inspired male portfolio guide">
     <div class="intro-mascot" aria-hidden="true">
       <svg viewBox="0 0 250 430" role="img" aria-label="Cartoon male data analyst holding a laptop">
         <ellipse cx="126" cy="414" rx="70" ry="10" fill="#090807" opacity=".32"/>
@@ -141,7 +145,9 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
       <button class="intro-speak" id="intro-speak" type="button">▶ Hear my intro</button>
     </div>
   </div>
-<div class="refresh-metrics"><div class="refresh-metrics-inner">
+
+</section>
+  <div class="refresh-metrics"><div class="refresh-metrics-inner">
   <div class="refresh-metric"><strong>2+ years</strong><span>Analytics experience</span></div>
   <div class="refresh-metric"><strong>BI / MIS</strong><span>Core focus</span></div>
   <div class="refresh-metric"><strong>7 centres</strong><span>Stock allocation workflow</span></div>
