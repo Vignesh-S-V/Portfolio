@@ -442,9 +442,9 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
   content:"";position:absolute;left:18%;top:9%;width:64%;height:22%;
   border-radius:0 0 45% 45%;background:#fff0dc;opacity:0;
 }
-#home .intro-character.is-speaking .intro-mouth-overlay{opacity:.18}
+#home .intro-character.is-speaking .intro-mouth-overlay{opacity:0}
 #home .intro-character.is-speaking.mouth-active .intro-mouth-overlay{
-  opacity:1;animation:mouthTalk .14s ease-in-out 2 alternate;
+  opacity:1;animation:mouthTalk .11s ease-in-out 2 alternate;
 }
 #home .intro-character.is-speaking.mouth-active .intro-mouth-overlay::after{opacity:.92}
 @keyframes mouthTalk{
@@ -653,7 +653,7 @@ function startIntro(){
     // SpeechSynthesis exposes word boundaries, not phonemes. Scale the opening
     // to the current word length and close between words to avoid constant flapping.
     const wordLength=Number(event.charLength)||4;
-    pulseMouth(105+wordLength*17);
+    pulseMouth(120+wordLength*18);
   };
   utterance.onend=()=>{stopMouthMotion();finishIntro();};
   utterance.onerror=()=>{stopMouthMotion();finishIntro();};
