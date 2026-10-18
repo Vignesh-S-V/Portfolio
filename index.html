@@ -113,6 +113,34 @@
  #home .intro-speak,#home .intro-stop{font-size:.62rem;padding:8px 10px}
 }
 
+
+/* Permanent hero update: speech card removed; character moved right with a dashboard laptop. */
+#home .intro-character{right:-1.5%;width:min(56%,820px);overflow:visible}
+#home .intro-mascot{left:0;z-index:1}
+#home .intro-bubble{display:none!important}
+#home .intro-laptop{position:absolute;z-index:4;left:clamp(95px,12vw,180px);bottom:clamp(18px,3.2vw,48px);width:clamp(190px,23vw,330px);filter:drop-shadow(0 12px 15px rgba(0,0,0,.32));transform:perspective(700px) rotateY(-7deg) rotateX(2deg);pointer-events:none}
+#home .intro-laptop-screen{position:relative;padding:10px 10px 8px;aspect-ratio:1.48/1;border:5px solid #202833;border-bottom-width:8px;border-radius:10px 10px 4px 4px;background:#101b2b;box-shadow:inset 0 0 0 1px #657181;overflow:hidden}
+#home .laptop-topbar{height:18px;display:flex;align-items:center;gap:4px;color:#dce9f5;font:700 6px/1 monospace;letter-spacing:.08em}
+#home .laptop-topbar span{width:4px;height:4px;border-radius:50%;background:#ff7448}
+#home .laptop-topbar span:nth-child(2){background:#f8c45c}#home .laptop-topbar span:nth-child(3){background:#58d6b1}
+#home .laptop-topbar b{margin-left:auto;font-size:6px}
+#home .laptop-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:4px 0 7px}
+#home .laptop-kpis i{display:block;height:27px;border:1px solid #34465d;border-radius:3px;background:#19283a;padding:5px;font-style:normal}
+#home .laptop-kpis i b{display:block;width:52%;height:3px;background:#7d93ad;border-radius:3px}
+#home .laptop-kpis i em{display:block;width:75%;height:6px;margin-top:4px;background:#56d7b1;border-radius:2px}
+#home .laptop-kpis i:nth-child(2) em{background:#ff985c}#home .laptop-kpis i:nth-child(3) em{background:#78aaff}
+#home .laptop-dashboard{display:grid;grid-template-columns:1.65fr 1fr;gap:6px;height:64px}
+#home .laptop-chart{display:flex;align-items:flex-end;gap:4px;padding:7px 6px 4px;border:1px solid #34465d;border-radius:3px;background:repeating-linear-gradient(to bottom,#1b2a3c 0,#1b2a3c 1px,transparent 1px,transparent 14px)}
+#home .laptop-chart span{flex:1;border-radius:2px 2px 0 0;background:linear-gradient(#5ce0bc,#3b9c98);height:42%}
+#home .laptop-chart span:nth-child(2){height:64%}#home .laptop-chart span:nth-child(3){height:52%}#home .laptop-chart span:nth-child(4){height:82%}#home .laptop-chart span:nth-child(5){height:60%}#home .laptop-chart span:nth-child(6){height:92%}#home .laptop-chart span:nth-child(7){height:74%}
+#home .laptop-donut{display:grid;place-items:center;border:1px solid #34465d;border-radius:3px;background:#19283a}
+#home .laptop-donut i{width:35px;height:35px;border-radius:50%;background:conic-gradient(#5ce0bc 0 42%,#78aaff 42% 73%,#ff985c 73% 88%,#34465d 88%);position:relative}
+#home .laptop-donut i:after{content:"";position:absolute;inset:9px;border-radius:50%;background:#19283a}
+#home .laptop-bottom-bars{display:flex;gap:5px;margin-top:6px}#home .laptop-bottom-bars i{height:4px;flex:1;border-radius:2px;background:#40546c}#home .laptop-bottom-bars i:nth-child(2){background:#5ce0bc}
+#home .intro-laptop-base{height:10px;margin:0 -12px;background:linear-gradient(#aeb8c5,#586575 45%,#313b49 70%);clip-path:polygon(4% 0,96% 0,100% 100%,0 100%);border-radius:0 0 9px 9px}
+@media(max-width:850px){#home .intro-character{right:0;width:min(98%,680px)}#home .intro-laptop{left:clamp(82px,22vw,150px);bottom:22px;width:clamp(160px,34vw,245px)}}
+@media(max-width:560px){#home .intro-character{right:-2%;width:100%;height:360px}#home .intro-mascot{width:clamp(140px,39vw,205px)}#home .intro-laptop{left:clamp(70px,25vw,112px);bottom:16px;width:clamp(125px,38vw,180px)}#home .intro-laptop-screen{border-width:4px;padding:6px 6px 5px}#home .laptop-topbar{height:12px}#home .laptop-kpis i{height:20px;padding:3px}#home .laptop-dashboard{height:44px}#home .laptop-donut i{width:25px;height:25px}#home .laptop-donut i:after{inset:6px}}
+
 </style>
 <style id="portfolio-refresh-styles">
 /* Portfolio refresh: burnt-orange / charcoal / cream */
@@ -493,12 +521,22 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
     </div>
     <div class="refresh-hero-foot"><span>Scroll to explore</span><span>⌄</span></div>
   </div>
-  <div class="intro-character" aria-label="Animated 3D-inspired male portfolio guide">
-    <div class="intro-mascot"><img class="intro-character-image" src="portfolio-character.webp.png" alt="Illustrated portfolio guide holding a tablet"><span class="intro-mouth-overlay" aria-hidden="true"></span></div>
-    <div class="intro-bubble">
-      <div class="intro-bubble-label">Hello, I’m Vigneshwaran</div>
-      <div class="intro-bubble-text" id="intro-line" aria-live="polite">I’m a Data Analyst with 2+ years of experience. I’m passionate about building insightful dashboards using Power BI, Tableau, SQL and cloud solutions. Welcome to my portfolio.</div>
-      <div class="intro-audio-controls"><button class="intro-speak" id="intro-speak" type="button">🔊 Hear my intro</button><button class="intro-stop" id="intro-stop" type="button" disabled>■ Stop</button></div>
+  <div class="intro-character" aria-label="Animated data analyst working at a laptop">
+    <div class="intro-mascot">
+      <img class="intro-character-image" src="portfolio-character.webp.png" alt="Illustrated portfolio guide working at a laptop dashboard">
+      <span class="intro-mouth-overlay" aria-hidden="true"></span>
+    </div>
+    <div class="intro-laptop" aria-hidden="true">
+      <div class="intro-laptop-screen">
+        <div class="laptop-topbar"><span></span><span></span><span></span><b>SALES OVERVIEW</b></div>
+        <div class="laptop-kpis"><i><b></b><em></em></i><i><b></b><em></em></i><i><b></b><em></em></i></div>
+        <div class="laptop-dashboard">
+          <div class="laptop-chart"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="laptop-donut"><i></i></div>
+        </div>
+        <div class="laptop-bottom-bars"><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="intro-laptop-base"></div>
     </div>
   </div>
 </section>
