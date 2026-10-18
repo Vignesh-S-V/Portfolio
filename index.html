@@ -380,6 +380,43 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
   #home .hero-fact-icon{width:23px}
 }
 
+
+/* Desktop hero facts: use available horizontal space cleanly */
+#home .hero-facts{
+  width:min(100%, 760px);
+  display:grid;
+  grid-template-columns:1fr 1fr 1.25fr;
+  align-items:start;
+  gap:clamp(18px,2.2vw,34px);
+}
+#home .hero-fact{
+  min-width:0;
+  gap:10px;
+}
+#home .hero-fact:nth-child(2){min-width:0}
+#home .hero-fact-icon{
+  flex:0 0 auto;
+  width:30px;
+  text-align:center;
+}
+#home .hero-fact strong{white-space:nowrap}
+#home .hero-fact span:not(.hero-fact-icon){
+  overflow-wrap:normal;
+  word-break:normal;
+}
+@media(max-width:1200px){
+  #home .hero-facts{width:min(100%,700px);grid-template-columns:1fr 1fr 1.15fr;gap:16px}
+}
+@media(max-width:900px){
+  #home .hero-facts{width:min(100%,700px);grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 22px}
+  #home .hero-fact{max-width:none}
+  #home .hero-fact:nth-child(2){min-width:0}
+}
+@media(max-width:560px){
+  #home .hero-facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}
+  #home .hero-fact{gap:7px}
+  #home .hero-fact-icon{width:23px}
+}
 </style>
 </head>
 
@@ -497,41 +534,3 @@ if(heroPlay)heroPlay.addEventListener('click',startIntro);
 </script>
 </body>
 </html>
-
-/* Desktop hero facts: use available horizontal space cleanly */
-#home .hero-facts{
-  width:min(100%, 760px);
-  display:grid;
-  grid-template-columns:1fr 1fr 1.25fr;
-  align-items:start;
-  gap:clamp(18px,2.2vw,34px);
-}
-#home .hero-fact{
-  min-width:0;
-  gap:10px;
-}
-#home .hero-fact:nth-child(2){min-width:0}
-#home .hero-fact-icon{
-  flex:0 0 auto;
-  width:30px;
-  text-align:center;
-}
-#home .hero-fact strong{white-space:nowrap}
-#home .hero-fact span:not(.hero-fact-icon){
-  overflow-wrap:normal;
-  word-break:normal;
-}
-@media(max-width:1200px){
-  #home .hero-facts{width:min(100%,700px);grid-template-columns:1fr 1fr 1.15fr;gap:16px}
-}
-@media(max-width:900px){
-  #home .hero-facts{width:min(100%,700px);grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 22px}
-  #home .hero-fact{max-width:none}
-  #home .hero-fact:nth-child(2){min-width:0}
-}
-@media(max-width:560px){
-  #home .hero-facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}
-  #home .hero-fact{gap:7px}
-  #home .hero-fact-icon{width:23px}
-}
-
