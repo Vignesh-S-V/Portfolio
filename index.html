@@ -345,6 +345,72 @@
   #home.refresh-hero:before{animation:none!important}
 }
 
+
+/* Site-wide responsive polish: content grids, navigation, and sections */
+.refresh-section{padding-inline:clamp(18px,4vw,64px)!important}
+.refresh-section-inner,.refresh-metrics-inner,.refresh-footer-inner{
+  width:100%!important;max-width:1240px!important;margin-inline:auto!important;
+}
+.refresh-section-head{gap:28px}
+.refresh-about-grid,.refresh-detail-grid,.refresh-skill-grid,.refresh-project-grid,.refresh-edu-grid{
+  min-width:0;
+}
+.refresh-project,.refresh-skill,.refresh-edu,.refresh-cred{min-width:0}
+.refresh-project img,.refresh-project-art img{max-width:100%}
+.refresh-project-body,.refresh-about-copy,.refresh-section-head>div{min-width:0}
+.refresh-project p,.refresh-about-copy p,.refresh-cred span{overflow-wrap:anywhere}
+.refresh-footer-inner{gap:20px;flex-wrap:wrap}
+@media(min-width:761px) and (max-width:1100px){
+  .refresh-section{padding-top:68px!important;padding-bottom:68px!important}
+  .refresh-about-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:34px!important}
+  .refresh-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .refresh-skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .refresh-project-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px!important}
+  .refresh-edu-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .refresh-cred-list{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .refresh-section-head{align-items:flex-start;gap:22px}
+  .refresh-section-head>p{max-width:42%}
+}
+@media(max-width:760px){
+  .refresh-nav{padding:10px 16px!important;gap:10px!important}
+  .refresh-links{gap:16px!important;scrollbar-width:none}
+  .refresh-links::-webkit-scrollbar{display:none}
+  .refresh-links a{white-space:nowrap;font-size:.82rem!important}
+  .refresh-section{padding:54px 20px!important}
+  .refresh-section-inner{width:100%!important}
+  .refresh-metrics{padding:22px 18px!important}
+  .refresh-metrics-inner{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px!important}
+  .refresh-about-grid,.refresh-detail-grid,.refresh-skill-grid,.refresh-project-grid,.refresh-edu-grid{
+    grid-template-columns:minmax(0,1fr)!important;gap:18px!important;
+  }
+  .refresh-section-head{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:14px!important}
+  .refresh-section-head>p{max-width:100%!important;width:100%!important}
+  .refresh-project-art{min-height:200px}
+  .refresh-project-body{padding:22px!important}
+  .refresh-cred-list{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+  .refresh-contact-inner{padding:0!important}
+  .refresh-footer{padding:24px 20px!important}
+  .refresh-footer-inner{align-items:flex-start!important;flex-direction:column!important;gap:14px!important}
+  .refresh-footer-links{display:flex;flex-wrap:wrap;gap:14px!important}
+}
+@media(max-width:480px){
+  .refresh-section{padding:44px 17px!important}
+  .refresh-metrics{padding:18px 15px!important}
+  .refresh-metrics-inner{gap:16px 10px!important}
+  .refresh-metric{min-width:0!important}
+  .refresh-cred-list{grid-template-columns:minmax(0,1fr)!important}
+  .refresh-project-art{min-height:170px}
+  .refresh-project-body{padding:18px!important}
+  .refresh-project-footer{align-items:flex-start!important;flex-direction:column!important;gap:10px!important}
+  .refresh-footer{padding:22px 17px!important}
+}
+@media(max-width:360px){
+  .refresh-links{gap:13px!important}
+  .refresh-links a{font-size:.76rem!important}
+  .refresh-section{padding-inline:14px!important}
+  .refresh-metrics-inner{grid-template-columns:minmax(0,1fr)!important}
+}
+
 </style>
 <style id="portfolio-refresh-styles">
 /* Portfolio refresh: burnt-orange / charcoal / cream */
