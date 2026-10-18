@@ -177,6 +177,24 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 @media(max-width:900px){.refresh-about-grid{grid-template-columns:.72fr 1.28fr;gap:35px}.refresh-job{grid-template-columns:125px 1fr;gap:22px}.refresh-role-type{display:none}.refresh-skill-grid{grid-template-columns:repeat(2,1fr)}.refresh-metric{padding:10px 15px}}
 @media(max-width:640px){.refresh-nav{align-items:flex-start;flex-direction:column;gap:12px;padding:14px 18px}.refresh-links{justify-content:flex-start;gap:15px}.refresh-links a{font-size:.72rem}.refresh-hero-inner{width:calc(100% - 38px);padding-top:80px}.refresh-title{font-size:clamp(3.35rem,16vw,6.8rem)}.refresh-lede{font-size:.96rem;margin-top:28px}.refresh-hero-foot{margin-top:60px;font-size:.57rem}.refresh-metrics{padding:22px 19px}.refresh-metrics-inner{grid-template-columns:repeat(2,1fr);gap:16px}.refresh-metric{border-left:0;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.28)}.refresh-metric:nth-child(odd){border-right:1px solid rgba(255,255,255,.28);padding-right:10px}.refresh-metric strong{font-size:1.8rem}.refresh-section{padding:75px 19px}.refresh-section-head{display:block;margin-bottom:36px}.refresh-section-head p{margin-top:20px}.refresh-about-grid{grid-template-columns:1fr;gap:48px}.refresh-portrait{max-width:340px;margin:0 auto;width:88%}.refresh-about-copy h2{font-size:clamp(2.7rem,12vw,4rem)}.refresh-job{grid-template-columns:1fr;gap:9px;padding:25px 0}.refresh-period br{display:none}.refresh-role-type{display:none}.refresh-job h3{font-size:1.5rem}.refresh-skill-grid{grid-template-columns:1fr 1fr}.refresh-skill{padding:18px;min-height:210px}.refresh-skill h3{margin-top:20px}.refresh-project-grid{grid-template-columns:1fr}.refresh-project-art{min-height:220px}.refresh-edu-grid{grid-template-columns:1fr;gap:25px}.refresh-contact h2{font-size:clamp(3.2rem,15vw,6rem)}.refresh-footer-inner{align-items:flex-start;flex-direction:column}.refresh-cred{align-items:flex-start}.refresh-cred span{text-align:left}.refresh-detail-grid{gap:16px}}
 @media(max-width:380px){.refresh-links{gap:10px}.refresh-links a{font-size:.66rem}.refresh-title{font-size:3.25rem}.refresh-skill-grid{grid-template-columns:1fr}.refresh-skill{min-height:auto}}
+
+/* Exact reference typography and hierarchy */
+#home .refresh-title{white-space:normal;width:49%;font-size:clamp(3.2rem,5.95vw,6.2rem);line-height:.94;letter-spacing:-.065em;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:0;row-gap:0}
+#home .hero-name-white,#home .hero-name-orange{display:inline;font-family:Manrope,sans-serif;font-weight:900;letter-spacing:-.065em}
+#home .hero-name-white{color:#fff8ef}
+#home .hero-name-orange{color:#f47724}
+#home .hero-role{display:block;flex-basis:100%;font:800 clamp(1.3rem,2.05vw,2.1rem) Manrope,sans-serif;letter-spacing:.23em;line-height:1.4;color:#fff8ef;margin-top:7px}
+#home .refresh-title em{display:none}
+#home .hero-facts{width:46%}
+#home .hero-fact:nth-child(2){min-width:135px}
+#home .hero-fact:nth-child(2) .hero-fact-icon{font-size:2rem}
+#home .hero-fact:nth-child(2) div{padding-top:1px}
+#home .hero-fact:nth-child(2) span:not(.hero-fact-icon){font-size:clamp(.75rem,.95vw,.92rem)}
+#home .intro-bubble-text{font-weight:500}
+#home .intro-bubble-label{font-family:'JetBrains Mono',monospace;color:#e75c1a}
+@media(max-width:900px){#home .refresh-title{width:100%;display:block}#home .hero-name-white,#home .hero-name-orange{display:inline}#home .hero-role{display:block;font-size:clamp(1.25rem,3.5vw,1.8rem)}}
+@media(max-width:560px){#home .refresh-title{font-size:clamp(2.4rem,10.5vw,3.9rem)}#home .hero-role{letter-spacing:.17em;font-size:1.15rem}}
+
 </style>
 </head>
 
@@ -191,13 +209,13 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 <section id="home" class="refresh-hero">
   <div class="refresh-hero-inner">
     <div class="refresh-kicker"><span class="refresh-dot"></span> HI, I’M</div>
-    <h1 class="refresh-title">VIGNESHWARAN<em>DATA ANALYST</em></h1>
+    <h1 class="refresh-title"><span class="hero-name-white">VIGNESHW</span><span class="hero-name-orange">ARAN</span><span class="hero-role">DATA ANALYST</span></h1>
     <div class="hero-orange-rule"></div>
     <p class="refresh-lede">I transform business data into meaningful insights using Power BI, Tableau, SQL and cloud solutions to create modern digital experiences.</p>
     <div class="hero-facts">
       <div class="hero-fact"><span class="hero-fact-icon">▣</span><div><strong>2+</strong><span>Years<br>Experience</span></div></div>
-      <div class="hero-fact"><span class="hero-fact-icon">⌖</span><div><strong class="hero-fact-small">Location</strong><span>Tirupur, Tamil Nadu<br>India</span></div></div>
-      <div class="hero-fact"><span class="hero-fact-icon">▥</span><div><strong class="hero-fact-small">Speciality</strong><span>Data Analytics<br>Business Intelligence<br>Cloud Solutions</span></div></div>
+      <div class="hero-fact"><span class="hero-fact-icon">⌖</span><div><span>Chennai<br>Coimbatore<br>Bangalore</span></div></div>
+      <div class="hero-fact"><span class="hero-fact-icon">▥</span><div><span>Data Analytics<br>Business Intelligence<br>Cloud Solutions</span></div></div>
     </div>
     <div class="refresh-actions">
       <button class="refresh-btn primary hero-play" type="button" id="hero-intro-play">▶ Hear my intro</button>
