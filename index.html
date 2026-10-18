@@ -429,29 +429,31 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 /* Animated mouth overlay for the raster character image */
 #home .intro-mascot{position:absolute}
 #home .intro-character-image{display:block;width:100%;height:auto}
-/* Mouth overlay is positioned on the face, not the cheek/neck. */
+/* Mouth overlay aligned to the visible lips in the character artwork.
+   Percentages are relative to the mascot box (not the image viewport). */
 #home .intro-mouth-overlay{
-  position:absolute;left:51%;top:5.2%;width:4.8%;height:1.2%;
+  position:absolute;left:45%;top:10%;width:4.1%;height:.7%;
   border-radius:48% 48% 55% 55%;background:#48201c;
-  opacity:0;transform:translate(-50%,-50%) scaleY(.08);
+  opacity:0;transform:translate(-50%,-50%) scaleY(.12);
   transform-origin:center;pointer-events:none;overflow:hidden;
-  box-shadow:0 0 0 1px rgba(52,22,18,.25);
+  box-shadow:0 0 0 1px rgba(52,22,18,.18);
 }
 #home .intro-mouth-overlay::after{
-  content:"";position:absolute;left:18%;top:7%;width:64%;height:24%;
+  content:"";position:absolute;left:18%;top:9%;width:64%;height:22%;
   border-radius:0 0 45% 45%;background:#fff0dc;opacity:0;
 }
-#home .intro-character.is-speaking .intro-mouth-overlay{
-  opacity:1;animation:mouthTalk .19s ease-in-out infinite alternate;
+#home .intro-character.is-speaking .intro-mouth-overlay{opacity:.18}
+#home .intro-character.is-speaking.mouth-active .intro-mouth-overlay{
+  opacity:1;animation:mouthTalk .14s ease-in-out 2 alternate;
 }
-#home .intro-character.is-speaking .intro-mouth-overlay::after{opacity:.95}
+#home .intro-character.is-speaking.mouth-active .intro-mouth-overlay::after{opacity:.92}
 @keyframes mouthTalk{
-  0%{transform:translate(-50%,-50%) scaleY(.12);height:.7%}
-  45%{transform:translate(-50%,-50%) scaleY(1.8);height:2.5%}
-  100%{transform:translate(-50%,-50%) scaleY(.22);height:.85%}
+  0%{transform:translate(-50%,-50%) scaleY(.15);height:.55%}
+  55%{transform:translate(-50%,-50%) scaleY(1);height:1.45%}
+  100%{transform:translate(-50%,-50%) scaleY(.2);height:.65%}
 }
 @media(prefers-reduced-motion:reduce){
-  #home .intro-character.is-speaking .intro-mouth-overlay{animation:mouthTalk .35s ease-in-out infinite alternate;opacity:.85}
+  #home .intro-character.is-speaking.mouth-active .intro-mouth-overlay{animation:none;transform:translate(-50%,-50%) scaleY(.85);height:1.1%;opacity:.9}
 }
 </style>
 </head>
@@ -610,24 +612,33 @@ function startIntro(){
   let lastPulse=0;
   let sawBoundary=false;
   let fallbackTimer=null;
+  let mouthCloseTimer=null;
   mouthTimer=null;
-  const pulseMouth=()=>{
+  const pulseMouth=(duration=170)=>{
     if(!character||!isSpeaking)return;
+    if(mouthCloseTimer){window.clearTimeout(mouthCloseTimer);mouthCloseTimer=null;}
     character.classList.remove('mouth-active');
     void character.offsetWidth;
     character.classList.add('mouth-active');
+    mouthCloseTimer=window.setTimeout(()=>{
+      if(character)character.classList.remove('mouth-active');
+      mouthCloseTimer=null;
+    },Math.max(100,Math.min(320,duration)));
   };
   const stopMouthMotion=()=>{
     if(mouthTimer)window.clearInterval(mouthTimer);
     if(fallbackTimer)window.clearTimeout(fallbackTimer);
-    mouthTimer=null;fallbackTimer=null;
+    if(mouthCloseTimer)window.clearTimeout(mouthCloseTimer);
+    mouthTimer=null;fallbackTimer=null;mouthCloseTimer=null;
+    if(character)character.classList.remove('mouth-active');
   };
   utterance.onstart=()=>{
     if(character)character.classList.add('is-speaking');
-    // Use actual speech word-boundaries first; only fall back if this browser emits none.
+    // Prefer speech word-boundary events. The fallback is deliberately subtle
+    // and only used on browsers that do not emit boundary events.
     fallbackTimer=window.setTimeout(()=>{
       if(!sawBoundary&&isSpeaking){
-        mouthTimer=window.setInterval(pulseMouth,220);
+        mouthTimer=window.setInterval(()=>pulseMouth(160),310);
       }
     },700);
   };
@@ -637,9 +648,12 @@ function startIntro(){
     if(fallbackTimer){window.clearTimeout(fallbackTimer);fallbackTimer=null;}
     if(mouthTimer){window.clearInterval(mouthTimer);mouthTimer=null;}
     const now=performance.now();
-    if(now-lastPulse<90)return;
+    if(now-lastPulse<65)return;
     lastPulse=now;
-    pulseMouth();
+    // SpeechSynthesis exposes word boundaries, not phonemes. Scale the opening
+    // to the current word length and close between words to avoid constant flapping.
+    const wordLength=Number(event.charLength)||4;
+    pulseMouth(105+wordLength*17);
   };
   utterance.onend=()=>{stopMouthMotion();finishIntro();};
   utterance.onerror=()=>{stopMouthMotion();finishIntro();};
