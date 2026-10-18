@@ -164,8 +164,7 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 #home .intro-bubble:after{content:"";position:absolute;left:-7px;bottom:30px;width:12px;height:12px;background:#fffaf2;border-left:1px solid rgba(255,248,239,.25);border-bottom:1px solid rgba(255,248,239,.25);transform:rotate(45deg)}
 .intro-bubble-label{font:800 .7rem var(--refresh-mono);letter-spacing:.12em;text-transform:uppercase;color:#e75c1a;margin-bottom:10px}
 .intro-bubble-text{font-size:clamp(.86rem,1.1vw,1.06rem);line-height:1.55;font-weight:700;min-height:3.1em}
-.intro-speak{margin-top:12px;padding:10px 15px;border:0;border-radius:999px;background:#e75c1a;color:#fff;font:800 .72rem var(--refresh-mono);cursor:pointer;pointer-events:auto}
-.intro-speak:hover{background:#201a16}
+.intro-audio-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;pointer-events:auto}.intro-speak,.intro-stop{padding:10px 15px;border:0;border-radius:999px;font:800 .72rem var(--refresh-mono);cursor:pointer;pointer-events:auto}.intro-speak{background:#e75c1a;color:#fff}.intro-speak:hover{background:#201a16}.intro-stop{background:#e8dfd7;color:#201a16}.intro-stop:disabled{opacity:.48;cursor:not-allowed}.intro-stop:not(:disabled):hover{background:#d4c8bd}
 @keyframes introWalkIn{from{opacity:0;transform:translateX(70px)}to{opacity:1;transform:translateX(0)}}
 @keyframes mascotIdle{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-4px) rotate(1deg)}}
 @keyframes walkLegBack{from{transform:rotate(8deg) translateY(0)}to{transform:rotate(-10deg) translateY(2px)}}@keyframes walkLegFront{from{transform:rotate(-10deg) translateY(2px)}to{transform:rotate(8deg) translateY(0)}}@keyframes walkArmBack{from{transform:rotate(-7deg)}to{transform:rotate(8deg)}}@keyframes walkArmFront{from{transform:rotate(8deg)}to{transform:rotate(-7deg)}}@keyframes mascotTalk{from{transform:scaleY(.25)}to{transform:scaleY(1)}}@keyframes mascotTalkBody{from{transform:translateY(0) rotate(-.4deg)}to{transform:translateY(-2px) rotate(.4deg)}}
@@ -255,7 +254,7 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
     <div class="intro-bubble">
       <div class="intro-bubble-label">Hello, I’m Vigneshwaran</div>
       <div class="intro-bubble-text" id="intro-line" aria-live="polite">I’m a Data Analyst with 2+ years of experience. I’m passionate about building insightful dashboards using Power BI, Tableau, SQL and cloud solutions. Welcome to my portfolio.</div>
-      <button class="intro-speak" id="intro-speak" type="button">▶ Hear my intro</button>
+      <div class="intro-audio-controls"><button class="intro-speak" id="intro-speak" type="button">🔊 Hear my intro</button><button class="intro-stop" id="intro-stop" type="button" disabled>■ Stop</button></div>
     </div>
   </div>
 </section>
@@ -322,21 +321,14 @@ const lines=[
 ];
 const line=document.getElementById('intro-line');const character=document.querySelector('.intro-character');let index=0;let isSpeaking=false;let utterance=null;
 const heroPlay=document.getElementById('hero-intro-play');
-if(heroPlay)heroPlay.addEventListener('click',()=>{const bubbleButton=document.getElementById('intro-speak');if(bubbleButton)bubbleButton.click();});
-
 if(line){window.setInterval(()=>{if(!isSpeaking){index=(index+1)%lines.length;line.textContent=lines[index];}},4800);}
-const speak=document.getElementById('intro-speak');
-function stopIntro(){if('speechSynthesis' in window)window.speechSynthesis.cancel();isSpeaking=false;if(character)character.classList.remove('is-speaking');if(speak){speak.textContent='▶ Hear my intro';speak.setAttribute('aria-pressed','false');}}
-if(speak){speak.setAttribute('aria-pressed','false');speak.addEventListener('click',()=>{
-  if(!('speechSynthesis' in window)){line.textContent='Your browser does not support voice playback. Please read the introduction here.';return;}
-  if(isSpeaking){stopIntro();return;}
-  window.speechSynthesis.cancel();isSpeaking=true;if(character)character.classList.add('is-speaking');speak.textContent='■ Stop intro';speak.setAttribute('aria-pressed','true');
-  line.textContent=lines[0];
-  utterance=new SpeechSynthesisUtterance(lines.join(' '));utterance.lang='en-US';utterance.rate=.92;utterance.pitch=1.02;
-  utterance.onend=()=>{isSpeaking=false;if(character)character.classList.remove('is-speaking');speak.textContent='▶ Hear my intro';speak.setAttribute('aria-pressed','false');};
-  utterance.onerror=()=>{isSpeaking=false;if(character)character.classList.remove('is-speaking');speak.textContent='▶ Hear my intro';speak.setAttribute('aria-pressed','false');};
-  window.speechSynthesis.speak(utterance);
-});}
+const speak=document.getElementById('intro-speak');const stopButton=document.getElementById('intro-stop');
+function syncAudioControls(){if(speak){speak.textContent=isSpeaking?'🔊 Speaking…':'🔊 Hear my intro';speak.setAttribute('aria-pressed',String(isSpeaking));}if(stopButton)stopButton.disabled=!isSpeaking;}
+function stopIntro(){if('speechSynthesis' in window)window.speechSynthesis.cancel();isSpeaking=false;if(character)character.classList.remove('is-speaking');syncAudioControls();}
+function startIntro(){if(!('speechSynthesis' in window)){if(line)line.textContent='Your browser does not support voice playback. Please read the introduction here.';return;}window.speechSynthesis.cancel();isSpeaking=true;if(character)character.classList.add('is-speaking');syncAudioControls();if(line)line.textContent=lines[0];utterance=new SpeechSynthesisUtterance(lines.join(' '));utterance.lang='en-US';utterance.rate=.92;utterance.pitch=1.02;utterance.onend=()=>{isSpeaking=false;if(character)character.classList.remove('is-speaking');syncAudioControls();};utterance.onerror=()=>{isSpeaking=false;if(character)character.classList.remove('is-speaking');syncAudioControls();};window.speechSynthesis.speak(utterance);}
+if(speak)speak.addEventListener('click',()=>{if(isSpeaking){stopIntro();}else{startIntro();}});
+if(stopButton)stopButton.addEventListener('click',stopIntro);
+if(heroPlay)heroPlay.addEventListener('click',startIntro);
 })();
 </script>
 </body>
