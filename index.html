@@ -299,6 +299,27 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 @media(max-width:900px){#home .refresh-title{width:100%;display:block}#home .hero-name-white,#home .hero-name-orange{display:inline}#home .hero-role{display:block;font-size:clamp(1.25rem,3.5vw,1.8rem)}}
 @media(max-width:560px){#home .refresh-title{font-size:clamp(2.4rem,10.5vw,3.9rem)}#home .hero-role{letter-spacing:.17em;font-size:1.15rem}}
 
+
+/* Final live-reference fix: prevent the name wrapping on desktop and keep the nav over the hero */
+@media (min-width: 901px) {
+  #home .refresh-title {
+    display: block !important;
+    width: max-content !important;
+    max-width: 58% !important;
+    white-space: nowrap !important;
+    font-size: clamp(3.1rem, 5.1vw, 5.35rem) !important;
+    line-height: .98 !important;
+  }
+  #home .hero-name-white,
+  #home .hero-name-orange { display: inline !important; }
+  #home .hero-role { display: block !important; }
+  .refresh-nav {
+    position: absolute !important;
+    inset: 0 0 auto !important;
+    background: linear-gradient(180deg, rgba(18,10,6,.78), rgba(18,10,6,.08)) !important;
+    backdrop-filter: none !important;
+  }
+}
 </style>
 </head>
 
