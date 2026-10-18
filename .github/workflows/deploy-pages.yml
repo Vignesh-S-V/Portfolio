@@ -27,6 +27,7 @@ jobs:
           if [ -f profile.jpeg ]; then cp profile.jpeg public/profile.jpeg; fi
           if [ -f profile.jpg ]; then cp profile.jpg public/profile.jpg; fi
           if [ -f profile.png ]; then cp profile.png public/profile.png; fi
+          if [ -f portfolio-character.webp ]; then cp portfolio-character.webp public/portfolio-character.webp; fi
           touch public/.nojekyll
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -320,6 +320,8 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
     backdrop-filter: none !important;
   }
 }
+.intro-character-image{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;object-position:center bottom}
+@media(prefers-reduced-motion:reduce){#home .intro-mascot{animation:none}}
 </style>
 </head>
 
@@ -354,46 +356,7 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
     <div class="refresh-hero-foot"><span>Scroll to explore</span><span>⌄</span></div>
   </div>
   <div class="intro-character" aria-label="Animated 3D-inspired male portfolio guide">
-    <div class="intro-mascot" aria-hidden="true">
-      <svg viewBox="0 0 250 430" role="img" aria-label="Cartoon male data analyst holding a laptop">
-        <ellipse cx="126" cy="414" rx="70" ry="10" fill="#090807" opacity=".32"/>
-        <g class="mascot-body">
-          <g class="mascot-leg mascot-leg-back" transform="translate(0 0)">
-            <path d="M91 275 L84 363 L112 365 L132 292 L143 365 L170 363 L166 270Z" fill="#242321"/>
-            <path d="M81 353 L112 356 L111 391 Q96 400 74 388Z" fill="#272522"/>
-            <path d="M74 384 Q92 394 111 387 L119 401 Q103 414 70 408 Q59 403 62 394Z" fill="#f5eee4" stroke="#d9cabb" stroke-width="2"/>
-          </g>
-          <g class="mascot-leg mascot-leg-front" transform="translate(0 0)">
-            <path d="M140 279 L140 352 L170 352 L166 270Z" fill="#242321"/>
-            <path d="M140 352 L170 352 L174 389 Q160 401 139 389Z" fill="#272522"/>
-            <path d="M140 384 Q158 394 174 386 L190 398 Q190 408 174 410 L141 405Z" fill="#f5eee4" stroke="#d9cabb" stroke-width="2"/>
-          </g>
-          <path d="M99 139 L150 139 L155 169 L96 169Z" fill="#b86b43"/>
-          <path d="M80 166 Q124 149 166 169 L183 268 Q128 289 73 267Z" fill="#292522"/>
-          <path d="M99 166 L125 182 L148 165 L157 266 L93 266Z" fill="#f7f0e6"/>
-          <g class="mascot-arm mascot-arm-back"><path d="M83 175 Q65 185 58 220 L50 260 Q52 271 63 270 L78 231 L99 193Z" fill="#292522"/><path d="M51 253 Q43 258 47 268 Q52 278 64 269 L72 258Z" fill="#b86b43"/></g>
-          <g class="mascot-arm mascot-arm-front"><path d="M163 176 Q183 183 191 209 L204 239 Q209 252 198 256 Q189 257 184 244 L167 218Z" fill="#292522"/><path d="M196 244 Q209 238 215 248 Q218 257 205 263 L194 257Z" fill="#b86b43"/></g>
-          <path d="M93 151 L104 172 L124 188 L145 171 L156 151 L169 169 L148 201 L125 213 L100 200 L79 170Z" fill="#39332f"/>
-          <rect x="102" y="119" width="45" height="40" rx="15" fill="#c9825b"/>
-          <ellipse cx="124" cy="91" rx="43" ry="49" fill="#d79a73"/>
-          <path d="M82 91 Q73 48 108 36 Q145 21 164 52 Q181 70 166 96 L160 68 Q132 79 107 65 Q99 82 82 91Z" fill="#211a17"/>
-          <path d="M82 75 Q88 36 120 31 Q153 27 166 57 Q141 43 122 53 Q100 64 82 75Z" fill="#30231e"/>
-          <path d="M96 91 Q105 85 114 91" stroke="#35221d" stroke-width="4" stroke-linecap="round" fill="none"/>
-          <path d="M137 91 Q146 85 154 91" stroke="#35221d" stroke-width="4" stroke-linecap="round" fill="none"/>
-          <ellipse cx="106" cy="101" rx="5" ry="7" fill="#211a17"/><ellipse cx="145" cy="101" rx="5" ry="7" fill="#211a17"/>
-          <circle cx="108" cy="99" r="1.8" fill="#fff"/><circle cx="147" cy="99" r="1.8" fill="#fff"/>
-          <path d="M125 100 L120 116 L128 118" stroke="#a96546" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <path class="mascot-mouth-line" d="M108 127 Q126 140 144 125" stroke="#713b32" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-          <path class="mascot-mouth-open" d="M100 127 Q126 145 150 125 Q144 151 125 151 Q106 149 100 127Z" fill="#4a2924"/>
-          <path d="M93 126 Q97 142 108 145 M153 125 Q150 141 141 145" stroke="#53342b" stroke-width="3" fill="none"/>
-          <g transform="rotate(-9 92 236)">
-            <rect x="54" y="207" width="78" height="68" rx="5" fill="#c9b9db" stroke="#eee4f6" stroke-width="3"/>
-            <rect x="60" y="213" width="66" height="54" rx="2" fill="#8d78a8"/>
-            <path d="M85 232 L104 232 M85 239 L114 239 M85 246 L107 246" stroke="#e9dff4" stroke-width="3" stroke-linecap="round"/>
-          </g>
-        </g>
-      </svg>
-    </div>
+    <div class="intro-mascot"><img class="intro-character-image" src="portfolio-character.webp" alt="Illustrated portfolio guide holding a tablet"></div>
     <div class="intro-bubble">
       <div class="intro-bubble-label">Hello, I’m Vigneshwaran</div>
       <div class="intro-bubble-text" id="intro-line" aria-live="polite">I’m a Data Analyst with 2+ years of experience. I’m passionate about building insightful dashboards using Power BI, Tableau, SQL and cloud solutions. Welcome to my portfolio.</div>
