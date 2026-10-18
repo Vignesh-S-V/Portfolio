@@ -814,8 +814,7 @@ img,svg,video,canvas{max-width:100%}
 }
 
 
-/* Single-scene hero fix: the character artwork is the complete hero scene.
-   Use it once as the background; do not stack a second office photo or image. */
+/* Hero scale correction: keep the office full-bleed and reduce the character artwork on the right. */
 #home.refresh-hero{
   position:relative!important;isolation:isolate!important;overflow:hidden!important;
   min-height:clamp(760px,100svh,1100px)!important;background:#21130d!important;
@@ -824,19 +823,21 @@ img,svg,video,canvas{max-width:100%}
   content:""!important;position:absolute!important;inset:0!important;z-index:0!important;
   background:
     linear-gradient(90deg,rgba(17,9,5,.72) 0%,rgba(25,13,8,.46) 36%,rgba(25,13,8,.08) 68%,rgba(15,8,4,.05) 100%),
-    url('portfolio-character.webp.png') center center/cover no-repeat!important;
+    url('portfolio-character.webp.png') right bottom / auto 78% no-repeat,
+    url('https://images.pexels.com/photos/31690584/pexels-photo-31690584.jpeg?auto=compress&cs=tinysrgb&w=2400') center 52%/cover no-repeat!important;
   animation:heroSceneIn 1.1s ease-out both;
 }
 #home.refresh-hero:after{content:none!important;display:none!important}
 #home .hero-character-art{display:none!important}
 #home .refresh-hero-inner{position:relative!important;z-index:2!important}
-@keyframes heroSceneIn{from{opacity:.7;transform:scale(1.025)}to{opacity:1;transform:scale(1)}}
+@keyframes heroSceneIn{from{opacity:.7;transform:scale(1.01)}to{opacity:1;transform:scale(1)}}
 @media(max-width:760px){
   #home.refresh-hero{min-height:1100px!important}
   #home.refresh-hero:before{
     background:
       linear-gradient(180deg,rgba(17,9,5,.78) 0%,rgba(25,13,8,.56) 42%,rgba(25,13,8,.1) 72%,rgba(15,8,4,.06) 100%),
-      url('portfolio-character.webp.png') 62% center/cover no-repeat!important;
+      url('portfolio-character.webp.png') right bottom / auto 54% no-repeat,
+      url('https://images.pexels.com/photos/31690584/pexels-photo-31690584.jpeg?auto=compress&cs=tinysrgb&w=2400') center/cover no-repeat!important;
   }
 }
 @media(max-width:420px){#home.refresh-hero{min-height:1120px!important}}
