@@ -184,10 +184,20 @@ const lines=[
   "I work with Power BI, Tableau, SQL, and cloud solutions to create modern digital experiences.",
   "Welcome to my portfolio. Explore my projects, experience, and skills!"
 ];
-const line=document.getElementById('intro-line');let index=0;
-if(line){window.setTimeout(()=>{window.setInterval(()=>{index=(index+1)%lines.length;line.textContent=lines[index]},4800)},4200);}
+const line=document.getElementById('intro-line');let index=0;let captionTimer=null;let isSpeaking=false;let utterance=null;
+if(line){captionTimer=window.setInterval(()=>{if(!isSpeaking){index=(index+1)%lines.length;line.textContent=lines[index];}},4800);}
 const speak=document.getElementById('intro-speak');
-if(speak){speak.addEventListener('click',()=>{if(!('speechSynthesis' in window)){line.textContent='Your browser does not support voice playback. Please read the introduction here.';return;}window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(lines.join(' '));utterance.lang='en-US';utterance.rate=.92;utterance.pitch=1.02;speak.textContent='🔊 Speaking…';utterance.onend=()=>{speak.textContent='▶ Hear my intro'};utterance.onerror=()=>{speak.textContent='▶ Hear my intro'};window.speechSynthesis.speak(utterance);});}
+function stopIntro(){if('speechSynthesis' in window)window.speechSynthesis.cancel();isSpeaking=false;if(speak){speak.textContent='▶ Hear my intro';speak.setAttribute('aria-pressed','false');}}
+if(speak){speak.setAttribute('aria-pressed','false');speak.addEventListener('click',()=>{
+  if(!('speechSynthesis' in window)){line.textContent='Your browser does not support voice playback. Please read the introduction here.';return;}
+  if(isSpeaking){stopIntro();return;}
+  window.speechSynthesis.cancel();isSpeaking=true;speak.textContent='■ Stop intro';speak.setAttribute('aria-pressed','true');
+  line.textContent=lines[0];
+  utterance=new SpeechSynthesisUtterance(lines.join(' '));utterance.lang='en-US';utterance.rate=.92;utterance.pitch=1.02;
+  utterance.onend=()=>{isSpeaking=false;speak.textContent='▶ Hear my intro';speak.setAttribute('aria-pressed','false');};
+  utterance.onerror=()=>{isSpeaking=false;speak.textContent='▶ Hear my intro';speak.setAttribute('aria-pressed','false');};
+  window.speechSynthesis.speak(utterance);
+});}
 })();
 </script>
 </body>
