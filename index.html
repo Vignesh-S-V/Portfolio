@@ -40,6 +40,22 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 .refresh-contact{background:var(--refresh-orange);color:#fff8ef;position:relative;overflow:hidden}.refresh-contact:after{content:'LET’S TALK';position:absolute;bottom:-.18em;right:-.03em;font-size:clamp(5rem,17vw,16rem);line-height:1;font-weight:900;letter-spacing:-.09em;white-space:nowrap;color:rgba(255,255,255,.07);pointer-events:none}.refresh-contact-inner{position:relative;z-index:1}.refresh-contact h2{font-size:clamp(3rem,9vw,8.7rem);line-height:.87;letter-spacing:-.085em;margin:18px 0 30px}.refresh-contact h2 em{font-family:var(--refresh-serif);font-weight:400}.refresh-contact p{max-width:560px;line-height:1.85;color:rgba(255,248,239,.84)}.refresh-contact .refresh-btn{margin-top:15px}.refresh-contact .refresh-btn.primary{background:var(--refresh-cream);border-color:var(--refresh-cream);color:var(--refresh-ink)}.refresh-contact .refresh-btn:hover{background:var(--refresh-ink);border-color:var(--refresh-ink);color:white}
 .refresh-footer{background:var(--refresh-ink);color:#d5c8ba;padding:22px clamp(20px,5vw,70px)}.refresh-footer-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.refresh-footer p{font:500 .62rem var(--refresh-mono);letter-spacing:.08em;margin:0}.refresh-footer-links{display:flex;gap:18px}.refresh-footer-links a{font-size:.74rem;text-decoration:none}.refresh-footer-links a:hover{color:#f0a17d}
 .refresh-in{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}.refresh-in.visible{opacity:1;transform:translateY(0)}
+
+/* Animated introduction character */
+.refresh-hero{position:relative}
+.intro-character{position:absolute;z-index:5;right:clamp(18px,5vw,70px);bottom:28px;display:flex;align-items:flex-end;gap:12px;max-width:min(470px,48vw);animation:introWalkIn 1.25s cubic-bezier(.2,.8,.25,1) .45s both}
+.intro-avatar{font-size:clamp(3.3rem,6vw,5.4rem);line-height:1;filter:drop-shadow(0 10px 12px rgba(0,0,0,.3));transform-origin:bottom center;animation:introBounce .62s ease-in-out infinite alternate}
+.intro-bubble{position:relative;max-width:340px;padding:15px 17px 13px;border:1px solid rgba(255,248,239,.25);border-radius:17px 17px 17px 4px;background:rgba(255,250,242,.96);color:#201a16;box-shadow:0 12px 35px rgba(0,0,0,.22);backdrop-filter:blur(10px)}
+.intro-bubble:after{content:"";position:absolute;left:-7px;bottom:10px;width:12px;height:12px;background:#fffaf2;border-left:1px solid rgba(255,248,239,.25);border-bottom:1px solid rgba(255,248,239,.25);transform:rotate(45deg)}
+.intro-bubble-label{font:700 .58rem var(--refresh-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--refresh-orange);margin-bottom:6px}
+.intro-bubble-text{font-size:.82rem;line-height:1.55;font-weight:700;min-height:2.5em}
+.intro-speak{margin-top:9px;padding:7px 11px;border:0;border-radius:999px;background:var(--refresh-orange);color:#fff;font:700 .65rem var(--refresh-mono);cursor:pointer}
+.intro-speak:hover{background:#201a16}
+@keyframes introWalkIn{from{opacity:0;transform:translateX(150px)}to{opacity:1;transform:translateX(0)}}
+@keyframes introBounce{from{transform:translateY(0) rotate(-4deg)}to{transform:translateY(-7px) rotate(4deg)}}
+@media(max-width:640px){.intro-character{right:14px;bottom:18px;max-width:calc(100% - 28px);gap:8px}.intro-avatar{font-size:3.1rem}.intro-bubble{padding:11px 12px;max-width:260px}.intro-bubble-text{font-size:.72rem}.intro-bubble-label{font-size:.52rem}.intro-speak{font-size:.58rem}}
+@media(prefers-reduced-motion:reduce){.intro-character,.intro-avatar{animation:none}}
+
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.refresh-hero:before{animation:none}.refresh-in{opacity:1;transform:none}}
 @media(max-width:900px){.refresh-about-grid{grid-template-columns:.72fr 1.28fr;gap:35px}.refresh-job{grid-template-columns:125px 1fr;gap:22px}.refresh-role-type{display:none}.refresh-skill-grid{grid-template-columns:repeat(2,1fr)}.refresh-metric{padding:10px 15px}}
 @media(max-width:640px){.refresh-nav{align-items:flex-start;flex-direction:column;gap:12px;padding:14px 18px}.refresh-links{justify-content:flex-start;gap:15px}.refresh-links a{font-size:.72rem}.refresh-hero-inner{width:calc(100% - 38px);padding-top:80px}.refresh-title{font-size:clamp(3.35rem,16vw,6.8rem)}.refresh-lede{font-size:.96rem;margin-top:28px}.refresh-hero-foot{margin-top:60px;font-size:.57rem}.refresh-metrics{padding:22px 19px}.refresh-metrics-inner{grid-template-columns:repeat(2,1fr);gap:16px}.refresh-metric{border-left:0;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.28)}.refresh-metric:nth-child(odd){border-right:1px solid rgba(255,255,255,.28);padding-right:10px}.refresh-metric strong{font-size:1.8rem}.refresh-section{padding:75px 19px}.refresh-section-head{display:block;margin-bottom:36px}.refresh-section-head p{margin-top:20px}.refresh-about-grid{grid-template-columns:1fr;gap:48px}.refresh-portrait{max-width:340px;margin:0 auto;width:88%}.refresh-about-copy h2{font-size:clamp(2.7rem,12vw,4rem)}.refresh-job{grid-template-columns:1fr;gap:9px;padding:25px 0}.refresh-period br{display:none}.refresh-role-type{display:none}.refresh-job h3{font-size:1.5rem}.refresh-skill-grid{grid-template-columns:1fr 1fr}.refresh-skill{padding:18px;min-height:210px}.refresh-skill h3{margin-top:20px}.refresh-project-grid{grid-template-columns:1fr}.refresh-project-art{min-height:220px}.refresh-edu-grid{grid-template-columns:1fr;gap:25px}.refresh-contact h2{font-size:clamp(3.2rem,15vw,6rem)}.refresh-footer-inner{align-items:flex-start;flex-direction:column}.refresh-cred{align-items:flex-start}.refresh-cred span{text-align:left}.refresh-detail-grid{gap:16px}}
@@ -63,6 +79,14 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
     <div class="refresh-hero-foot"><span>Based in Tirupur, Tamil Nadu · Open to opportunities</span><span>Scroll to explore</span></div>
   </div>
 </section>
+  <div class="intro-character" aria-label="Animated portfolio introduction">
+    <div class="intro-avatar" aria-hidden="true">🧑🏻‍💻</div>
+    <div class="intro-bubble">
+      <div class="intro-bubble-label">Hi, I’m Vigneshwaran</div>
+      <div class="intro-bubble-text" id="intro-line" aria-live="polite">I’m a Data Analyst with 2+ years of experience in BI and sales analytics.</div>
+      <button class="intro-speak" id="intro-speak" type="button">▶ Hear my intro</button>
+    </div>
+  </div>
 <div class="refresh-metrics"><div class="refresh-metrics-inner">
   <div class="refresh-metric"><strong>2+ years</strong><span>Analytics experience</span></div>
   <div class="refresh-metric"><strong>BI / MIS</strong><span>Core focus</span></div>
@@ -114,7 +138,21 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 <section class="refresh-section refresh-contact" id="contact-refresh"><div class="refresh-section-inner refresh-contact-inner"><div class="refresh-label" style="color:#ffe2d2">07 / Contact</div><h2>Let’s make<br><em>data count.</em></h2><p>Open to Data Analyst, BI Developer, and Business Analytics opportunities. Reach out to talk about business intelligence, reporting, or data-driven problem solving.</p><div class="refresh-actions"><a class="refresh-btn primary" href="mailto:vigneshw.5416@gmail.com">vigneshw.5416@gmail.com ↗</a><a class="refresh-btn" href="https://linkedin.com/in/vigneshwaran-s-670390266" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a class="refresh-btn" href="https://github.com/Vignesh-S-V" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div></section>
 <footer class="refresh-footer"><div class="refresh-footer-inner"><p>© <span id="refresh-year"></span> VIGNESHWARAN S · BUILT AROUND CLARITY</p><div class="refresh-footer-links"><a href="#home">Back to top ↑</a><a href="mailto:vigneshw.5416@gmail.com">Email</a><a href="https://github.com/Vignesh-S-V" target="_blank" rel="noopener noreferrer">GitHub</a></div></div></footer>
 <script>
-(function(){const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');io.unobserve(entry.target)}}),{threshold:.08});document.querySelectorAll('.refresh-in').forEach(el=>io.observe(el));const y=document.getElementById('refresh-year');if(y)y.textContent=new Date().getFullYear();})();
+(function(){
+const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');io.unobserve(entry.target)}}),{threshold:.08});
+document.querySelectorAll('.refresh-in').forEach(el=>io.observe(el));
+const y=document.getElementById('refresh-year');if(y)y.textContent=new Date().getFullYear();
+const lines=[
+  "I’m Vigneshwaran S — a Data Analyst based in Tamil Nadu.",
+  "I have 2+ years of experience in business intelligence and sales analytics.",
+  "I build Power BI and Tableau dashboards, SQL reporting, and inventory analytics.",
+  "Explore my projects, experience, and skills below. Let’s make data count!"
+];
+const line=document.getElementById('intro-line');let index=0;
+if(line){window.setTimeout(()=>{window.setInterval(()=>{index=(index+1)%lines.length;line.textContent=lines[index]},4800)},4200);}
+const speak=document.getElementById('intro-speak');
+if(speak){speak.addEventListener('click',()=>{if(!('speechSynthesis' in window)){line.textContent='Your browser does not support voice playback. Please read the introduction here.';return;}window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(lines.join(' '));utterance.lang='en-IN';utterance.rate=.92;utterance.pitch=1.02;speak.textContent='🔊 Speaking…';utterance.onend=()=>{speak.textContent='▶ Hear my intro'};utterance.onerror=()=>{speak.textContent='▶ Hear my intro'};window.speechSynthesis.speak(utterance);});}
+})();
 </script>
 </body>
 </html>
