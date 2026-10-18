@@ -430,23 +430,23 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 #home .intro-mascot{position:absolute}
 #home .intro-character-image{display:block;width:100%;height:auto}
 #home .intro-mouth-overlay{
-  position:absolute;left:40%;top:13.5%;width:3.4%;height:.65%;
+  position:absolute;left:40%;top:13.5%;width:3.4%;height:1.1%;
   border-radius:50% 50% 55% 55%;background:#54251f;
   opacity:0;transform:translate(-50%,-50%) scaleY(.12);
   transform-origin:center;pointer-events:none;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
 }
-#home .intro-character.mouth-active .intro-mouth-overlay{
-  opacity:.96;animation:mouthPulse .19s ease-in-out both;
+#home .intro-character.is-speaking .intro-mouth-overlay{
+  opacity:.96;
+  animation:mouthTalk .22s ease-in-out infinite alternate;
 }
-@keyframes mouthPulse{
-  0%{transform:translate(-50%,-50%) scaleY(.12);height:.9%}
-  35%{transform:translate(-50%,-50%) scaleY(1.7);height:2.15%}
-  65%{transform:translate(-50%,-50%) scaleY(.55);height:1.25%}
-  100%{transform:translate(-50%,-50%) scaleY(.12);height:.9%}
+@keyframes mouthTalk{
+  0%{transform:translate(-50%,-50%) scaleY(.12);height:.7%}
+  45%{transform:translate(-50%,-50%) scaleY(1.55);height:2.1%}
+  100%{transform:translate(-50%,-50%) scaleY(.28);height:.95%}
 }
 @media(prefers-reduced-motion:reduce){
-  #home .intro-character.is-speaking .intro-mouth-overlay{animation:none;opacity:.85;transform:translate(-50%,-50%) scaleY(.9)}
+  #home .intro-character.is-speaking .intro-mouth-overlay{animation:mouthTalk .35s ease-in-out infinite alternate;opacity:.85}
 }
 </style>
 </head>
