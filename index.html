@@ -576,7 +576,7 @@ function chooseNaturalEnglishVoice(){
   };
   return english.sort((a,b)=>score(b)-score(a))[0]||null;
 }
-function finishIntro(){isSpeaking=false;if(character)character.classList.remove('is-speaking');syncAudioControls();}
+function finishIntro(){isSpeaking=false;if(character)character.classList.remove('is-speaking','mouth-active');syncAudioControls();}
 function stopIntro(){if('speechSynthesis' in window)window.speechSynthesis.cancel();finishIntro();}
 function startIntro(){
   if(!('speechSynthesis' in window)){if(line)line.textContent='Your browser does not support voice playback. Please read the introduction here.';return;}
