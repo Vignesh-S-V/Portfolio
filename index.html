@@ -322,6 +322,36 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 }
 .intro-character-image{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;object-position:center bottom}
 @media(prefers-reduced-motion:reduce){#home .intro-mascot{animation:none}}
+
+/* Visible character animation for the uploaded PNG asset */
+#home .intro-mascot .intro-character-image {
+  display:block;
+  width:100%;
+  height:100%;
+  max-height:100%;
+  object-fit:contain;
+  object-position:center bottom;
+  transform-origin:50% 92%;
+  animation: characterIdleFloat 1.8s ease-in-out infinite;
+  will-change:transform;
+}
+#home .intro-character.is-speaking .intro-mascot .intro-character-image {
+  animation: characterSpeaking 0.34s ease-in-out infinite alternate;
+}
+@keyframes characterIdleFloat {
+  0%,100% { transform:translateY(0) rotate(-0.45deg) scale(1); }
+  50% { transform:translateY(-9px) rotate(0.55deg) scale(1.008); }
+}
+@keyframes characterSpeaking {
+  from { transform:translateY(0) rotate(-0.6deg) scale(1); }
+  to { transform:translateY(-5px) rotate(0.7deg) scale(1.012); }
+}
+@media (prefers-reduced-motion:reduce) {
+  #home .intro-mascot,
+  #home .intro-mascot .intro-character-image,
+  #home .intro-character.is-speaking .intro-mascot .intro-character-image { animation:none !important; }
+}
+
 </style>
 </head>
 
@@ -356,7 +386,7 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
     <div class="refresh-hero-foot"><span>Scroll to explore</span><span>⌄</span></div>
   </div>
   <div class="intro-character" aria-label="Animated 3D-inspired male portfolio guide">
-    <div class="intro-mascot"><img class="intro-character-image" src="portfolio-character.webp" alt="Illustrated portfolio guide holding a tablet"></div>
+    <div class="intro-mascot"><img class="intro-character-image" src="portfolio-character.webp.png" alt="Illustrated portfolio guide holding a tablet"></div>
     <div class="intro-bubble">
       <div class="intro-bubble-label">Hello, I’m Vigneshwaran</div>
       <div class="intro-bubble-text" id="intro-line" aria-live="polite">I’m a Data Analyst with 2+ years of experience. I’m passionate about building insightful dashboards using Power BI, Tableau, SQL and cloud solutions. Welcome to my portfolio.</div>
