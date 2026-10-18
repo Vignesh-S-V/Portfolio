@@ -430,9 +430,9 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 #home .intro-mascot{position:absolute}
 #home .intro-character-image{display:block;width:100%;height:auto}
 #home .intro-mouth-overlay{
-  position:absolute;left:41.5%;top:20.5%;width:4.4%;height:1.05%;
-  border-radius:48% 48% 55% 55%;background:#54251f;
-  opacity:0;transform:translate(-50%,-50%) scaleY(.15);
+  position:absolute;left:40%;top:13.5%;width:3.4%;height:.65%;
+  border-radius:50% 50% 55% 55%;background:#54251f;
+  opacity:0;transform:translate(-50%,-50%) scaleY(.12);
   transform-origin:center;pointer-events:none;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
 }
@@ -603,6 +603,8 @@ function startIntro(){
   utterance.pitch=.88;
   utterance.volume=1;
   let lastPulse=0;
+  let sawBoundary=false;
+  let fallbackTimer=null;
   mouthTimer=null;
   const pulseMouth=()=>{
     if(!character||!isSpeaking)return;
@@ -610,25 +612,27 @@ function startIntro(){
     void character.offsetWidth;
     character.classList.add('mouth-active');
   };
-  const startMouthMotion=()=>{
-    if(character)character.classList.add('is-speaking');
-    if(mouthTimer)window.clearInterval(mouthTimer);
-    // Fallback for browsers whose speech engine does not emit word-boundary events.
-    mouthTimer=window.setInterval(()=>{
-      if(!isSpeaking)return;
-      pulseMouth();
-    },230);
-  };
   const stopMouthMotion=()=>{
     if(mouthTimer)window.clearInterval(mouthTimer);
-    mouthTimer=null;
+    if(fallbackTimer)window.clearTimeout(fallbackTimer);
+    mouthTimer=null;fallbackTimer=null;
   };
-  const originalFinish=finishIntro;
-  utterance.onstart=startMouthMotion;
+  utterance.onstart=()=>{
+    if(character)character.classList.add('is-speaking');
+    // Use actual speech word-boundaries first; only fall back if this browser emits none.
+    fallbackTimer=window.setTimeout(()=>{
+      if(!sawBoundary&&isSpeaking){
+        mouthTimer=window.setInterval(pulseMouth,220);
+      }
+    },700);
+  };
   utterance.onboundary=(event)=>{
     if(event.name!=='word')return;
+    sawBoundary=true;
+    if(fallbackTimer){window.clearTimeout(fallbackTimer);fallbackTimer=null;}
+    if(mouthTimer){window.clearInterval(mouthTimer);mouthTimer=null;}
     const now=performance.now();
-    if(now-lastPulse<85)return;
+    if(now-lastPulse<90)return;
     lastPulse=now;
     pulseMouth();
   };
