@@ -181,6 +181,43 @@
  #home .intro-tablet-dashboard{left:28.5%;top:60.5%;width:13.5%;height:15.6%;padding:2% 1.2%}
 }
 
+
+/* Correct placement: dashboard is clipped to the tablet physically held under the character's arm. */
+#home .intro-tablet-dashboard{
+  position:absolute;z-index:4;left:23.5%;top:35.7%;width:22.3%;height:13.3%;
+  box-sizing:border-box;padding:2.3% 2%;overflow:hidden;
+  border:1px solid #243548;border-radius:2px;
+  background:#101d2c;
+  clip-path:polygon(8% 2%,100% 0,100% 82%,15% 100%,0 18%);
+  transform:rotate(-2deg) skewY(-7deg);
+  transform-origin:center;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(210,228,244,.14);
+}
+#home .tablet-dash-head{height:9%;display:flex;align-items:center;gap:3%;margin-bottom:5%}
+#home .tablet-dash-head i{display:block;width:4%;height:45%;border-radius:50%;background:#ff7a45}
+#home .tablet-dash-head b{display:block;width:45%;height:30%;background:#dce8f4;border-radius:2px}
+#home .tablet-dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:3%;height:22%;margin-bottom:5%}
+#home .tablet-dash-kpis i{display:block;position:relative;border:1px solid #344a61;border-radius:1px;background:#1a2a3d}
+#home .tablet-dash-kpis i:before{content:"";position:absolute;left:12%;top:20%;width:45%;height:12%;background:#9db1c8}
+#home .tablet-dash-kpis i:after{content:"";position:absolute;left:12%;bottom:18%;width:68%;height:19%;background:#54d9b1;border-radius:1px}
+#home .tablet-dash-kpis i:nth-child(2):after{background:#79aaff}
+#home .tablet-dash-kpis i:nth-child(3):after{background:#ff9b63}
+#home .tablet-dash-content{display:grid;grid-template-columns:1.5fr 1fr;gap:4%;height:43%}
+#home .tablet-dash-chart{display:flex;align-items:flex-end;gap:4%;padding:4% 5% 2%;border:1px solid #344a61;background:repeating-linear-gradient(to bottom,#1a2a3d 0,#1a2a3d 1px,transparent 1px,transparent 25%)}
+#home .tablet-dash-chart i{display:block;flex:1;height:40%;background:#51d8b0}
+#home .tablet-dash-chart i:nth-child(2){height:65%}
+#home .tablet-dash-chart i:nth-child(3){height:50%}
+#home .tablet-dash-chart i:nth-child(4){height:88%}
+#home .tablet-dash-chart i:nth-child(5){height:70%}
+#home .tablet-dash-donut{display:grid;place-items:center;border:1px solid #344a61;background:#1a2a3d}
+#home .tablet-dash-donut i{width:70%;aspect-ratio:1;border-radius:50%;background:conic-gradient(#51d8b0 0 44%,#79aaff 44% 75%,#ff9b63 75% 90%,#344a61 90%)}
+@media(max-width:850px){
+ #home .intro-tablet-dashboard{left:23.5%;top:35.7%;width:22.3%;height:13.3%}
+}
+@media(max-width:560px){
+ #home .intro-tablet-dashboard{left:23.5%;top:35.7%;width:22.3%;height:13.3%;padding:2% 1.6%}
+}
+
 </style>
 <style id="portfolio-refresh-styles">
 /* Portfolio refresh: burnt-orange / charcoal / cream */
@@ -565,7 +602,6 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
     <div class="intro-mascot">
       <img class="intro-character-image" src="portfolio-character.webp.png" alt="Illustrated portfolio guide working at a laptop dashboard">
       <span class="intro-mouth-overlay" aria-hidden="true"></span>
-    </div>
       <div class="intro-tablet-dashboard" aria-hidden="true">
         <div class="tablet-dash-head"><i></i><b></b></div>
         <div class="tablet-dash-kpis"><i></i><i></i><i></i></div>
