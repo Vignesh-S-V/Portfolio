@@ -430,19 +430,20 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 #home .intro-mascot{position:absolute}
 #home .intro-character-image{display:block;width:100%;height:auto}
 #home .intro-mouth-overlay{
-  position:absolute;left:41%;top:16.4%;width:4.8%;height:1.15%;
+  position:absolute;left:41.5%;top:20.5%;width:4.4%;height:1.05%;
   border-radius:48% 48% 55% 55%;background:#54251f;
-  opacity:0;transform:translate(-50%,-50%) scaleY(.18);
+  opacity:0;transform:translate(-50%,-50%) scaleY(.15);
   transform-origin:center;pointer-events:none;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
 }
 #home .intro-character.mouth-active .intro-mouth-overlay{
-  opacity:.96;animation:mouthPulse .14s ease-out both;
+  opacity:.96;animation:mouthPulse .19s ease-in-out both;
 }
 @keyframes mouthPulse{
-  0%{transform:translate(-50%,-50%) scaleY(.18);height:1.05%}
-  55%{transform:translate(-50%,-50%) scaleY(1.65);height:2.05%}
-  100%{transform:translate(-50%,-50%) scaleY(.32);height:1.15%}
+  0%{transform:translate(-50%,-50%) scaleY(.12);height:.9%}
+  35%{transform:translate(-50%,-50%) scaleY(1.7);height:2.15%}
+  65%{transform:translate(-50%,-50%) scaleY(.55);height:1.25%}
+  100%{transform:translate(-50%,-50%) scaleY(.12);height:.9%}
 }
 @media(prefers-reduced-motion:reduce){
   #home .intro-character.is-speaking .intro-mouth-overlay{animation:none;opacity:.85;transform:translate(-50%,-50%) scaleY(.9)}
@@ -560,21 +561,29 @@ const heroPlay=document.getElementById('hero-intro-play');
 if(line){window.setInterval(()=>{if(!isSpeaking){index=(index+1)%lines.length;line.textContent=lines[index];}},4800);}
 const speak=document.getElementById('intro-speak');const stopButton=document.getElementById('intro-stop');
 function syncAudioControls(){if(speak){speak.textContent=isSpeaking?'🔊 Speaking…':'🔊 Hear my intro';speak.setAttribute('aria-pressed',String(isSpeaking));}if(stopButton)stopButton.disabled=!isSpeaking;}
-function chooseNaturalEnglishVoice(){
+function chooseNaturalMaleEnglishVoice(){
   const voices=window.speechSynthesis.getVoices();
   const english=voices.filter(v=>/^en([-_]|$)/i.test(v.lang));
+  const femaleNames=/\b(aria|jenny|zira|susan|helen|samantha|sara|sonia|libby|natasha|ava|emma|jane|michelle|karen|victoria|moira|tessa|fiona|allison|salli|joanna|kendra|kimberly|ivy|serena|hazel|linda|catherine)\b/i;
+  const maleNames=/\b(david|mark|guy|christopher|eric|tony|ryan|thomas|brian|andrew|alex|daniel|fred|ralph|tom|oliver|arthur|james|george|jason|henry|liam|noah|matthew|michael|benjamin|aaron|justin|lee|joseph|stephen|patrick|peter|richard|william|jack|miles|nathan|samuel|theo|roger)\b/i;
   const score=v=>{
     const name=v.name.toLowerCase();
     let n=0;
-    if(/natural|neural|online/.test(name))n+=10;
-    if(/microsoft.*(aria|jenny|guy|davis|jane|christopher|sonia|ryan|libby|natasha|ava|andrew|emma)/.test(name))n+=9;
-    if(/google.*(us english|english)/.test(name))n+=7;
-    if(/enhanced|premium/.test(name))n+=5;
-    if(/en-us/i.test(v.lang))n+=3;
-    if(/compact|espeak|robot/.test(name))n-=10;
+    if(femaleNames.test(name))n-=100;
+    if(maleNames.test(name))n+=35;
+    if(/male/.test(name))n+=45;
+    if(/natural|neural|online|premium|enhanced/.test(name))n+=10;
+    if(/microsoft/.test(name))n+=5;
+    if(/google.*(uk english male|us english)/i.test(name))n+=18;
+    if(/en-us/i.test(v.lang))n+=5;
+    if(/compact|espeak|robot/i.test(name))n-=20;
     return n;
   };
-  return english.sort((a,b)=>score(b)-score(a))[0]||null;
+  const ranked=english.map(voice=>({voice,score:score(voice)})).sort((a,b)=>b.score-a.score);
+  const likelyMale=ranked.find(x=>x.score>=30);
+  if(likelyMale)return likelyMale.voice;
+  // Avoid known feminine voices when the browser has a male/neutral alternative.
+  return ranked.find(x=>!femaleNames.test(x.voice.name))?.voice||null;
 }
 function finishIntro(){isSpeaking=false;if(character)character.classList.remove('is-speaking','mouth-active');syncAudioControls();}
 function stopIntro(){if('speechSynthesis' in window)window.speechSynthesis.cancel();finishIntro();}
@@ -582,30 +591,49 @@ function startIntro(){
   if(!('speechSynthesis' in window)){if(line)line.textContent='Your browser does not support voice playback. Please read the introduction here.';return;}
   window.speechSynthesis.cancel();
   isSpeaking=true;
-  if(character)character.classList.remove('is-speaking');
+  if(character)character.classList.remove('is-speaking','mouth-active');
   syncAudioControls();
   if(line)line.textContent=lines[0];
-  const spokenText="Hello, I'm Vigneshwaran. I'm a Data Analyst, passionate about building insightful dashboards and transforming business data into meaningful insights. I work with Power BI, Tableau, SQL, and cloud solutions. Welcome to my portfolio; please explore my projects, experience, and skills.";
+  const spokenText="Hello, I'm Vigneshwaran. I'm a data analyst. I build insightful dashboards and turn business data into clear, useful insights. I work with Power BI, Tableau, SQL, and cloud solutions. Welcome to my portfolio. Please explore my projects, experience, and skills.";
   utterance=new SpeechSynthesisUtterance(spokenText);
   utterance.lang='en-US';
-  const naturalVoice=chooseNaturalEnglishVoice();
-  if(naturalVoice)utterance.voice=naturalVoice;
-  utterance.rate=.94;
-  utterance.pitch=1.0;
+  const selectedVoice=chooseNaturalMaleEnglishVoice();
+  if(selectedVoice)utterance.voice=selectedVoice;
+  utterance.rate=.90;
+  utterance.pitch=.88;
   utterance.volume=1;
   let lastPulse=0;
-  utterance.onstart=()=>{if(character)character.classList.add('is-speaking');};
-  utterance.onboundary=(event)=>{
-    if(!character || event.name!=='word')return;
-    const now=performance.now();
-    if(now-lastPulse<65)return;
-    lastPulse=now;
+  let mouthTimer=null;
+  const pulseMouth=()=>{
+    if(!character||!isSpeaking)return;
     character.classList.remove('mouth-active');
     void character.offsetWidth;
     character.classList.add('mouth-active');
   };
-  utterance.onend=finishIntro;
-  utterance.onerror=finishIntro;
+  const startMouthMotion=()=>{
+    if(character)character.classList.add('is-speaking');
+    if(mouthTimer)window.clearInterval(mouthTimer);
+    // Fallback for browsers whose speech engine does not emit word-boundary events.
+    mouthTimer=window.setInterval(()=>{
+      if(!isSpeaking)return;
+      pulseMouth();
+    },230);
+  };
+  const stopMouthMotion=()=>{
+    if(mouthTimer)window.clearInterval(mouthTimer);
+    mouthTimer=null;
+  };
+  const originalFinish=finishIntro;
+  utterance.onstart=startMouthMotion;
+  utterance.onboundary=(event)=>{
+    if(event.name!=='word')return;
+    const now=performance.now();
+    if(now-lastPulse<85)return;
+    lastPulse=now;
+    pulseMouth();
+  };
+  utterance.onend=()=>{stopMouthMotion();finishIntro();};
+  utterance.onerror=()=>{stopMouthMotion();finishIntro();};
   window.speechSynthesis.speak(utterance);
 }
 if(speak)speak.addEventListener('click',()=>{if(isSpeaking){stopIntro();}else{startIntro();}});
