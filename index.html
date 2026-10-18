@@ -567,6 +567,28 @@ html{scroll-behavior:smooth;scroll-padding-top:76px}body{background:var(--refres
 @media(prefers-reduced-motion:reduce){
   #home .intro-character.is-speaking.mouth-active .intro-mouth-overlay{animation:none;transform:translate(-50%,-50%) scaleY(.85);height:2%;opacity:.9}
 }
+
+/* Final alignment override based on the latest screenshot: place dashboard on the silver tablet at the character's waist, not over the face. */
+#home .intro-mascot{position:absolute;left:0;bottom:0;overflow:visible}
+#home .intro-mascot .intro-tablet-dashboard{
+  left:30.5%!important;top:48.5%!important;width:21.5%!important;height:15.5%!important;
+  padding:2% 1.8%!important;transform:none!important;
+  clip-path:polygon(0 6%,89% 0,100% 91%,8% 100%)!important;
+  border:1px solid #243548!important;border-radius:2px!important;
+  background:#101d2c!important;box-sizing:border-box;overflow:hidden;
+  z-index:5;pointer-events:none;
+}
+@media(max-width:850px){
+  #home .intro-mascot .intro-tablet-dashboard{
+    left:30.5%!important;top:48.5%!important;width:21.5%!important;height:15.5%!important;
+  }
+}
+@media(max-width:560px){
+  #home .intro-mascot .intro-tablet-dashboard{
+    left:30.5%!important;top:48.5%!important;width:21.5%!important;height:15.5%!important;
+  }
+}
+
 </style>
 </head>
 
