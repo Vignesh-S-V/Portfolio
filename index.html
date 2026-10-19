@@ -471,6 +471,61 @@
   #home .hero-facts{grid-template-columns:minmax(0,1fr)!important}
 }
 
+
+/* Mobile-only hero correction: protect the name and keep portrait below social links */
+@media(max-width:760px){
+  #home.refresh-hero:before{
+    background:
+      linear-gradient(180deg,
+        rgba(15,8,5,.94) 0%,
+        rgba(20,10,6,.91) 34%,
+        rgba(24,12,7,.78) 58%,
+        rgba(20,10,6,.40) 100%),
+      url('https://images.pexels.com/photos/31690584/pexels-photo-31690584.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover no-repeat!important;
+  }
+  #home .refresh-title{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    font-size:clamp(2.45rem,8.3vw,3.5rem)!important;
+    line-height:1.02!important;
+    letter-spacing:-.065em!important;
+    overflow:visible!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+  #home .hero-name-white,#home .hero-name-orange{
+    display:inline!important;
+    white-space:nowrap!important;
+  }
+  #home .hero-character-art{
+    width:100%!important;
+    height:285px!important;
+    right:0!important;
+    top:auto!important;
+    bottom:0!important;
+    object-fit:contain!important;
+    object-position:right bottom!important;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 10%,#000 28%)!important;
+    mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.12) 10%,#000 28%)!important;
+  }
+  #home .hero-socials{
+    position:relative!important;
+    z-index:3!important;
+    margin-bottom:22px!important;
+  }
+}
+@media(max-width:480px){
+  #home .refresh-title{font-size:clamp(2.1rem,8.2vw,2.65rem)!important;letter-spacing:-.07em!important}
+  #home .refresh-hero-inner{padding-bottom:315px!important}
+  #home .hero-character-art{height:255px!important}
+  #home .hero-socials{margin-bottom:14px!important}
+}
+@media(max-width:360px){
+  #home .refresh-title{font-size:2rem!important;letter-spacing:-.075em!important}
+  #home .hero-character-art{height:225px!important}
+}
+
 </style>
 <style id="portfolio-refresh-styles">
 /* Portfolio refresh: burnt-orange / charcoal / cream */
